@@ -7,7 +7,7 @@ public class Utility {
         try {
             return Integer.parseInt(input.nextLine());
         }
-        catch(NumberFormatException exception){
+        catch (NumberFormatException exception) {
             System.out.println("Please input an integer");
             return -1;
         }
