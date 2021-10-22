@@ -1,4 +1,4 @@
-package Java;
+package SmartNavigationSystem;
 
 import java.io.IOException;
 
