@@ -8,7 +8,7 @@ public class Register {
     private int tryTimes = 0;
     //memberList<email, password>
     public static HashMap<String,String> memberMap=new HashMap<String,String>();
-    ControlPanel cp=UserControlPanel.getInstance();
+    ControlPanel cp = UserControlPanel.getInstance();
 
     public void register() throws IOException{
         // request user input
@@ -36,27 +36,30 @@ public class Register {
             if(tryTimes<2){
                 tryTimes += 1;
                 confirmPwd(userInput);
-            }else{
+            }
+            else {
                 System.out.println("Registration failed!");
             }   
         }
     }
 
     public void writeinFile(String Email,String Pwd){
-        try{
+        try {
             File memberListFile=new File("docs\\MemberList");
             FileOutputStream fos=null;
-            if(!memberListFile.exists()){
+            if (!memberListFile.exists()) {
                 memberListFile.createNewFile();
                 fos=new FileOutputStream(memberListFile); //1st write in
-            }else{
+            }
+            else {
                 fos=new FileOutputStream(memberListFile, true);
             }
-            OutputStreamWriter osw=new OutputStreamWriter(fos,"UTF-8");
-            osw.write(Email+"  "+Pwd+"\r\n");
+            OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
+            osw.write(Email + "  " + Pwd + "\r\n");
             osw.close();
-        } catch (IOException e) {
-                e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
