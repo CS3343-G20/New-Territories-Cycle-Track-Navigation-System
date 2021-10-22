@@ -3,7 +3,7 @@ package SmartNavigationSystem;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class Vertices implements VerticesManager {
+public class Vertices implements VerticesManager, VerticesFinder {
 
     private TreeMap<Integer, Vertex> allVertices= new TreeMap<>();
     private static Vertices instance = new Vertices();
@@ -75,6 +75,6 @@ public class Vertices implements VerticesManager {
 
     @Override
     public boolean isValidAttractionId(int id) {
-        return isValidVertexId(id)&&allVertices.get(id) instanceof Attraction;
+        return isValidVertexId(id) && allVertices.get(id) instanceof Attraction;
     }
 }

@@ -11,8 +11,6 @@ public class Main {
     //     // cp.makeDecision();
     // }
 
-    private static final UserControlPanel AdminControlPanel = null;
-
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
@@ -36,7 +34,7 @@ public class Main {
                 cp.setMember(tmp_m);
                 launch(in, cp);
             } else if (nav == 5 && cp.getClass().equals(UserControlPanel.class)) {
-                cp = AdminControlPanel.getInstance();
+                cp = UserControlPanel.getInstance();
                 launch(in, cp);
             } else if (nav != 0) {
                 launch(in, cp);

@@ -16,7 +16,6 @@ public class MemberControlPanel extends ControlPanel {
         return instance;
     }
     
-
     @Override
     public int makeDecision(Scanner userInput) {
         String line = "";

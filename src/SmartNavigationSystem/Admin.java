@@ -1,7 +1,5 @@
 package SmartNavigationSystem;
 
-import java.util.Scanner;
-
 public class Admin extends User {
 
     private static Admin admin = new Admin();

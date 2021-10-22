@@ -9,7 +9,7 @@ public abstract class ControlPanel {
     public User user;
 
     ControlPanel(){ 
-        this.user=new User();
+        this.user = new User();
         // controlPanel.put(1,"Login");
         // controlPanel.put(2,"Register");
         // controlPanel.put(3,"Mode");
