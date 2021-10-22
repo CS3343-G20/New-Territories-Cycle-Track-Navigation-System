@@ -6,12 +6,11 @@ import java.util.*;
 public class Login {
     private String inpEmail, inpPwd;
     private int tryTimes = 0;
-    // private HashMap<String, String> memberList = Register.memberMap;
-    private ControlPanel cp = new ControlPanel();
+    private ControlPanel memberCP = MemberControlPanel.getInstance();
     private Register register = new Register();
     
 
-    public void login() {
+    public void login() throws IOException {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please input email: ");
         this.inpEmail = userInput.nextLine();
@@ -27,7 +26,7 @@ public class Login {
         else {
             System.out.println("Please input password: ");
             this.inpPwd = userInput.nextLine();
-            verifyPwd();
+            verifyPwd(userInput);
         }
         userInput.close();
     }
@@ -98,26 +97,39 @@ public class Login {
         }
     }
 
-    public void verifyPwd() {
+    public void verifyPwd(Scanner userInput) {
         File f = new File("docs\\MemberList");
         Boolean pwd = isPwdCorrect(f);
-        if(pwd){
+        if (pwd) {
             System.out.println("Log in successfully");
-            cp.removeControlPanel(1);
-            cp.removeControlPanel(2);
-            cp.showControlPanel();
-            cp.makeDecision();
-        }else{
+            // cp.removeControlPanel(1);
+            // cp.removeControlPanel(2);
+            memberCP.showControlPanel(); 
+            try {
+                memberCP.makeDecision(userInput);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
             // can try three times
             if (tryTimes < 3) {
                 tryTimes += 1;
                 System.out.println("Wrong email/password!");
-                login();
+                try {
+                    login();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 resetPwd();
-                cp.showControlPanel();
-                cp.makeDecision();
-            }
+                memberCP.showControlPanel();
+                try {
+                    memberCP.makeDecision(userInput);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }            }
         }
 
     }
@@ -132,7 +144,6 @@ public class Login {
             this.inpPwd = userInput.next();
             File f=new File("docs\\MemberList");
             modifyPwd(this.inpPwd,this.inpEmail,f);
-            // this.memberList.replace(this.inpEmail, this.inpPwd);
             System.out.println("Reset successfully!");
         }
         userInput.close();

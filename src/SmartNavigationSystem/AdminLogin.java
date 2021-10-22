@@ -7,10 +7,10 @@ public class AdminLogin {
     private int flag=0;
 
     public boolean login(){
-        Scanner in=new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         System.out.println("Please input the admin token:");
         String inpToken=in.nextLine();
-        File f=new File("G20\\docs\\AdminInfo");
+        File f = new File("G20\\docs\\AdminInfo");
         try {
             boolean valid = isValid(f,inpToken);
        
@@ -26,19 +26,23 @@ public class AdminLogin {
                     return false;
                 }
             } 
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        in.close();
+        finally {
+            in.close();
+        }
         return true;
     }
 
     private boolean isValid(File f, String inpToken) throws FileNotFoundException {
-        Scanner scan=new Scanner(f);
+        Scanner scan = new Scanner(f);
         while(true){
             if(scan.hasNext()==false) break;
              String[] AdminInfo = scan.nextLine().split("\\s+");
             if(AdminInfo[0].equals(inpToken)){
+                scan.close();
                 return true;
             }
         }
