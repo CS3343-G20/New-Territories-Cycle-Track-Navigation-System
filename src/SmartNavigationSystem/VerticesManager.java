@@ -1,4 +1,4 @@
-package SmartNavigationSystem;
+package Java;
 
 import java.util.ArrayList;
 

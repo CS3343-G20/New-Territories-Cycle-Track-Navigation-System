@@ -1,4 +1,5 @@
-package SmartNavigationSystem;
+package Java;
+
 
 import java.io.*;
 import java.util.*;
@@ -7,116 +8,121 @@ public class Login {
     private String inpEmail, inpPwd;
     private int tryTimes = 0;
     // private HashMap<String, String> memberList = Register.memberMap;
-    private ControlPanel cp = new ControlPanel();
+    private ControlPanel cp = UserControlPanel.getInstance();
+    private ControlPanel memberCP=MemberControlPanel.getInstance();
     private Register register = new Register();
     
 
-    public void login() {
+    public void login() throws IOException {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please input email: ");
         this.inpEmail = userInput.nextLine();
         File f=new File("docs\\MemberList");
         Boolean exist=isExist(f, this.inpEmail);
-        if (!exist) {
+        if(!exist){
             System.out.println("Would you like to register one?[Y/N]");
             String ans = userInput.nextLine();
             if (ans.equals("Y")) {
                 register.register();
             }
-        }
-        else {
+        }else{
             System.out.println("Please input password: ");
             this.inpPwd = userInput.nextLine();
-            verifyPwd();
+            verifyPwd(userInput);
         }
         userInput.close();
     }
 
     public boolean isExist(File f, String Email) {
-        Scanner scan = null;
-        try {
-            scan = new Scanner(f);
-            while(true) {
-                if(scan.hasNext()==false) break;
-                if(scan.nextLine().contains(Email)) {
-                    return true;
-                }
+    try {
+        Scanner scan;
+        scan = new Scanner(f);
+        
+        while(true){
+            if(scan.hasNext()==false) break;
+            if(scan.nextLine().contains(Email)){
+                return true;
             }
-        }
-        catch (FileNotFoundException e) {
+        } 
+        scan.close();
+    } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        finally {
-            if (scan != null) {
-                scan.close();
-            }
-        }
-        return false;
+    return false;
     }
 
     public boolean isPwdCorrect(File f){
-        Scanner scan = null;
         try {
+            Scanner scan;
             scan = new Scanner(f);
-            while (true) {
+        
+            while(true){
                 if(scan.hasNext()==false) break;
                 String[] memberInfo = scan.nextLine().split("\\s+");
-                String email = memberInfo[0];
-                String password = memberInfo[1];
-                if(email.equals(this.inpEmail) && password.equals(this.inpPwd)) {
+                String email=memberInfo[0];
+                String password=memberInfo[1];
+                if(email.equals(this.inpEmail)&& password.equals(this.inpPwd)){
                     return true;
                 }
-            }
-        }
-        catch (FileNotFoundException e) {
+            } 
+            scan.close();
+       } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        finally {
-            if (scan != null) {
-                scan.close();
-            }
         }
         return false;
     }
 
-    public void modifyPwd(String newPwd, String inpEmail, File f){
+    public void modifyPwd(String newPwd,String inpEmail, File f){
         try {
-            Scanner scan = new Scanner(f);
-            while (true) {
+            Scanner scan;
+            scan = new Scanner(f);
+        
+            while(true){
                 if(scan.hasNext()==false) break;
                 String[] memberInfo = scan.nextLine().split("\\s+");
-                String email = memberInfo[0];
-                String password = memberInfo[1];
+                String email=memberInfo[0];
+                String password=memberInfo[1];
                 if(email.equals(this.inpEmail)){
                     memberInfo[1].replace(password, newPwd);
                 }
             } 
             scan.close();
-        }
-        catch (FileNotFoundException e) {
+       } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void verifyPwd() {
-        File f = new File("docs\\MemberList");
-        Boolean pwd = isPwdCorrect(f);
+    public void verifyPwd(Scanner userInput) {
+        File f=new File("docs\\MemberList");
+        Boolean pwd=isPwdCorrect(f);
         if(pwd){
             System.out.println("Log in successfully");
-            cp.removeControlPanel(1);
-            cp.removeControlPanel(2);
-            cp.showControlPanel();
-            cp.makeDecision();
+            // cp.removeControlPanel(1);
+            // cp.removeControlPanel(2);
+            memberCP.showControlPanel(); 
+            try {
+                memberCP.makeDecision(userInput);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }else{
             // can try three times
             if (tryTimes < 3) {
                 tryTimes += 1;
                 System.out.println("Wrong email/password!");
-                login();
+                try {
+                    login();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 resetPwd();
-                cp.showControlPanel();
-                cp.makeDecision();
+                memberCP.showControlPanel();
+                try {
+                    memberCP.makeDecision(userInput);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -132,7 +138,6 @@ public class Login {
             this.inpPwd = userInput.next();
             File f=new File("docs\\MemberList");
             modifyPwd(this.inpPwd,this.inpEmail,f);
-            // this.memberList.replace(this.inpEmail, this.inpPwd);
             System.out.println("Reset successfully!");
         }
         userInput.close();

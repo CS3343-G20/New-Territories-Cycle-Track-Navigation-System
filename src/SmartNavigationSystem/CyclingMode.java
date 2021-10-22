@@ -1,4 +1,4 @@
-package SmartNavigationSystem;
+package Java;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,18 +6,18 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class CyclingMode implements Mode {
-    private List<String> priorityList = Arrays.asList(new String[]{"SP","ST"});
+public class CyclingMode implements Mode{
+    private List<String> prioriList=Arrays.asList(new String[]{"SP","ST"});
 
     private int departure;
     private int destination;
     private String priority;
     private ArrayList<Integer> attractions = new ArrayList<> ();
     private ArrayList<Integer> route = new ArrayList<Integer> ();
-    private Graph map = Graph.getInstance();
-    private VerticesManager verticesManager = Vertices.getInstance();
-    private boolean forClimbing = false;
-    private Scanner input = null;
+    Graph map = Graph.getInstance();
+    VerticesManager verticesManager = Vertices.getInstance();
+    boolean forClimbing = false;
+    Scanner input = null;
 
     @Override
     public void execute(){
@@ -40,6 +40,7 @@ public class CyclingMode implements Mode {
             System.out.println("3: Reset attraction");
             System.out.println("4: Reset priority");
 
+            
             int cmd = Utility.getIntegerInput(input);
             switch(cmd) {
                 case 0:
@@ -73,14 +74,14 @@ public class CyclingMode implements Mode {
 
     public void setDeparture() {
         separator();
-
         verticesManager.listAllVertices();
-        int id = -1;
-        do {
+        
+        int id=-1;
+        do{
             System.out.println("Please input a departure ID:");
-            id = Utility.getIntegerInput(input);
+            id=Utility.getIntegerInput(input);
             this.departure = id;
-        } while (!verticesManager.isValidVertexId(id));
+        }while(!verticesManager.isValidVertexId(id));
 
     }
 
@@ -89,12 +90,11 @@ public class CyclingMode implements Mode {
 
         if (!forClimbing) {
             verticesManager.listAllVertices();
-            int id = -1;
-            do {
-                System.out.println("Please input a destination ID:");
-                id = Utility.getIntegerInput(input);
+            int id=-1;
+            do{
+                id=Utility.getIntegerInput(input);
                 this.destination = id;
-            } while (!verticesManager.isValidVertexId(id));
+            }while(!verticesManager.isValidVertexId(id));
         }
         else {
             System.out.printf("The destination has been set to be the start of your intended climbing trail (%s) by default.\n", verticesManager.getVertexNameByID(destination));
@@ -127,10 +127,10 @@ public class CyclingMode implements Mode {
     public void setPriority(){
         separator();
 
-        String p = priorityList.get(0);
+        String p="SP";
         System.out.println("Default priority setting is shortest path, do you want to set the priority to shortest time?[Y/N]");
         if(input.nextLine().equals("Y")){
-            p = priorityList.get(1);
+            p="ST";
         }
         this.priority = p;
     }

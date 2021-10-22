@@ -1,21 +1,21 @@
-package SmartNavigationSystem;
+package Java;
 
 import java.util.*;
 
 public class Graph {
 
     private static String priority = "SP";
-    private static List<String> priorityList = Arrays.asList(new String[]{"SP","ST"});
+    private List<String> prioriList=Arrays.asList(new String[]{"SP","ST"});
     private static Graph map = new Graph();
 
     private int V;
     private List<List<Path> > adj_list = new ArrayList<List<Path>>();
     private int src;
     private int dist[];
-    private List<List<Integer>> parent = new ArrayList<List<Integer>>();
+    private List<List<Integer>> parent=new ArrayList<List<Integer>>();
     private Set<Integer> visited; 
     private PriorityQueue<Path> pqueue;
-    private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>> ();
+    private ArrayList<ArrayList<Integer>> routes=new ArrayList<ArrayList<Integer>> ();
 
     private class Path implements Comparator<Path> {
     
@@ -41,7 +41,7 @@ public class Graph {
         }
 
         public int weight(){
-            if (priority.equals(priorityList.get(0))) {
+            if (priority.equals(prioriList.get(0))) {
                 return SP_weight;
             }else {
                 return ST_weight;
@@ -120,8 +120,7 @@ public class Graph {
             ArrayList<Integer> route = new ArrayList<Integer>();
             System.out.printf("[%d] ", routes.size()+1);
             for(int i=temp.size()-1; i>=0; i--) {
-                VerticesFinder vFinder = Vertices.getInstance();
-                System.out.print(vFinder.getVertexNameByID(temp.get(i)));
+                System.out.print(Vertices.getInstance().getVertexNameByID(temp.get(i)));
                 if(i != 0){ System.out.print(" -> "); }
                 route.add(temp.get(i));
             }

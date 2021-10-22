@@ -1,12 +1,17 @@
-package SmartNavigationSystem;
+package Java;
+
+import java.io.IOException;
 
 public class Member extends User{
-    public void Login(){
+    public void Login() throws IOException{
         Login login = new Login();
         login.login();
     }
-    public void Cycle(){ //enter into cycling mode
+    public void Cycle(){ 
         CyclingMode cyclingMode = new CyclingMode();
         cyclingMode.execute();
+    }
+    public void CheckInfo() {
+        //
     }
 }

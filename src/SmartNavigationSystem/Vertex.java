@@ -1,4 +1,4 @@
-package SmartNavigationSystem;
+package Java;
 
 public class Vertex {
     private int id;

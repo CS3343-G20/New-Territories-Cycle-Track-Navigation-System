@@ -1,4 +1,4 @@
-package SmartNavigationSystem;
+package Java;
 
 public class Attraction extends Vertex {
     private String description;

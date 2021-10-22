@@ -1,9 +1,6 @@
-package SmartNavigationSystem;
+package Java;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.*;
 
 public class Register {
@@ -11,9 +8,9 @@ public class Register {
     private int tryTimes = 0;
     //memberList<email, password>
     public static HashMap<String,String> memberMap=new HashMap<String,String>();
-    ControlPanel cp=new ControlPanel();
+    ControlPanel cp=UserControlPanel.getInstance();
 
-    public void register(){
+    public void register() throws IOException{
         // request user input
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please input email: ");
@@ -23,7 +20,7 @@ public class Register {
         // confirm password
         confirmPwd(userInput);
         cp.showControlPanel();
-        cp.makeDecision();
+        cp.makeDecision(userInput);
         userInput.close();
     }
 

@@ -1,18 +1,30 @@
-package SmartNavigationSystem;
+package Java;
 
-import java.util.*;
+import java.util.Scanner;
 
-public class Admin {
-    // create new key pair for control panel
-    public void addFunction(){
-        Scanner adminInput=new Scanner(System.in);
-        ControlPanel cp=new ControlPanel();
+public class Admin extends User {
 
-        System.out.println("Please input a pair function: ");
-        int symbol=Integer.parseInt(adminInput.next()) ;
-        String function=adminInput.next();
-        cp.setControlPanel(symbol, function);
+    private static Admin admin = new Admin();
 
-        adminInput.close();
+    public static Admin getInstance() {
+        return admin;
     }
+
+    public boolean login() {
+        AdminLogin adminLogin=new AdminLogin();
+        return adminLogin.login();
+    }
+
+    public void printMemberList() {
+        // Database.getInstance().printMemberList();
+    }
+
+    public void printScheduleList() {
+        // Database.getInstance().printScheduleList();
+    }
+
+    public void printBookmarkList() {
+        // Database.getInstance().printBookmarkList();
+    }
+
 }
