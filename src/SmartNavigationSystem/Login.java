@@ -122,14 +122,16 @@ public class Login {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
+            }
+            else {
                 resetPwd();
                 memberCP.showControlPanel();
                 try {
                     memberCP.makeDecision(userInput);
                 } catch (IOException e) {
                     e.printStackTrace();
-                }            }
+                }
+            }
         }
 
     }
