@@ -7,7 +7,6 @@ import SmartNavigationSystem.*;
 
 public class CyclingModeTest {
 
-
 	@Test //correct input
     public void setDeparture_case1() {  
 
@@ -67,6 +66,5 @@ public class CyclingModeTest {
     public void setPriority_case3() {  
 
 	}
-
 
 }

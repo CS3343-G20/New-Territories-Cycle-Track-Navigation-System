@@ -9,8 +9,7 @@ public class Admin extends User {
     }
 
     public boolean login() {
-        AdminLogin adminLogin=new AdminLogin();
-        return adminLogin.login();
+        return new AdminLogin().login();
     }
 
     public void printMemberList() {
