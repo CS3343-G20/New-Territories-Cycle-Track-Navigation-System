@@ -187,6 +187,8 @@ public class CyclingMode implements Mode {
 
         System.out.printf("Total cost: %d\nRoute: ", totalCost);
         verticesManager.listRoute(route);
+        
+        // call bookmark()--->lst
     }
 
     // just for readability
