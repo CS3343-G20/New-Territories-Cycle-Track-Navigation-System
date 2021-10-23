@@ -1,5 +1,5 @@
 package SmartNavigationSystem;
-public class User {
+public abstract class User {
     enum Mode{
         CyclingMode,
         ClimbingMode

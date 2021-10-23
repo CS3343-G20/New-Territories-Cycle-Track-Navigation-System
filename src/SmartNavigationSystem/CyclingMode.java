@@ -45,6 +45,7 @@ public class CyclingMode implements Mode {
                 case 0:
                     isConfirmed = true;
                     routePlanning();
+                    // ask if need to bookmark ->lst
                     break;
                 case 1:
                     setDeparture();
@@ -187,8 +188,11 @@ public class CyclingMode implements Mode {
 
         System.out.printf("Total cost: %d\nRoute: ", totalCost);
         verticesManager.listRoute(route);
-        
-        // call bookmark()--->lst
+    }
+
+    // call bookmark()--->lst
+    public void makeBookmark(){
+
     }
 
     // just for readability

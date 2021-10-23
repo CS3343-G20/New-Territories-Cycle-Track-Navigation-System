@@ -63,7 +63,8 @@ public class UserControlPanel extends ControlPanel {
             }
                 break;
             case 3:
-                User u=new User();
+                // User u=new User();
+                User u=new Tourist();
                 System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
                 String mode=userInput.next();
                 u.chooseMode(mode);
