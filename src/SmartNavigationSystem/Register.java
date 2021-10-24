@@ -57,7 +57,11 @@ public class Register {
             OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
             //============
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             //JSONObject object = JSONObject.parseObject();
+=======
+            JSONObject object = JSONObject.parseObject();
+>>>>>>> Stashed changes
 =======
             JSONObject object = JSONObject.parseObject();
 >>>>>>> Stashed changes
