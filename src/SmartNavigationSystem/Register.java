@@ -58,7 +58,11 @@ public class Register {
             //============
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             //JSONObject object = JSONObject.parseObject();
+=======
+            JSONObject object = JSONObject.parseObject();
+>>>>>>> Stashed changes
 =======
             JSONObject object = JSONObject.parseObject();
 >>>>>>> Stashed changes
