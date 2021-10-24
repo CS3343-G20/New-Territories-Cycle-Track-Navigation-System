@@ -1,4 +1,4 @@
-package code;
+package SmartNavigationSystem;
 
 /*
 This is a singleton class

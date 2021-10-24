@@ -1,0 +1,64 @@
+{
+    "memberInfo": [
+        {
+            "email": "jeff",
+            "password": "jeffpwd",
+            "schedules": [
+                {
+                    "scheduleIndex": 1,
+                    "event": "jeffEVENT1",
+                    "scheduleDate": "20211022"
+                },
+                {
+                    "scheduleIndex": 2,
+                    "event": "jeffEVENT2",
+                    "scheduleDate": "20211024"
+                }
+            ],
+            "bookmarks": [
+                {
+                    "bookmarkIndex": 1,
+                    "bookmarkType": "climbing trail"
+                },
+                {
+                    "bookmarkIndex": 2,
+                    "bookmarkType": "cycling trail"
+                }
+            ]
+        },
+        {
+            "email": "jack",
+            "password": "jackpwd"
+        },
+        {
+            "email": "donimic",
+            "password": "donimicpwd"
+        },
+        {
+            "email": "cindy",
+            "password": "cindypwd",
+            "schedules": [
+                {
+                    "scheduleIndex": 1,
+                    "event": "cindyEVENT1",
+                    "scheduleDate": "20211022"
+                },
+                {
+                    "scheduleIndex": 2,
+                    "event": "cindyEVENT2",
+                    "scheduleDate": "20211025"
+                }
+            ],
+            "bookmarks": [
+                {
+                    "bookmarkIndex": 1,
+                    "bookmarkType": "climbing trail"
+                }
+            ]
+        },
+        {
+            "email": "natalie",
+            "password": "nataliepwd"
+        }
+    ]
+}

@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class Main {
     // public static void main(String args[])
     // {
-    //     // ControlPanel cp = new ControlPanel();
-    //     // cp.showControlPanel();
-    //     // cp.makeDecision();
+    // // ControlPanel cp = new ControlPanel();
+    // // cp.showControlPanel();
+    // // cp.makeDecision();
     // }
 
     public static void main(String[] args) throws IOException {
@@ -19,7 +19,7 @@ public class Main {
 
         Admin.getInstance().printMemberList();
     }
-
+    
     public static void launch(Scanner in, ControlPanel controlPanel) {
         ControlPanel cp = controlPanel;
         try {
@@ -29,7 +29,7 @@ public class Main {
                 System.out.println("========Exit========");
                 return;
             } else if (nav == 1 && cp.getClass().equals(UserControlPanel.class)) {
-                Member tmp_m = ((Member)cp.getMember());
+                Member tmp_m = ((Member) cp.getMember());
                 cp = MemberControlPanel.getInstance();
                 cp.setMember(tmp_m);
                 launch(in, cp);

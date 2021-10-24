@@ -1,4 +1,4 @@
-package code;
+package SmartNavigationSystem;
 
 public class ClimbingTrail implements Comparable<ClimbingTrail> {
     private String id;

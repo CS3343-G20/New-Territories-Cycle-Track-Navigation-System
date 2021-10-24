@@ -45,7 +45,7 @@ public class Register {
 
     public void writeinFile(String Email,String Pwd){
         try {
-            File memberListFile=new File("docs\\MemberList");
+            File memberListFile=new File("docs\\AdminInfo.json");
             FileOutputStream fos=null;
             if (!memberListFile.exists()) {
                 memberListFile.createNewFile();
@@ -55,6 +55,9 @@ public class Register {
                 fos=new FileOutputStream(memberListFile, true);
             }
             OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
+            //============
+            //JSONObject object = JSONObject.parseObject();
+            //============
             osw.write(Email + "  " + Pwd + "\r\n");
             osw.close();
         }
