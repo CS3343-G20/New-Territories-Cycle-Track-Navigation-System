@@ -1,6 +1,7 @@
 package SmartNavigationSystem;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Member extends User{
     public void Login() throws IOException{
@@ -8,7 +9,7 @@ public class Member extends User{
         login.login();
     }
     public void Cycle(){ 
-        CyclingMode cyclingMode = new CyclingMode();
+        CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in));
         cyclingMode.execute();
     }
     public void CheckInfo() {

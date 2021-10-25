@@ -14,14 +14,19 @@ public class CyclingMode implements Mode {
     private String priority;
     private ArrayList<Integer> attractions = new ArrayList<> ();
     private ArrayList<Integer> route = new ArrayList<Integer> ();
-    private Graph map = Graph.getInstance();
-    private VerticesManager verticesManager = Vertices.getInstance();
     private boolean forClimbing = false;
     private Scanner input = null;
+    private Graph map;
+    private VerticesManager vManager;
+    
+    public CyclingMode(Graph map, VerticesManager vManager, Scanner in) {
+    	this.map = map;
+    	this.vManager = vManager;
+    	this.input = in;
+    }
 
     @Override
     public void execute(){
-        input = new Scanner(System.in);
 
         setDeparture();
 
@@ -40,25 +45,33 @@ public class CyclingMode implements Mode {
             System.out.println("3: Reset attraction");
             System.out.println("4: Reset priority");
 
-            int cmd = Utility.getIntegerInput(input);
-            switch(cmd) {
-                case 0:
-                    isConfirmed = true;
-                    routePlanning();
-                    // ask if need to bookmark ->lst
-                    break;
-                case 1:
-                    setDeparture();
-                    break;
-                case 2:
-                    setDestination();
-                    break;
-                case 3:
-                    addAttractions();
-                    break;
-                case 4:
-                    setPriority();
-                    break;
+            try {
+                int cmd = Integer.parseInt(input.nextLine());
+                switch(cmd) {
+                    case 0:
+                        isConfirmed = true;
+                        routePlanning();
+                        break;
+                    case 1:
+                        setDeparture();
+                        break;
+                    case 2:
+                        setDestination();
+                        break;
+                    case 3:
+                        addAttractions();
+                        break;
+                    case 4:
+                        setPriority();
+                        break;
+                    default:
+                        throw new ExInvalidCommand();
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println(new ExWrongNumberFormat().getMessage());
+            } catch (ExInvalidCommand e) {
+                System.out.println(e.getMessage());
             }
         }
         input.close();
@@ -75,71 +88,105 @@ public class CyclingMode implements Mode {
     public void setDeparture() {
         separator();
 
-        verticesManager.listAllVertices();
-        int id = -1;
-        do {
-            System.out.println("Please input a departure ID:");
-            id = Utility.getIntegerInput(input);
-            this.departure = id;
-        } while (!verticesManager.isValidVertexId(id));
+        vManager.listAllVertices();
 
+        boolean isSet = false;
+        while (!isSet) {
+            try {
+                System.out.println("Please input a departure ID:");
+                this.departure = vManager.checkVertexIdValidity(Integer.parseInt(input.nextLine()));
+                isSet = true;
+            }
+            catch (NumberFormatException e) {
+                System.out.println(new ExWrongNumberFormat().getMessage());
+            }
+            catch (ExInvalidID e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public void setDestination() {
         separator();
 
         if (!forClimbing) {
-            verticesManager.listAllVertices();
-            int id = -1;
-            do {
-                System.out.println("Please input a destination ID:");
-                id = Utility.getIntegerInput(input);
-                this.destination = id;
-            } while (!verticesManager.isValidVertexId(id));
+            vManager.listAllVertices();
+
+            boolean isSet = false;
+            while (!isSet) {
+                try {
+                    System.out.println("Please input a destination ID:");
+                    this.departure = vManager.checkVertexIdValidity(Integer.parseInt(input.nextLine()));
+                    isSet = true;
+                }
+                catch (NumberFormatException e) {
+                    System.out.println(new ExWrongNumberFormat().getMessage());
+                }
+                catch (ExInvalidID e) {
+                    System.out.println(e.getMessage());
+                }
+            }
         }
         else {
-            System.out.printf("The destination has been set to be the start of your intended climbing trail (%s) by default.\n", verticesManager.getVertexNameByID(destination));
+            System.out.printf("The destination has been set to be the start of your intended climbing trail (%s) by default.\n", vManager.getVertexNameByID(destination));
             System.out.println("1 - Go on");
             System.out.println("2 - Force to change the destination");
-            if (Utility.getIntegerInput(input) == 2) {
-                forClimbing = false;
-                setDestination();
+            boolean isChosen = false;
+            while (!isChosen) {
+                try {
+                    int choice = Integer.parseInt(input.nextLine());
+                    if (choice == 2) {
+                        forClimbing = false;
+                        setDestination();
+                    }
+                    else if (choice != 1) {
+                        throw new ExInvalidCommand();
+                    }
+                }
+                catch (NumberFormatException e) {
+                    System.out.println(new ExWrongNumberFormat().getMessage());
+                } catch (ExInvalidCommand e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
 
-    public void addAttractions(){
+    public void addAttractions() {
         separator();
 
         System.out.println("Do you want to add attractions?[Y/N]");
-        if(input.nextLine().equals("Y")){
-            verticesManager.listAttractions();
-            boolean end = true;
-            do{
-                System.out.println("Please choose attractions:");
-                String attractionIds = input.nextLine();
+        try {
+            if(input.nextLine().equals("Y")){
+                vManager.listAttractions();
 
-                attractions.clear();
-                String[] attractionIdParts = attractionIds.split(" ");
-                end = true;
-                for(String attractionId:attractionIdParts) {
-                    try{
-                        int id=Integer.parseInt(attractionId);
-                        if(verticesManager.isValidAttractionId(id)){
-                            attractions.add(id);
-                        }else{
-                            end=false;
-                            break;
-                        }
-                        
-                    }catch(NumberFormatException exception){
-                        end=false;
-                        System.out.println("Please input valid integers.");
+                boolean end = false;
+                while (!end) {
+                    System.out.println("Please choose attractions:");
+                    String attractionIds = input.nextLine();
+    
+                    attractions.clear();
+                    String[] attractionIdParts = attractionIds.split(" ");
+                     
+                    for(String attractionId:attractionIdParts) {
+                        int id = Integer.parseInt(attractionId);
+                        attractions.add(vManager.checkAttractionIdValidity(id));   
                     }
-
+                    end = true;
                 }
-
-            }while(end==false);
+            }
+            else if (!input.nextLine().equals("N")) {
+                throw new ExInvalidCommand();
+            }
+        }
+        catch (ExInvalidCommand e) {
+            System.out.println(e.getMessage());
+        }
+        catch (NumberFormatException e) {
+            System.out.println(new ExWrongNumberFormat().getMessage());
+        }
+        catch (ExInvalidID e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -158,9 +205,9 @@ public class CyclingMode implements Mode {
         separator();
 
         System.out.println("Current choices:");
-        System.out.println("Departure - " + verticesManager.getVertexNameByID(departure));
-        System.out.println("Destination - " + verticesManager.getVertexNameByID(destination));
-        System.out.println("Attractions - " + verticesManager.getVertexNamesByID(attractions));
+        System.out.println("Departure - " + vManager.getVertexNameByID(departure));
+        System.out.println("Destination - " + vManager.getVertexNameByID(destination));
+        System.out.println("Attractions - " + vManager.getVertexNamesByID(attractions));
         System.out.println("Priority - " + priority);
         System.out.println();
     }
@@ -178,7 +225,7 @@ public class CyclingMode implements Mode {
             int s = places.get(i).intValue();
             int d = places.get(i+1).intValue();
             map.dijkstra(priority, s, d);
-            System.out.println("From " + verticesManager.getVertexNameByID(s) + " to " + verticesManager.getVertexNameByID(d) + ":");
+            System.out.println("From " + vManager.getVertexNameByID(s) + " to " + vManager.getVertexNameByID(d) + ":");
             map.dfs(s, d, new ArrayList<Integer>());
             totalCost += map.getDistance(d);
 
@@ -187,12 +234,17 @@ public class CyclingMode implements Mode {
                 while (!end) {
                     try { 
                         System.out.println("Please select one route:");
-                        route.addAll(map.getRoute(Utility.getIntegerInput(input)-1));
+                        route.addAll(map.getRoute(Integer.parseInt(input.nextLine())-1));
                         end = true;
-                    } catch(IndexOutOfBoundsException exception){
-                        System.out.println("xxxxx");
-                    } catch(InputMismatchException exception){
-                        System.out.println("xxxxx");
+                    }
+                    catch (NumberFormatException e) {
+                        System.out.println(new ExWrongNumberFormat().getMessage());
+                    }
+                    catch (IndexOutOfBoundsException exception){
+                        System.out.println(new ExInvalidCommand().getMessage());
+                    }
+                    catch (InputMismatchException exception){
+                        System.out.println(new ExInvalidCommand().getMessage());
                     }
                 }
             }
@@ -205,8 +257,7 @@ public class CyclingMode implements Mode {
         route.add(destination);
 
         System.out.printf("Total cost: %d\nRoute: ", totalCost);
-        verticesManager.listRoute(route);
-// <<<<<<< Updated upstream
+        vManager.listRoute(route);
     }
 
 //     // call bookmark()--->lst
