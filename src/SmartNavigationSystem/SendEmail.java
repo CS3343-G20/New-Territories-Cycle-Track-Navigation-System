@@ -32,29 +32,29 @@ public class SendEmail {
         properties.put("mail.smtp.starttls.enable", "true"); 
   
         // Get the Session object.// and pass username and password
-        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
-           protected PasswordAuthentication getPasswordAuthentication() {
-              return new PasswordAuthentication(from, pwd);
-           }
-        });
+      //   Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+      //      protected PasswordAuthentication getPasswordAuthentication() {
+      //         return new PasswordAuthentication(from, pwd);
+      //      }
+      //   });
   
         // Used to debug SMTP issues
-        session.setDebug(true);
+      //   session.setDebug(true);
   
-        try {
-           MimeMessage message = new MimeMessage(session);
-           message.setFrom(new InternetAddress(from));
-           message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-           message.setSubject(subjecct);
-           message.setText(msg);
+      //   try {
+      //      MimeMessage message = new MimeMessage(session);
+      //      message.setFrom(new InternetAddress(from));
+      //      message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+      //      message.setSubject(subjecct);
+      //      message.setText(msg);
   
-           System.out.println("sending...");
+      //      System.out.println("sending...");
   
-           Transport.send(message);
-           System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
-           mex.printStackTrace();
-        }
+      //      Transport.send(message);
+      //      System.out.println("Sent message successfully....");
+      //   } catch (MessagingException mex) {
+      //      mex.printStackTrace();
+      //   }
   
   
      }

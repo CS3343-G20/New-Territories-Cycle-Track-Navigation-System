@@ -114,14 +114,32 @@ public class CyclingMode implements Mode {
         System.out.println("Do you want to add attractions?[Y/N]");
         if(input.nextLine().equals("Y")){
             verticesManager.listAttractions();
-            System.out.println("Please choose attractions:");
-            String attractionIds = input.nextLine();
+            boolean end = true;
+            do{
+                System.out.println("Please choose attractions:");
+                String attractionIds = input.nextLine();
 
-            attractions.clear();
-            String[] attractionIdParts = attractionIds.split(" ");
-            for(String attractionId:attractionIdParts) {
-                attractions.add(Integer.parseInt(attractionId));
-            }
+                attractions.clear();
+                String[] attractionIdParts = attractionIds.split(" ");
+                end = true;
+                for(String attractionId:attractionIdParts) {
+                    try{
+                        int id=Integer.parseInt(attractionId);
+                        if(verticesManager.isValidAttractionId(id)){
+                            attractions.add(id);
+                        }else{
+                            end=false;
+                            break;
+                        }
+                        
+                    }catch(NumberFormatException exception){
+                        end=false;
+                        System.out.println("Please input valid integers.");
+                    }
+
+                }
+
+            }while(end==false);
         }
     }
 
@@ -188,18 +206,18 @@ public class CyclingMode implements Mode {
 
         System.out.printf("Total cost: %d\nRoute: ", totalCost);
         verticesManager.listRoute(route);
-<<<<<<< Updated upstream
+// <<<<<<< Updated upstream
     }
 
-    // call bookmark()--->lst
-    public void makeBookmark(){
+//     // call bookmark()--->lst
+//     public void makeBookmark(){
 
-=======
+// =======
         
-        // call bookmark()--->lst
+//         // call bookmark()--->lst
         
->>>>>>> Stashed changes
-    }
+// >>>>>>> Stashed changes
+//     }
 
     // just for readability
     public void separator() {
