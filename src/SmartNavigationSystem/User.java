@@ -1,6 +1,9 @@
 package SmartNavigationSystem;
+
+import java.util.Scanner;
+
 public class User {
-    enum Mode{
+    enum Mode {
         CyclingMode,
         ClimbingMode
     }
@@ -9,7 +12,7 @@ public class User {
             //
         }
         else if (mode.equals(Mode.CyclingMode.toString())) {
-            CyclingMode cyclingMode = new CyclingMode();
+            CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in));
             cyclingMode.execute();
         }
     }
