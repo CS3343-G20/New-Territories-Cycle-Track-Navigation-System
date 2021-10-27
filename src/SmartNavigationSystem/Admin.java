@@ -1,5 +1,7 @@
 package SmartNavigationSystem;
 
+import java.io.IOException;
+
 public class Admin extends User {
 
     private static Admin admin = new Admin();
@@ -8,7 +10,7 @@ public class Admin extends User {
         return admin;
     }
 
-    public boolean login() {
+    public boolean login() throws IOException {
         return new AdminLogin().login();
     }
 

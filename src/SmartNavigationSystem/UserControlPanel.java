@@ -20,7 +20,7 @@ public class UserControlPanel extends ControlPanel {
         return instance;
     }
 
-    public int makeDecision(Scanner userInput) {
+    public int makeDecision(Scanner userInput) throws IOException {
 
         String line = "";
 
