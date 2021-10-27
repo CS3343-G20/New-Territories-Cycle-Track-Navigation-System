@@ -51,6 +51,7 @@ public class CyclingMode implements Mode {
                     case 0:
                         isConfirmed = true;
                         routePlanning();
+                        // bookmark
                         break;
                     case 1:
                         setDeparture();
@@ -260,14 +261,8 @@ public class CyclingMode implements Mode {
         vManager.listRoute(route);
     }
 
-//     // call bookmark()--->lst
+//     // call bookmark()
 //     public void makeBookmark(){
-
-// =======
-        
-//         // call bookmark()--->lst
-        
-// >>>>>>> Stashed changes
 //     }
 
     // just for readability
