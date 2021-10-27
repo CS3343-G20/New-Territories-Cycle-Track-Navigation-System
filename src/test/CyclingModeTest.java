@@ -1,15 +1,39 @@
 package test;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
+import java.io.ByteArrayInputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import SmartNavigationSystem.*;
 
 public class CyclingModeTest {
 
 	@Test //correct input
-    public void setDeparture_case1() {  
-
+    public void setDeparture_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
+		class stubVertices implements VerticesManager {
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) {return id;}
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public void listRoute(ArrayList<Integer> route) {}
+			public int checkAttractionIdValidity(int id) {return id;}
+		}
+		String input = "1";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		
+		CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in));
+		mode.setDeparture();
+		
+		Field departure = CyclingMode.class.getDeclaredField("departure");
+		departure.setAccessible(true);
+		assertEquals(1, departure.get(mode));
 	}
 
 	@Test //wrong input

@@ -8,6 +8,6 @@ public interface VerticesManager {
     public void listAttractions();
     public void listAllVertices();
     public void listRoute(ArrayList<Integer> route);
-    public boolean isValidVertexId(int id);
-    public boolean isValidAttractionId(int id);
+    public int checkVertexIdValidity(int id) throws ExInvalidID;
+    public int checkAttractionIdValidity(int id) throws ExInvalidID;
 }

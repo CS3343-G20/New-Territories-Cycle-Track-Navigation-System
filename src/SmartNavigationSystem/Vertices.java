@@ -69,12 +69,18 @@ public class Vertices implements VerticesManager, VerticesFinder {
     }
 
     @Override
-    public boolean isValidVertexId(int id) {
-        return allVertices.keySet().contains(id);
+    public int checkVertexIdValidity(int id) throws ExInvalidID {
+        if (!allVertices.keySet().contains(id)) {
+        	throw new ExInvalidID();
+        }
+        return id;
     }
 
     @Override
-    public boolean isValidAttractionId(int id) {
-        return isValidVertexId(id) && allVertices.get(id) instanceof Attraction;
+    public int checkAttractionIdValidity(int id) throws ExInvalidID {
+        if (!(allVertices.keySet().contains(id) && allVertices.get(id) instanceof Attraction)) {
+        	throw new ExInvalidID();
+        }
+        return id;
     }
 }
