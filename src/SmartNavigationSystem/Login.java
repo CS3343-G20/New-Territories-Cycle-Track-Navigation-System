@@ -1,11 +1,12 @@
 package SmartNavigationSystem;
 
 import java.io.*;
-import java.util.*;
+import java.util.*; 
+import org.json.*;
 
 public class Login {
     private String inpEmail, inpPwd;
-    private int tryTimes = 0;
+    private int tryTimes = 1;
     private ControlPanel memberCP = MemberControlPanel.getInstance();
     private Register register = new Register();
     
@@ -14,8 +15,7 @@ public class Login {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please input email: ");
         this.inpEmail = userInput.nextLine();
-        File f=new File("docs\\MemberList");
-        Boolean exist=isExist(f, this.inpEmail);
+        Boolean exist=isExist(this.inpEmail);
         if (!exist) {
             System.out.println("Would you like to register one?[Y/N]");
             String ans = userInput.nextLine();
@@ -30,80 +30,49 @@ public class Login {
         }
         userInput.close();
     }
+    
 
-    public boolean isExist(File f, String Email) {
-        Scanner scan = null;
-        try {
-            scan = new Scanner(f);
-            while(true) {
-                if(scan.hasNext()==false) break;
-                if(scan.nextLine().contains(Email)) {
-                    return true;
-                }
-            }
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        finally {
-            if (scan != null) {
-                scan.close();
+    public JSONArray JsonParser() throws IOException{
+
+        char cbuf[] = new char[10000];
+        InputStreamReader input =new InputStreamReader(new FileInputStream(new File("docs//MemberInfo.json")),"UTF-8");
+        int len =input.read(cbuf);
+        String text =new String(cbuf,0,len);
+        //1.create a json object
+        JSONObject obj = new JSONObject(text.substring(text.indexOf("{")));
+        //2.get json array
+        JSONArray arr= obj.getJSONArray("memberInfo");
+
+        // System.out.println(arr.toString());
+        return arr;
+    }
+
+    public boolean isExist(String Email) throws IOException {
+        JSONArray arr= JsonParser();
+        for(int i=0;i<arr.length();i++){
+            JSONObject subObj = arr.getJSONObject(i);
+            if(subObj.getString("email").equals(Email)){
+                return true;
             }
         }
         return false;
     }
 
-    public boolean isPwdCorrect(File f){
-        Scanner scan = null;
-        try {
-            scan = new Scanner(f);
-            while (true) {
-                if(scan.hasNext()==false) break;
-                String[] memberInfo = scan.nextLine().split("\\s+");
-                String email = memberInfo[0];
-                String password = memberInfo[1];
-                if(email.equals(this.inpEmail) && password.equals(this.inpPwd)) {
-                    return true;
-                }
-            }
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        finally {
-            if (scan != null) {
-                scan.close();
+    public boolean isPwdCorrect() throws IOException{
+        JSONArray arr= JsonParser();
+        for(int i=0;i<arr.length();i++){
+            JSONObject subObj = arr.getJSONObject(i);
+            if(subObj.getString("email").equals(this.inpEmail) && subObj.getString("password").equals(this.inpPwd)){
+                return true;
             }
         }
         return false;
     }
 
-    public void modifyPwd(String newPwd, String inpEmail, File f){
-        try {
-            Scanner scan = new Scanner(f);
-            while (true) {
-                if(scan.hasNext()==false) break;
-                String[] memberInfo = scan.nextLine().split("\\s+");
-                String email = memberInfo[0];
-                String password = memberInfo[1];
-                if(email.equals(this.inpEmail)){
-                    memberInfo[1].replace(password, newPwd);
-                }
-            } 
-            scan.close();
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void verifyPwd(Scanner userInput) {
-        File f = new File("docs\\MemberList");
-        Boolean pwd = isPwdCorrect(f);
+    public void verifyPwd(Scanner userInput) throws IOException {
+        Boolean pwd = isPwdCorrect();
         if (pwd) {
             System.out.println("Log in successfully");
-            // cp.removeControlPanel(1);
-            // cp.removeControlPanel(2);
             memberCP.showControlPanel(); 
             try {
                 memberCP.makeDecision(userInput);
@@ -133,21 +102,36 @@ public class Login {
                 }
             }
         }
-
     }
 
     // reset password
-    public void resetPwd() {
+    public void resetPwd() throws IOException {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Would you like to reset your password?[yes/no]");
         String ans = userInput.nextLine();
         if (ans.equals("yes")) {
             System.out.println("Please input new password: ");
             this.inpPwd = userInput.next();
-            File f=new File("docs\\MemberList");
-            modifyPwd(this.inpPwd,this.inpEmail,f);
+            modifyPwd(this.inpPwd,this.inpEmail);
             System.out.println("Reset successfully!");
         }
         userInput.close();
+    }
+
+    public void modifyPwd(String newPwd, String inpEmail) throws IOException{
+        JSONArray arr= JsonParser();
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("docs\\MemberInfo.json"),"UTF-8");
+        for(int i=0;i<arr.length();i++){
+            JSONObject subObj = arr.getJSONObject(i);
+            if(subObj.getString("email").equals(this.inpEmail)){
+                subObj.put("password", newPwd);
+                break;
+            }
+        }
+
+        String newJsonData = "{\n"+"\"memberInfo\""+":\n"+arr.toString()+"\n}";
+        osw.write(newJsonData);
+        osw.flush();//clear buffer
+        osw.close();
     }
 }
