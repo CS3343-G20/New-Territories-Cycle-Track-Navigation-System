@@ -13,8 +13,8 @@ public class AdminControlPanel extends ControlPanel {
         this.controlPanel.put(1, "Print Member List");
         this.controlPanel.put(2, "Print Schedule List");
         this.controlPanel.put(3, "Print Bookmark List");
-        this.controlPanel.put(4, "Mountain Climbing Trails");
-        this.controlPanel.put(5, "Cycle Trails");
+        //this.controlPanel.put(4, "Mountain Climbing Trails");
+        //this.controlPanel.put(5, "Cycle Trails");
     }
 
     public static AdminControlPanel getInstance() {
