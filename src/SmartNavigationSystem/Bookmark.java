@@ -1,13 +1,31 @@
 package SmartNavigationSystem;
 
+import java.io.IOException;
+
 public class Bookmark {
     
-    private int bookmarkIndex;
     private Mode mode;
+    private Member member;
 
-    public Bookmark(int i, Mode m) {
-        this.bookmarkIndex = i;
-        this.mode = m;
+    public Bookmark(Mode mode, Member member) {
+        this.mode = mode;
+        this.member = member;
+    }
+
+    public Member getMember() {
+        return this.member;
+    }
+
+    public Mode getMode() {
+        return this.mode;
+    }
+
+    public static void addBookmark(String mode, Member member) throws IOException {
+        JsonOperation.addNewBookMark(mode, member);
+    }
+
+    public static void deleteBookmark(Member member, int index) throws IOException {
+        JsonOperation.deleteMemberBookmark(member, index);
     }
 
 }
