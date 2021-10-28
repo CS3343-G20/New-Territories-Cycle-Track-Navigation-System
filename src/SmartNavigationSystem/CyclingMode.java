@@ -75,7 +75,7 @@ public class CyclingMode implements Mode {
                 System.out.println(e.getMessage());
             }
         }
-        input.close();
+        //input.close();
     }
 
     public void modeSwitch(int d) {
@@ -261,9 +261,7 @@ public class CyclingMode implements Mode {
         vManager.listRoute(route);
     }
 
-//     // call bookmark()
-//     public void makeBookmark(){
-//     }
+    // make bookmark
 
     // just for readability
     public void separator() {
