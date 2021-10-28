@@ -52,12 +52,12 @@ public class ClimbingMode implements mode {
 		}
 	}
 
-	public void addCycling() {
+	public void addCycling(String PathID) {
 		System.out.println("Do you want to cycle to the point?");
 		boolean cycling = scan.nextBoolean();
 	    if(cycling) {
 	    	CyclingMode cm = new CyclingMode()
-	    	cm.modeswitch();
+	    	cm.modeswitch(PathID);
 	    }
 	}
 
@@ -70,7 +70,7 @@ public class ClimbingMode implements mode {
 		System.out.println(ctrManager.filterTrailByDest(name));
 	}
 
-	public void chooseClimbingPath() {
+	public String chooseClimbingPath() {
 
 		System.out.println("Please enter the id of the climbing path that you would like to choose :");
 		String pathID = scan.next();
@@ -81,14 +81,15 @@ public class ClimbingMode implements mode {
 			System.out.println("The climbing path doesn't exist, please enter a valid climbing path id");
 			chooseClimbingPath();
 		}
+		return pathID;
 	}
 
 	@Override
 	public void execute() {
 		listTrails();
 		chooseSelectionCriteria();
-		chooseClimbingPath();
-		addCycling();
+		String PathID=chooseClimbingPath();
+		addCycling(PathID);
 	}
 
 }
