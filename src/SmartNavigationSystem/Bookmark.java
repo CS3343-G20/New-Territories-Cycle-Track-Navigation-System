@@ -1,6 +1,7 @@
 package SmartNavigationSystem;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Bookmark {
     
@@ -26,11 +27,11 @@ public class Bookmark {
         return this.mode;
     }
 
-    public static void addBookmark(Mode mode, Member member) throws FileNotFoundException {
+    public static void addBookmark(Mode mode, Member member) throws IOException {
         JsonOperation.addNewBookMark(new Bookmark(mode, member));
     }
 
-    public static void deleteMemberBookmark(Member member, int index) throws FileNotFoundException {
+    public static void deleteMemberBookmark(Member member, int index) throws IOException {
         JsonOperation.deleteMemberBookmark(member, index);
     }
 

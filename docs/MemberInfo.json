@@ -1,1 +1,66 @@
-{"memberInfo":[]}
+{
+    "memberInfo": [
+        {
+            "bookmarks": [
+                {
+                    "bookmarkIndex": 1,
+                    "bookmarkType": "climbing trail"
+                },
+                {
+                    "bookmarkIndex": 2,
+                    "bookmarkType": "cycling trail"
+                },
+                {
+                    "bookmarkIndex": 3,
+                    "bookmarkType": "SmartNavigationSystem.CyclingMode@68f7aae2"
+                }
+            ],
+            "password": "new",
+            "schedules": [
+                {
+                    "scheduleIndex": 2,
+                    "scheduleDate": "2021/10/29",
+                    "state": "true",
+                    "event": "jeffEVENT2"
+                },
+                {
+                    "scheduleIndex": 2,
+                    "scheduleDate": "2021/10/29",
+                    "state": "true",
+                    "event": "SmartNavigationSystem.CyclingMode@68f7aae2"
+                }
+            ],
+            "email": "liusitong327@gmail.com"
+        },
+        {
+            "bookmarks": [
+                {
+                    "bookmarkIndex": 1,
+                    "bookmarkType": "climbing trail"
+                }
+            ],
+            "password": "cindypwd",
+            "schedules": [
+                {
+                    "scheduleIndex": 1,
+                    "scheduleDate": "20211022",
+                    "state": "false",
+                    "event": "cindyEVENT1"
+                },
+                {
+                    "scheduleIndex": 2,
+                    "scheduleDate": "20211025",
+                    "state": "false",
+                    "event": "cindyEVENT2"
+                }
+            ],
+            "email": "cindy"
+        },
+        {
+            "bookmarks": [],
+            "password": "pwd",
+            "schedules": [],
+            "email": "liusitong327@gmail.com"
+        }
+    ]
+}

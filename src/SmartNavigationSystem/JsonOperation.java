@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 public class JsonOperation {
 
     private static JSONObject wholeJsonObject;
+    // private static String wholeJsonObjectString;
 
     public JsonOperation() throws FileNotFoundException {
         File f = new File("docs/MemberInfo.json");
@@ -22,31 +23,11 @@ public class JsonOperation {
         String content = fin.useDelimiter("\\Z").next();
 
         wholeJsonObject = JSONObject.parseObject(content);
-
-    }
-
-    public static JSONObject getWholeJsonObject() throws FileNotFoundException  {
-        // new JsonOperation();
-        return wholeJsonObject;
-    }
-
-    public static String getWholeJsonObjectString() throws FileNotFoundException  {
-        if (JsonOperation.getWholeJsonObject() == null)
-            return "";
-        else
-            return JsonOperation.getWholeJsonObject().toJSONString();
-    }
-
-    public static JSONArray getWholeMemberInfoArray() throws FileNotFoundException {
-        if (JsonOperation.getWholeJsonObject() == null)
-            return null;
-        else
-            return JsonOperation.getWholeJsonObject().getJSONArray("memberInfo");
     }
 
     public static JSONObject getMemberInfo(String email) throws FileNotFoundException {
 
-        JSONArray wholeMemberInfo_arr = JsonOperation.getWholeMemberInfoArray();
+        JSONArray wholeMemberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
 
         for (int i = 0; i < wholeMemberInfo_arr.size(); i++) {
             JSONObject memberInfo = wholeMemberInfo_arr.getJSONObject(i);
@@ -59,6 +40,10 @@ public class JsonOperation {
 
     }
 
+    public static String getWholeObjectString() {
+        return wholeJsonObject.toJSONString();
+    }
+
     public static JSONArray getMemberScheArray(String email) throws FileNotFoundException {
         JSONObject memberInfo = getMemberInfo(email);
         return memberInfo.getJSONArray("schedules");
@@ -66,7 +51,7 @@ public class JsonOperation {
 
     public static JSONArray getMemberBookmArray(String email) throws FileNotFoundException {
 
-        JSONArray memberInfo_arr = JsonOperation.getWholeMemberInfoArray();
+        JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
 
         for (int i = 0; i < memberInfo_arr.size(); i++) {
             JSONObject memberInfo = memberInfo_arr.getJSONObject(i);
@@ -81,7 +66,7 @@ public class JsonOperation {
 
     public static String getMemberPassword(String email) throws FileNotFoundException {
 
-        JSONArray memberInfo_arr = JsonOperation.getWholeMemberInfoArray();
+        JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
 
         for (int i = 0; i < memberInfo_arr.size(); i++) {
             JSONObject memberInfo = memberInfo_arr.getJSONObject(i);
@@ -94,17 +79,20 @@ public class JsonOperation {
 
     }
 
-    public static void resetPwd(String email, String pwd) throws FileNotFoundException {
+    public static void resetPwd(String email, String pwd) throws IOException {
 
-        JSONArray memberInfo_arr = JsonOperation.getWholeMemberInfoArray();
+        JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
 
         for (int i = 0; i < memberInfo_arr.size(); i++) {
             JSONObject memberInfo = memberInfo_arr.getJSONObject(i);
             String memberEmail = memberInfo.getString("email");
             if (memberEmail.equals(email)) {
                 memberInfo.replace("password", pwd);
+                break;
             }
         }
+
+        updateJsonFile();
 
     }
 
@@ -114,14 +102,15 @@ public class JsonOperation {
     }
 
     public static void addNewMember(String email, String password) throws IOException {
-        JSONObject e = JSON.parseObject("{\"password\":\"" + password + "\",\"email\":\"" + email + "\"}");
-        getWholeMemberInfoArray().add(e);
+        JSONObject e = JSON.parseObject(
+                "{\"password\":\"" + password + "\",\"email\":\"" + email + "\", \"schedules\": [],\"bookmarks\": []}");
+        wholeJsonObject.getJSONArray("memberInfo").add(e);
         updateJsonFile();
     }
 
     public static boolean checkMemberExist(String email) throws FileNotFoundException {
 
-        JSONArray memberInfo_arr = JsonOperation.getWholeMemberInfoArray();
+        JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
 
         for (int i = 0; i < memberInfo_arr.size(); i++) {
             JSONObject memberInfo = memberInfo_arr.getJSONObject(i);
@@ -138,7 +127,7 @@ public class JsonOperation {
         return getMemberPassword(email).equals(pwd);
     }
 
-    public static void addNewSchedule(Schedule sche) throws FileNotFoundException  {
+    public static void addNewSchedule(Schedule sche) throws IOException {
 
         JSONArray arr = getMemberScheArray(sche.getMember().getEmail());
 
@@ -161,9 +150,11 @@ public class JsonOperation {
 
         }
 
+        updateJsonFile();
+
     }
 
-    public static void addNewBookMark(Bookmark bookm) throws FileNotFoundException {
+    public static void addNewBookMark(Bookmark bookm) throws IOException {
 
         JSONArray arr = getMemberBookmArray(bookm.getMember().getEmail());
 
@@ -187,9 +178,11 @@ public class JsonOperation {
 
         }
 
+        updateJsonFile();
+
     }
 
-    public static void deleteMemberSchedule(Member member, int index) throws FileNotFoundException {
+    public static void deleteMemberSchedule(Member member, int index) throws IOException {
 
         JSONArray memberScheduleArray = getMemberScheArray(member.getEmail());
 
@@ -200,9 +193,11 @@ public class JsonOperation {
             }
         }
 
+        updateJsonFile();
+
     }
 
-    public static void deleteMemberBookmark(Member member, int index) throws FileNotFoundException {
+    public static void deleteMemberBookmark(Member member, int index) throws IOException {
 
         JSONArray memberBookmarkArray = getMemberBookmArray(member.getEmail());
 
@@ -213,6 +208,8 @@ public class JsonOperation {
             }
         }
 
+        updateJsonFile();
+
     }
 
     public static void updateJsonFile() throws IOException {
@@ -220,9 +217,107 @@ public class JsonOperation {
         FileOutputStream fos = new FileOutputStream(memberListFile, true);
         OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
         JsonOperation.clearJsonFile();
-        String str = "{\"memberInfo\": " + JSON.toJSONString(getWholeMemberInfoArray()) + "}";
-        osw.write(str);
+        osw.write(getWholeObjectString());
         osw.close();
+    }
+
+    public static JSONArray getWholeMemberInfoArray() {
+        return wholeJsonObject.getJSONArray("memberInfo");
+    }
+
+    public static void printMemberInfo(String email) throws FileNotFoundException {
+
+        System.out.println("Email: " + email);
+        JSONObject memberOnj = getMemberInfo(email);
+        String password = memberOnj.getString("password");
+        System.out.println("Password: " + password + "\n");
+
+        JSONArray memberScheArray = getMemberScheArray(email);
+        int scheNum = memberScheArray.size();
+        if (scheNum == 0) {
+            System.out.println();
+        } else {
+            System.out.println("You have " + scheNum + " schedules:\n");
+            for (int i = 0; i < scheNum; i++) {
+                JSONObject memberSche = memberScheArray.getJSONObject(i);
+                System.out.println("Schedule index: " + memberSche.getIntValue("scheduleIndex") + "\nEvent: "
+                        + memberSche.getString("event") + "\nSchedule date: " + memberSche.getString("scheduleDate"));
+                System.out.println();
+            }
+        }
+
+        JSONArray memberBookmArray = getMemberBookmArray(email);
+        int bookmNum = memberBookmArray.size();
+        System.out.println("You have " + bookmNum + " bookmarks:\n");
+        if (bookmNum == 0) {
+            System.out.print("You haven't add bookmarks.\n");
+        } else {
+            for (int i = 0; i < bookmNum; i++) {
+                JSONObject memberBookm = memberBookmArray.getJSONObject(i);
+                System.out.println("Bookmark index: " + memberBookm.getIntValue("bookmarkIndex") + "\nType: "
+                        + memberBookm.getString("bookmarkType\n"));
+                System.out.println();
+            }
+        }
+
+    }
+
+    public static String getAdminToken() throws FileNotFoundException {
+
+        File f = new File("docs/AdminInfo.json");
+        Scanner fin = new Scanner(f);
+        String content = fin.useDelimiter("\\Z").next();
+        JSONObject adminJsonObject = JSONObject.parseObject(content);
+
+        return adminJsonObject.getString("token");
+
+    }
+
+    public static void printMemberList() {
+        JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
+        System.out.println("Member list:");
+        for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
+            JSONObject membObject = wholeMemberInfoArray.getJSONObject(i);
+            System.out.println(membObject.getString("email"));
+        }
+
+    }
+
+    public static void printScheduleList() {
+
+        JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
+        System.out.println("Schedule list:");
+        for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
+            JSONObject membObject = wholeMemberInfoArray.getJSONObject(i);
+            JSONArray scheArr = membObject.getJSONArray("schedules");
+            System.out.println("Email\t\tScheduleIndex\tDate\tSent\tEvent");
+            for (int j = 0; j < scheArr.size(); j++) {
+                System.out.print(membObject.getString("email") + "\t");
+                JSONObject scheObj = scheArr.getJSONObject(j);
+                System.out.print(scheObj.getIntValue("scheduleIndex") + "\t" + scheObj.getString("scheduleDate") + "\t"
+                        + scheObj.getBoolean("state") + "\t" + scheObj.getString("event"));
+                System.out.println();
+            }
+        }
+
+    }
+
+    public static void printBookmarkList() {
+
+        JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
+        System.out.println("Bookmark list:");
+        for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
+            JSONObject membObject = wholeMemberInfoArray.getJSONObject(i);
+            JSONArray bookmArr = membObject.getJSONArray("bookmarks");
+            System.out.println("Email\t\tBookmarkIndex\tType");
+            for (int j = 0; j < bookmArr.size(); j++) {
+                System.out.print(membObject.getString("email") + "\t");
+                JSONObject scheObj = bookmArr.getJSONObject(j);
+                System.out.print(scheObj.getIntValue("bookmarkIndex") + "\t" + scheObj.getString("bookmarkType"));
+                System.out.println();
+            }
+        }
+
     }
 
 }

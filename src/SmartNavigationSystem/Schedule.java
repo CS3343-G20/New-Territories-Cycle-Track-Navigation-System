@@ -2,7 +2,6 @@ package SmartNavigationSystem;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -44,11 +43,11 @@ public class Schedule {
         return this.mode;
     }
 
-    public static void makeSchedule(Member member, String date, Mode mode) throws FileNotFoundException {
+    public static void makeSchedule(Member member, String date, Mode mode) throws IOException {
         JsonOperation.addNewSchedule(new Schedule(member, date, mode));
     }
 
-    public static void deleteSchedule(Member member, int index) throws FileNotFoundException {
+    public static void deleteSchedule(Member member, int index) throws IOException {
         JsonOperation.deleteMemberSchedule(member, index);
     }
 

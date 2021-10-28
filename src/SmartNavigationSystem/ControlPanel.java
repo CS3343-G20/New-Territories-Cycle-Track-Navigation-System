@@ -18,7 +18,7 @@ public abstract class ControlPanel {
         return this.user;
     }
 
-    public void setMember(Member m) {
+    public void setMember(User m) {
         this.user = m;
     }
 

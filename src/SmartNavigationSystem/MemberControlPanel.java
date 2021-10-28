@@ -1,5 +1,7 @@
 package SmartNavigationSystem;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MemberControlPanel extends ControlPanel {
@@ -7,17 +9,19 @@ public class MemberControlPanel extends ControlPanel {
     private MemberControlPanel() {
         this.user = new Member();
         controlPanel.put(0, "exit");
-        // this.controlPanel.put(1, "Reset Password");
+        controlPanel.put(1, "Reset Password");
         controlPanel.put(2, "Mode");
         controlPanel.put(3, "Check Information");
     }
+
     private static MemberControlPanel instance = new MemberControlPanel();
+
     public static MemberControlPanel getInstance() {
         return instance;
     }
-    
+
     @Override
-    public int makeDecision(Scanner userInput) {
+    public int makeDecision(Scanner userInput) throws IOException {
         String line = "";
 
         System.out.println("Please input a num:[select from ControlPanel]");
@@ -36,18 +40,18 @@ public class MemberControlPanel extends ControlPanel {
         }
 
         switch (nav) {
-            case 0:
-                break;
-            // case 1:
-            //     ((Member)(this.user)).resetPwd();
-            //     break;
-            case 2:
-                System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
-                String mode=userInput.next();
-                this.user.chooseMode(mode);
-            case 3:
-                ((Member)(this.user)).CheckInfo();
-                break;
+        case 0:
+            break;
+        case 1:
+            ((Member) (this.user)).resetPwd();
+            break;
+        case 2:
+            System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
+            String mode = userInput.next();
+            this.user.chooseMode(mode);
+        case 3:
+            ((Member) (this.user)).CheckInfo();
+            break;
         }
 
         return nav;

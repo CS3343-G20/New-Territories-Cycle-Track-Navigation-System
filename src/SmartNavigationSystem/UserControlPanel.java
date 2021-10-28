@@ -50,6 +50,7 @@ public class UserControlPanel extends ControlPanel {
                 //     nav = 6;
                 try {
                     m.Login();
+                    this.user = m;
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

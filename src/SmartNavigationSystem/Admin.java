@@ -13,15 +13,15 @@ public class Admin extends User {
     }
 
     public void printMemberList() {
-        // Database.getInstance().printMemberList();
+        JsonOperation.printMemberList();
     }
 
     public void printScheduleList() {
-        // Database.getInstance().printScheduleList();
+        JsonOperation.printScheduleList();
     }
 
     public void printBookmarkList() {
-        // Database.getInstance().printBookmarkList();
+        JsonOperation.printBookmarkList();
     }
 
 }
