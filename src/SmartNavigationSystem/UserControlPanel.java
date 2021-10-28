@@ -1,83 +1,85 @@
 package SmartNavigationSystem;
 
 import java.io.IOException;
-import java.util.*;
 
-public class UserControlPanel extends ControlPanel {
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
-    private UserControlPanel() {
-        super();
-        this.controlPanel.put(0, "exit");
-        this.controlPanel.put(1, "Login");
-        this.controlPanel.put(2, "Register");
-        this.controlPanel.put(3, "Mode");
-        this.controlPanel.put(4, "Login As Admin");
+public class Schedule {
+
+    private Member member;
+    private String date;
+    private boolean state;
+    private Mode mode;
+
+    public Schedule(Member member, String date, Mode mode) {
+        this.member = member;
+        this.date = date; // format: yyyy/mm/dd
+        this.state = true; // wait for sending email
+        this.mode = mode;
     }
 
-    private static UserControlPanel instance = new UserControlPanel();
-
-    public static UserControlPanel getInstance() {
-        return instance;
+    public Member getMember() {
+        return this.member;
     }
 
-    public int makeDecision(Scanner userInput) throws IOException {
+    public String getDate() {
+        return this.date;
+    }
 
-        String line = "";
+    public boolean getState() {
+        return this.state;
+    }
 
-        System.out.println("Please input a num:[select from ControlPanel]");
-        int nav = 0;
+    public Mode getMode() {
+        return this.mode;
+    }
 
-        line = userInput.next();
+    public static void makeSchedule(String mode, String date, Member member) throws IOException {
+        JsonOperation.addNewSchedule(member, date, mode);
+    }
 
-        if (line.length() > 1) {
-            System.out.println("Input format error! Please try again.");
-            this.makeDecision(userInput);
-        }
-        nav = line.charAt(0) - 48;
-        if (nav < 0 || nav > 4) {
-            System.out.println("Input error! Please try again.");
-            this.makeDecision(userInput);
-        }
+    public static void deleteSchedule(Member member, int index) throws IOException {
+        JsonOperation.deleteMemberSchedule(member, index);
+    }
 
-        switch (nav) {
-            case 0:
-                break;
-            case 1:
-                Member m = new Member();
-                // if (m.login())
-                //     this.user = m;
-                // else
-                //     nav = 6;
-                try {
-                    m.Login();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+    public static void sendEmail() throws IOException {
+
+        JSONArray memberInfo_arr = JsonOperation.getWholeMemberInfoArray();
+        if (memberInfo_arr != null) {
+
+            for (int i = 0; i < memberInfo_arr.size(); i++) {
+
+                JSONObject member = memberInfo_arr.getJSONObject(i);
+                String email = member.getString("email");
+
+                JSONArray sche_arr = member.getJSONArray("schedules");
+
+                int scheduleIndex = 0;
+                String event = null;
+                String scheduleDate = null;
+                Boolean state = null;
+                for (int j = 0; sche_arr != null && j < sche_arr.size(); j++) {
+                    JSONObject sche = sche_arr.getJSONObject(j);
+                    scheduleIndex = sche.getIntValue("scheduleIndex");
+                    event = sche.getString("event");
+                    scheduleDate = sche.getString("scheduleDate");
+                    state = sche.getBooleanValue("state");
+
+                    String d = ScheduleDate.getTomorrowDate();
+                    if (state && scheduleDate.equals(d)) {
+                        String subject = "Remember your scchedule tomorrow?";
+                        String msg = "Schedule: schedule#" + scheduleIndex + "\nEvent: " + event + "\nDate: "
+                                + scheduleDate.toString();
+
+                        SendEmail.sendEmail(email, subject, msg);
+
+                        sche.replace("state", "true", "false");
+
+                    }
                 }
-                break;
-            case 2:
-                Register r = new Register();
-            try {
-                r.register();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-                break;
-            case 3:
-                // User u=new User();
-                User u=new Tourist();
-                System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
-                String mode=userInput.next();
-                u.chooseMode(mode);
-            case 4:
-                Admin admin = Admin.getInstance();
-                if (!admin.login())
-                    nav = 6;
-                break;
-            default:
-                System.out.println("Input error! Please try again.");
-                this.makeDecision(userInput);
         }
-
-        return nav;
     }
+
 }
