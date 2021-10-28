@@ -13,6 +13,5 @@ jdk.tls.disabledAlgorithms=RC4, DES, MD5withRSA, \
 
 ###### Google account security
 Sign in and follow this link: 
-<https://myaccount.google.com/lesssecureapps>
+<https://myaccount.google.com/lesssecureapps>  
 Change "Allow less secure apps: OFF" to "Allow less secure apps: ON"
-
