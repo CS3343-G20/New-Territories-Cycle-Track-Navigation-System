@@ -78,7 +78,7 @@ public class CyclingMode implements Mode {
         //input.close();
     }
 
-    public void changeToCyclingMode(int d) {
+    public void modeSwitch(int d) {
         separator();
 
         this.destination = d;

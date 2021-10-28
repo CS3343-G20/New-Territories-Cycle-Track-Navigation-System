@@ -1,1 +1,64 @@
-{"memberInfo":[{"bookmarks":[{"bookmarkIndex":1,"bookmarkType":"climbing trail"},{"bookmarkIndex":3,"bookmarkType":"SmartNavigationSystem.CyclingMode@68f7aae2"}],"password":"new","schedules":[],"email":"liusitong327@gmail.com"},{"bookmarks":[{"bookmarkIndex":1,"bookmarkType":"climbing trail"}],"password":"cindypwd","schedules":[{"scheduleIndex":1,"scheduleDate":"20211022","state":"false","event":"cindyEVENT1"},{"scheduleIndex":2,"scheduleDate":"20211025","state":"false","event":"cindyEVENT2"}],"email":"cindy"},{"bookmarks":[],"password":"pwd","schedules":[],"email":"liusitong327@gmail.com"},{"bookmarks":[{"bookmarkIndex":1,"bookmarkType":"Climbing Mode"},{"bookmarkIndex":2,"bookmarkType":"Climbing Mode"},{"bookmarkIndex":4,"bookmarkType":"Climbing Mode"}],"password":"user","schedules":[{"scheduleIndex":1,"scheduleDate":"2021/10/29","state":"true","event":"Cycling Mode"}],"email":"user"}]}
+{
+    "memberInfo": [
+        {
+            "email": "jeff",
+            "password": "jeffpwd",
+            "schedules": [
+                {
+                    "scheduleIndex": 1,
+                    "event": "jeffEVENT1",
+                    "scheduleDate": "20211022"
+                },
+                {
+                    "scheduleIndex": 2,
+                    "event": "jeffEVENT2",
+                    "scheduleDate": "20211024"
+                }
+            ],
+            "bookmarks": [
+                {
+                    "bookmarkIndex": 1,
+                    "bookmarkType": "climbing trail"
+                },
+                {
+                    "bookmarkIndex": 2,
+                    "bookmarkType": "cycling trail"
+                }
+            ]
+        },
+        {
+            "email": "jack",
+            "password": "jackpwd"
+        },
+        {
+            "email": "donimic",
+            "password": "donimicpwd"
+        },
+        {
+            "email": "cindy",
+            "password": "cindypwd",
+            "schedules": [
+                {
+                    "scheduleIndex": 1,
+                    "event": "cindyEVENT1",
+                    "scheduleDate": "20211022"
+                },
+                {
+                    "scheduleIndex": 2,
+                    "event": "cindyEVENT2",
+                    "scheduleDate": "20211025"
+                }
+            ],
+            "bookmarks": [
+                {
+                    "bookmarkIndex": 1,
+                    "bookmarkType": "climbing trail"
+                }
+            ]
+        },
+        {
+            "email": "natalie",
+            "password": "nataliepwd"
+        }
+    ]
+}
