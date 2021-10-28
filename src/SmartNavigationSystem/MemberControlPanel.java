@@ -1,6 +1,5 @@
 package SmartNavigationSystem;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -12,6 +11,10 @@ public class MemberControlPanel extends ControlPanel {
         controlPanel.put(1, "Reset Password");
         controlPanel.put(2, "Mode");
         controlPanel.put(3, "Check Information");
+        controlPanel.put(4, "Delete schedule");
+        controlPanel.put(5, "Delete bookmark");
+        controlPanel.put(6, "Make schedule");
+        controlPanel.put(7, "Add bookmark");
     }
 
     private static MemberControlPanel instance = new MemberControlPanel();
@@ -34,7 +37,7 @@ public class MemberControlPanel extends ControlPanel {
             this.makeDecision(userInput);
         }
         nav = line.charAt(0) - 48;
-        if (nav < 0 || nav > 5) {
+        if (nav < 0 || nav > 7) {
             System.out.println("Input error! Please try again.");
             this.makeDecision(userInput);
         }
@@ -49,13 +52,49 @@ public class MemberControlPanel extends ControlPanel {
             System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
             String mode = userInput.next();
             this.user.chooseMode(mode);
+            break;
         case 3:
             ((Member) (this.user)).CheckInfo();
+            break;
+        case 4:
+            System.out.println("Please input the index of schedule that you want to delete:");
+            int scheIndex = userInput.nextInt();
+            Schedule.deleteSchedule(((Member) (this.user)), scheIndex);
+            break;
+        case 5:
+            System.out.println("Please input the index of bookmark that you want to delete:");
+            int bookmIndex = userInput.nextInt();
+            Bookmark.deleteBookmark(((Member) (this.user)), bookmIndex);
+            break;
+        case 6:
+            System.out.println("Please input the schedule date: [yyyy/mm/dd]");
+            String date = userInput.next();
+            System.out.println("Please choose a mode that you want to make schedule:");
+            System.out.println("1: Cycling Mode\n2: Climbing Mode");
+            int scheModeNum = userInput.nextInt();
+            if (scheModeNum == 1) {
+                Schedule.makeSchedule("Cycling Mode", date, ((Member) (this.user)));
+            } else if (scheModeNum == 2) {
+                Schedule.makeSchedule("Climbing Mode", date, ((Member) (this.user)));
+            } else {
+                System.out.println("Bookmark mode input error!");
+            }
+            break;
+        case 7:
+            System.out.println("Please choose a mode that you want to add bookmark:");
+            System.out.println("1: Cycling Mode\n2: Climbing Mode");
+            int bookmModeNum = userInput.nextInt();
+            if (bookmModeNum == 1) {
+                Bookmark.addBookmark("Cycling Mode", ((Member) (this.user)));
+            } else if (bookmModeNum == 2) {
+                Bookmark.addBookmark("Climbing Mode", ((Member) (this.user)));
+            } else {
+                System.out.println("Bookmark mode input error!");
+            }
             break;
         }
 
         return nav;
-
     }
 
 }

@@ -3,9 +3,6 @@ package SmartNavigationSystem;
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 public class Main {
 
     public static void main(String[] args) throws IOException {

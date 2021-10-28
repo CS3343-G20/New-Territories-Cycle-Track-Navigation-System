@@ -21,7 +21,7 @@ public class JsonOperation {
         File f = new File("docs/MemberInfo.json");
         Scanner fin = new Scanner(f);
         String content = fin.useDelimiter("\\Z").next();
-
+        fin.close();
         wholeJsonObject = JSONObject.parseObject(content);
     }
 
@@ -127,56 +127,30 @@ public class JsonOperation {
         return getMemberPassword(email).equals(pwd);
     }
 
-    public static void addNewSchedule(Schedule sche) throws IOException {
+    public static void addNewSchedule(Member member, String date, String mode) throws IOException {
 
-        JSONArray arr = getMemberScheArray(sche.getMember().getEmail());
+        JSONArray arr = getMemberScheArray(member.getEmail());
 
-        if (arr != null) {
-            int index = arr.size() + 1;
-            sche.setIndex(index);
-            // Here is to modify schedule event
-            JSONObject obj = JSON.parseObject("{\"scheduleIndex\": " + index + ",\"scheduleDate\": \"" + sche.getDate()
-                    + "\",\"state\": \"" + sche.getState() + "\",\"event\": \"" + sche.getMode() + "\"}");
+        int index = arr.size() + 1;
+        // Here is to modify schedule event
+        JSONObject obj = JSON.parseObject("{\"scheduleIndex\": " + index + ",\"scheduleDate\": \"" + date
+                + "\",\"state\": \"" + "true" + "\",\"event\": \"" + mode + "\"}");
 
-            arr.add(obj);
-        } else {
-            JSONObject memberInfo = getMemberInfo(sche.getMember().getEmail());
-            memberInfo.put("schedules", "[]");
-            JSONArray memberInfoArray = memberInfo.getJSONArray("schedules");
-            // Here is to modify schedule event
-            JSONObject obj = JSON.parseObject("{\"scheduleIndex\": " + 1 + ",\"scheduleDate\": \"" + sche.getDate()
-                    + "\",\"state\": \"" + sche.getState() + "\",\"event\": \"" + sche.getMode() + "\"}");
-            memberInfoArray.add(obj);
-
-        }
+        arr.add(obj);
 
         updateJsonFile();
 
     }
 
-    public static void addNewBookMark(Bookmark bookm) throws IOException {
+    public static void addNewBookMark(String mode, Member member) throws IOException {
 
-        JSONArray arr = getMemberBookmArray(bookm.getMember().getEmail());
+        JSONArray arr = getMemberBookmArray(member.getEmail());
 
-        if (arr != null) {
-            int index = arr.size() + 1;
-            bookm.setIndex(index);
+        int index = arr.size() + 1;
 
-            // Here is to add more bookmark info
-            JSONObject obj = JSON
-                    .parseObject("{\"bookmarkIndex\": " + index + ",\"bookmarkType\": \"" + bookm.getMode() + "\"}");
-            arr.add(obj);
-        } else {
-            JSONObject memberInfo = getMemberInfo(bookm.getMember().getEmail());
-            memberInfo.put("bookmarks", "[]");
-            JSONArray memberInfoArray = memberInfo.getJSONArray("bookmarks");
-            // Here is to modify schedule event
-            JSONObject obj = JSON
-                    .parseObject("{\"bookmarkIndex\": " + 1 + ",\"bookmarkType\": \"" + bookm.getMode() + "\"}");
-            arr.add(obj);
-            memberInfoArray.add(obj);
-
-        }
+        // Here is to add more bookmark info
+        JSONObject obj = JSON.parseObject("{\"bookmarkIndex\": " + index + ",\"bookmarkType\": \"" + mode + "\"}");
+        arr.add(obj);
 
         updateJsonFile();
 
@@ -186,14 +160,23 @@ public class JsonOperation {
 
         JSONArray memberScheduleArray = getMemberScheArray(member.getEmail());
 
+        boolean flag = false;
+
         for (int i = 0; i < memberScheduleArray.size(); i++) {
             JSONObject obj = memberScheduleArray.getJSONObject(i);
             if (obj.getIntValue("scheduleIndex") == index) {
                 memberScheduleArray.remove(obj);
+                flag = true;
+                break;
             }
         }
 
-        updateJsonFile();
+        if (flag) {
+            updateJsonFile();
+            System.out.println("Delete successfully!");
+        } else {
+            System.out.println("Schedule index input error!");
+        }
 
     }
 
@@ -201,14 +184,23 @@ public class JsonOperation {
 
         JSONArray memberBookmarkArray = getMemberBookmArray(member.getEmail());
 
+        boolean flag = false;
+
         for (int i = 0; i < memberBookmarkArray.size(); i++) {
             JSONObject obj = memberBookmarkArray.getJSONObject(i);
             if (obj.getIntValue("bookmarkIndex") == index) {
                 memberBookmarkArray.remove(obj);
+                flag = true;
+                break;
             }
         }
 
-        updateJsonFile();
+        if (flag) {
+            updateJsonFile();
+            System.out.println("Delete successfully!");
+        } else {
+            System.out.println("Bookmark index input error!");
+        }
 
     }
 
@@ -235,7 +227,7 @@ public class JsonOperation {
         JSONArray memberScheArray = getMemberScheArray(email);
         int scheNum = memberScheArray.size();
         if (scheNum == 0) {
-            System.out.println();
+            System.out.print("You haven't make schedules.\n");
         } else {
             System.out.println("You have " + scheNum + " schedules:\n");
             for (int i = 0; i < scheNum; i++) {
@@ -248,14 +240,14 @@ public class JsonOperation {
 
         JSONArray memberBookmArray = getMemberBookmArray(email);
         int bookmNum = memberBookmArray.size();
-        System.out.println("You have " + bookmNum + " bookmarks:\n");
         if (bookmNum == 0) {
             System.out.print("You haven't add bookmarks.\n");
         } else {
+            System.out.println("You have " + bookmNum + " bookmarks:\n");
             for (int i = 0; i < bookmNum; i++) {
                 JSONObject memberBookm = memberBookmArray.getJSONObject(i);
                 System.out.println("Bookmark index: " + memberBookm.getIntValue("bookmarkIndex") + "\nType: "
-                        + memberBookm.getString("bookmarkType\n"));
+                        + memberBookm.getString("bookmarkType"));
                 System.out.println();
             }
         }
@@ -268,7 +260,7 @@ public class JsonOperation {
         Scanner fin = new Scanner(f);
         String content = fin.useDelimiter("\\Z").next();
         JSONObject adminJsonObject = JSONObject.parseObject(content);
-
+        fin.close();
         return adminJsonObject.getString("token");
 
     }

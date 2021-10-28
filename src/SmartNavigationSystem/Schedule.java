@@ -1,6 +1,5 @@
 package SmartNavigationSystem;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.alibaba.fastjson.JSONArray;
@@ -12,19 +11,12 @@ public class Schedule {
     private String date;
     private boolean state;
     private Mode mode;
-    private int index;
 
     public Schedule(Member member, String date, Mode mode) {
         this.member = member;
         this.date = date; // format: yyyy/mm/dd
         this.state = true; // wait for sending email
         this.mode = mode;
-        this.index = 0;
-
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     public Member getMember() {
@@ -43,8 +35,8 @@ public class Schedule {
         return this.mode;
     }
 
-    public static void makeSchedule(Member member, String date, Mode mode) throws IOException {
-        JsonOperation.addNewSchedule(new Schedule(member, date, mode));
+    public static void makeSchedule(String mode, String date, Member member) throws IOException {
+        JsonOperation.addNewSchedule(member, date, mode);
     }
 
     public static void deleteSchedule(Member member, int index) throws IOException {

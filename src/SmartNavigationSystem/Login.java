@@ -5,8 +5,6 @@ import java.util.*;
 
 public class Login {
     private String inpEmail, inpPwd;
-    private int tryTimes = 0;
-    private ControlPanel memberCP = MemberControlPanel.getInstance();
     private Register register = new Register();
 
     public boolean login() throws IOException {
