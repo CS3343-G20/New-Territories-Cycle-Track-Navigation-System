@@ -11,7 +11,7 @@ public class CyclingMode implements Mode {
 
     private int departure;
     private int destination;
-    private String priority;
+    private String priority = priorityList.get(0);
     private ArrayList<Integer> attractions = new ArrayList<> ();
     private ArrayList<Integer> route = new ArrayList<Integer> ();
     private boolean forClimbing = false;
@@ -90,11 +90,11 @@ public class CyclingMode implements Mode {
         separator();
 
         vManager.listAllVertices();
+        System.out.println("Please input a departure ID:");
 
         boolean isSet = false;
         while (!isSet) {
             try {
-                System.out.println("Please input a departure ID:");
                 this.departure = vManager.checkVertexIdValidity(Integer.parseInt(input.nextLine()));
                 isSet = true;
             }
@@ -112,12 +112,12 @@ public class CyclingMode implements Mode {
 
         if (!forClimbing) {
             vManager.listAllVertices();
+            System.out.println("Please input a destination ID:");
 
             boolean isSet = false;
             while (!isSet) {
                 try {
-                    System.out.println("Please input a destination ID:");
-                    this.departure = vManager.checkVertexIdValidity(Integer.parseInt(input.nextLine()));
+                    this.destination = vManager.checkVertexIdValidity(Integer.parseInt(input.nextLine()));
                     isSet = true;
                 }
                 catch (NumberFormatException e) {
@@ -143,6 +143,7 @@ public class CyclingMode implements Mode {
                     else if (choice != 1) {
                         throw new ExInvalidCommand();
                     }
+                    isChosen = true;
                 }
                 catch (NumberFormatException e) {
                     System.out.println(new ExWrongNumberFormat().getMessage());
@@ -157,49 +158,70 @@ public class CyclingMode implements Mode {
         separator();
 
         System.out.println("Do you want to add attractions?[Y/N]");
-        try {
-            if(input.nextLine().equals("Y")){
-                vManager.listAttractions();
-
-                boolean end = false;
-                while (!end) {
+        boolean end = false;
+        while (!end) {
+        	try {
+        		String in = input.nextLine();
+                if(in.equals("Y")){
+                    vManager.listAttractions();
                     System.out.println("Please choose attractions:");
-                    String attractionIds = input.nextLine();
-    
-                    attractions.clear();
-                    String[] attractionIdParts = attractionIds.split(" ");
-                     
-                    for(String attractionId:attractionIdParts) {
-                        int id = Integer.parseInt(attractionId);
-                        attractions.add(vManager.checkAttractionIdValidity(id));   
+                    
+                    boolean isSet = false;
+                    while (!isSet) {
+                    	try {
+                            String attractionIds = input.nextLine();
+            
+                            String[] attractionIdParts = attractionIds.split(" ");
+                            attractions.clear();
+                            for(String attractionId:attractionIdParts) {
+                                int id = Integer.parseInt(attractionId);
+                                attractions.add(vManager.checkAttractionIdValidity(id));   
+                            }
+                            isSet = true;
+                    	}
+                    	catch (NumberFormatException e) {
+                            System.out.println(new ExWrongNumberFormat().getMessage());
+                        }
+                        catch (ExInvalidID e) {
+                            System.out.println(e.getMessage());
+                        }	
                     }
                     end = true;
                 }
+                else if (in.equals("N")) {
+                    attractions.clear();
+                    end = true;
+                }
+                else {
+                	throw new ExInvalidCommand();
+                }
             }
-            else if (!input.nextLine().equals("N")) {
-                throw new ExInvalidCommand();
+            catch (ExInvalidCommand e) {
+                System.out.println(e.getMessage());
             }
-        }
-        catch (ExInvalidCommand e) {
-            System.out.println(e.getMessage());
-        }
-        catch (NumberFormatException e) {
-            System.out.println(new ExWrongNumberFormat().getMessage());
-        }
-        catch (ExInvalidID e) {
-            System.out.println(e.getMessage());
         }
     }
 
     public void setPriority(){
         separator();
-
-        String p = priorityList.get(0);
+        
         System.out.println("Default priority setting is shortest path, do you want to set the priority to shortest time?[Y/N]");
-        if(input.nextLine().equals("Y")){
-            p = priorityList.get(1);
+        boolean isSet = false;
+        while (!isSet) {
+        	try {
+        		String in = input.nextLine();
+        		if (in.equals("Y")){
+                	this.priority = priorityList.get(1);
+                }
+        		else if (!in.equals("N")) {
+        			throw new ExInvalidCommand();
+        		}
+        		isSet = true;
+        	}
+        	catch (ExInvalidCommand e) {
+                System.out.println(e.getMessage());
+            } 
         }
-        this.priority = p;
     }
 
     public void listInfo() {
