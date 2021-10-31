@@ -70,7 +70,7 @@ public class Graph implements GraphUtility {
         return map;
     }
    
-    public void dijkstra(String p, int source, int dest) {
+    public void dijkstra(String p, int source) {
         priority = p;
         this.src = source;
         this.dist = new int[V]; 

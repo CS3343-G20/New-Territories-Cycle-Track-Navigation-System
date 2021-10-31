@@ -247,7 +247,7 @@ public class CyclingMode implements Mode {
         for (int i=0; i<places.size()-1; i++) {
             int s = places.get(i).intValue();
             int d = places.get(i+1).intValue();
-            map.dijkstra(priority, s, d);
+            map.dijkstra(priority, s);
             System.out.println("From " + vManager.getVertexNameByID(s) + " to " + vManager.getVertexNameByID(d) + ":");
             map.dfs(s, d, new ArrayList<Integer>());
             totalCost += map.getDistance(d);
