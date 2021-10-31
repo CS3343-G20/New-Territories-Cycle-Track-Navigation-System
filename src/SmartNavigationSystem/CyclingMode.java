@@ -16,10 +16,10 @@ public class CyclingMode implements Mode {
     private ArrayList<Integer> route = new ArrayList<Integer> ();
     private boolean forClimbing = false;
     private Scanner input = null;
-    private Graph map;
+    private GraphUtility map;
     private VerticesManager vManager;
     
-    public CyclingMode(Graph map, VerticesManager vManager, Scanner in) {
+    public CyclingMode(GraphUtility map, VerticesManager vManager, Scanner in) {
     	this.map = map;
     	this.vManager = vManager;
     	this.input = in;
@@ -101,7 +101,7 @@ public class CyclingMode implements Mode {
             catch (NumberFormatException e) {
                 System.out.println(new ExWrongNumberFormat().getMessage());
             }
-            catch (ExInvalidID e) {
+            catch (ExInvalidIndex e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -123,7 +123,7 @@ public class CyclingMode implements Mode {
                 catch (NumberFormatException e) {
                     System.out.println(new ExWrongNumberFormat().getMessage());
                 }
-                catch (ExInvalidID e) {
+                catch (ExInvalidIndex e) {
                     System.out.println(e.getMessage());
                 }
             }
@@ -182,7 +182,7 @@ public class CyclingMode implements Mode {
                     	catch (NumberFormatException e) {
                             System.out.println(new ExWrongNumberFormat().getMessage());
                         }
-                        catch (ExInvalidID e) {
+                        catch (ExInvalidIndex e) {
                             System.out.println(e.getMessage());
                         }	
                     }
@@ -264,10 +264,10 @@ public class CyclingMode implements Mode {
                         System.out.println(new ExWrongNumberFormat().getMessage());
                     }
                     catch (IndexOutOfBoundsException exception){
-                        System.out.println(new ExInvalidCommand().getMessage());
+                        System.out.println(new ExInvalidIndex().getMessage());
                     }
                     catch (InputMismatchException exception){
-                        System.out.println(new ExInvalidCommand().getMessage());
+                        System.out.println(new ExInvalidIndex().getMessage());
                     }
                 }
             }
