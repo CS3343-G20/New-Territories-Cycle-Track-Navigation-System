@@ -4,20 +4,14 @@ import java.io.IOException;
 
 public class Bookmark {
     
-    private Mode mode;
     private Member member;
 
-    public Bookmark(Mode mode, Member member) {
-        this.mode = mode;
+    public Bookmark(Member member) {
         this.member = member;
     }
 
     public Member getMember() {
         return this.member;
-    }
-
-    public Mode getMode() {
-        return this.mode;
     }
 
     public static void addBookmark(String mode, Member member) throws IOException {

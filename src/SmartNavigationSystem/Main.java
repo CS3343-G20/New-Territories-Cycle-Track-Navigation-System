@@ -3,11 +3,18 @@ package SmartNavigationSystem;
 import java.io.IOException;
 import java.util.Scanner;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
         new JsonOperation();
+
+        String email = "cs3343g20system@gmail.com";
+        JSONObject obj = JsonOperation.getMemberInfo(email);
+        System.out.println(obj);
+
         // JSONObject var1 = JsonOperation.getWholeJsonObject();
         // String var2 = JsonOperation.getWholeJsonObjectString();
         // JSONArray var3 = JsonOperation.getWholeMemberInfoArray();
@@ -40,7 +47,7 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
-        launch(in, cp);
+        //launch(in, cp);
         in.close();
 
         // JsonOperation.updateJsonFile();
