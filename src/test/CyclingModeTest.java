@@ -433,7 +433,7 @@ public class CyclingModeTest {
 	@Test //no attractions, more than one route, correct input
 	public void routePlanning_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		class stubGraph implements GraphUtility {
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 3;}
 			public int getRoutesNumber() {return 4;}
@@ -481,7 +481,7 @@ public class CyclingModeTest {
 	@Test //no attractions, only one route, no input
 	public void routePlanning_case2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		class stubGraph implements GraphUtility {
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -526,7 +526,7 @@ public class CyclingModeTest {
 	@Test //no attractions, wrong input (invalid format)
 	public void routePlanning_case3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		class stubGraph implements GraphUtility {
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 3;}
 			public int getRoutesNumber() {return 4;}
@@ -587,7 +587,7 @@ public class CyclingModeTest {
 				ArrayList<Integer> r4 = new ArrayList<Integer>();
 				routes.add(r4);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 3;}
 			public int getRoutesNumber() {return 4;}
@@ -647,7 +647,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -720,7 +720,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -774,7 +774,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -828,7 +828,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -882,7 +882,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -936,7 +936,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -990,7 +990,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -1044,7 +1044,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}
@@ -1098,7 +1098,7 @@ public class CyclingModeTest {
 				r3.add(5);r3.add(6);
 				routes.add(r3);
 			}
-			public void dijkstra(String priority, int s, int d) {}
+			public void dijkstra(String priority, int s) {}
 			public void dfs(int s, int d, ArrayList<Integer> temp) {}
 			public int getDistance(int d) {return 1;}
 			public int getRoutesNumber() {return 1;}

@@ -186,7 +186,7 @@ public class VerticesTest {
 
     
     @Test //vertex id is valid
-    public void checkVertexIdValidity_TestCase1() throws ExInvalidID {  
+    public void checkVertexIdValidity_TestCase1() throws ExInvalidIndex {  
     	Vertices vertices = Vertices.getInstance();
     	int id = 4;
     	int result = vertices.checkVertexIdValidity(id);
@@ -195,19 +195,19 @@ public class VerticesTest {
     
   
     @Test//vertex id is invalid (not contain id)
-    public void checkVertexIdValidity_TestCase2() throws ExInvalidID {  
+    public void checkVertexIdValidity_TestCase2() throws ExInvalidIndex {  
     	Vertices vertices = Vertices.getInstance();
-    	ExInvalidID thrown = assertThrows(
-    			ExInvalidID.class,
+    	ExInvalidIndex thrown = assertThrows(
+				ExInvalidIndex.class,
     			()->vertices.checkVertexIdValidity(20)
     	);
     	
     	//assertion on the thrown exception
-    	assertEquals("The input should be chosen from the listed IDs. Please try again:",thrown.getMessage());
+    	assertEquals("The input should be chosen from the listed indices. Please try again:",thrown.getMessage());
 	}
     
     @Test //attraction id is valid
-    public void checkAttractionIdValidity_TestCase1() throws ExInvalidID {  
+    public void checkAttractionIdValidity_TestCase1() throws ExInvalidIndex {  
     	Vertices vertices = Vertices.getInstance();
     	int id = 0;
     	int result = vertices.checkAttractionIdValidity(id);
@@ -215,27 +215,27 @@ public class VerticesTest {
 	}
     
     @Test // attraction id is not valid (contain id, but not a attraction)
-    public void checkAttractionIdValidity_TestCase2() throws ExInvalidID {  
+    public void checkAttractionIdValidity_TestCase2() throws ExInvalidIndex {  
     	Vertices vertices = Vertices.getInstance();
-    	ExInvalidID thrown = assertThrows(
-    			ExInvalidID.class,
+    	ExInvalidIndex thrown = assertThrows(
+				ExInvalidIndex.class,
     			()->vertices.checkAttractionIdValidity(3)
     	);
     	
     	//assertion on the thrown exception
-    	assertEquals("The input should be chosen from the listed IDs. Please try again:",thrown.getMessage());
+    	assertEquals("The input should be chosen from the listed indices. Please try again:",thrown.getMessage());
 	}
     
     @Test // attraction id is not valid (not contain id)
-    public void checkAttractionIdValidity_TestCase3() throws ExInvalidID {  
+    public void checkAttractionIdValidity_TestCase3() throws ExInvalidIndex {  
     	Vertices vertices = Vertices.getInstance();
-    	ExInvalidID thrown = assertThrows(
-    			ExInvalidID.class,
+    	ExInvalidIndex thrown = assertThrows(
+				ExInvalidIndex.class,
     			()->vertices.checkAttractionIdValidity(20)
     	);
     	
     	//assertion on the thrown exception
-    	assertEquals("The input should be chosen from the listed IDs. Please try again:",thrown.getMessage());
+    	assertEquals("The input should be chosen from the listed indices. Please try again:",thrown.getMessage());
 	}
     
     
