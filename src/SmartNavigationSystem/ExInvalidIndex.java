@@ -1,10 +1,10 @@
 package SmartNavigationSystem;
 
-public class ExInvalidID extends Exception {
+public class ExInvalidIndex extends Exception {
 
     private static final long serialVersionUID = 1L;
 
-    public ExInvalidID() {
+    public ExInvalidIndex() {
         super("The input should be chosen from the listed IDs. Please try again:");
     }
 }
