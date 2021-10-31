@@ -70,7 +70,7 @@ public class Graph {
         return map;
     }
    
-    public void dijkstra(String p, int source, int dest) {
+    public void dijkstra(String p, int source) {
         priority = p;
         this.src = source;
         this.dist = new int[V]; 
@@ -86,7 +86,7 @@ public class Graph {
         pqueue.add(new Path(src, src, 0, 0)); 
         this.dist[src] = 0;
 
-        while (pqueue.peek().to != dest) { 
+        while (!pqueue.isEmpty()) { 
             int u = pqueue.remove().to;
             if (!visited.contains(u)) {
                 visited.add(u);
