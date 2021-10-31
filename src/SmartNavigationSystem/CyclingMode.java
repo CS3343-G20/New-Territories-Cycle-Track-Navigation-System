@@ -157,7 +157,7 @@ public class CyclingMode implements Mode {
     public void addAttractions() {
         separator();
 
-        System.out.println("Do you want to add attractions?[Y/N]");
+        System.out.println("Do you want to set attractions?[Y/N]");
         boolean end = false;
         while (!end) {
         	try {

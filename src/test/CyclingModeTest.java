@@ -854,5 +854,275 @@ public class CyclingModeTest {
 		
 		assertEquals(expected, route.get(mode));
 	}
+	
+	@Test // 3 change attractions
+    public void execute_case4() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
+		class stubVertices implements VerticesManager {
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public void listRoute(ArrayList<Integer> route) {}
+			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
+		}
+		class stubGraph implements GraphUtility {
+			private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+			private int count = -1;
+			
+			stubGraph() {
+				ArrayList<Integer> r1 = new ArrayList<Integer>();
+				r1.add(0);r1.add(2);
+				routes.add(r1);
+				ArrayList<Integer> r2 = new ArrayList<Integer>();
+				r2.add(2);r2.add(5);
+				routes.add(r2);
+				ArrayList<Integer> r3 = new ArrayList<Integer>();
+				r3.add(5);r3.add(6);
+				routes.add(r3);
+			}
+			public void dijkstra(String priority, int s, int d) {}
+			public void dfs(int s, int d, ArrayList<Integer> temp) {}
+			public int getDistance(int d) {return 1;}
+			public int getRoutesNumber() {return 1;}
+			public ArrayList<Integer> getRoute(int i) {
+				count++;
+				return routes.get(count);
+			}
+			public void clearRoutes() {}
+		}
+		
+		String input = "0\n6\nY\n2\nN\n3\nY\n2 5\n0\n";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		
+		CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in));
+		
+		mode.execute();
+
+		ArrayList<Integer> expected = new ArrayList<Integer>();
+		expected.add(0);expected.add(2);expected.add(5);expected.add(6);
+
+		Field route = CyclingMode.class.getDeclaredField("route");
+		route.setAccessible(true);
+		
+		assertEquals(expected, route.get(mode));
+	}
+	
+	@Test // 4 change priority
+    public void execute_case5() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
+		class stubVertices implements VerticesManager {
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public void listRoute(ArrayList<Integer> route) {}
+			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
+		}
+		class stubGraph implements GraphUtility {
+			private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+			private int count = -1;
+			
+			stubGraph() {
+				ArrayList<Integer> r1 = new ArrayList<Integer>();
+				r1.add(0);r1.add(2);
+				routes.add(r1);
+				ArrayList<Integer> r2 = new ArrayList<Integer>();
+				r2.add(2);r2.add(5);
+				routes.add(r2);
+				ArrayList<Integer> r3 = new ArrayList<Integer>();
+				r3.add(5);r3.add(6);
+				routes.add(r3);
+			}
+			public void dijkstra(String priority, int s, int d) {}
+			public void dfs(int s, int d, ArrayList<Integer> temp) {}
+			public int getDistance(int d) {return 1;}
+			public int getRoutesNumber() {return 1;}
+			public ArrayList<Integer> getRoute(int i) {
+				count++;
+				return routes.get(count);
+			}
+			public void clearRoutes() {}
+		}
+		
+		String input = "0\n6\nY\n2 5\nN\n4\nY\n0\n";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		
+		CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in));
+		
+		mode.execute();
+
+		ArrayList<Integer> expected = new ArrayList<Integer>();
+		expected.add(0);expected.add(2);expected.add(5);expected.add(6);
+
+		Field route = CyclingMode.class.getDeclaredField("route");
+		route.setAccessible(true);
+		
+		assertEquals(expected, route.get(mode));
+	}
+	
+	@Test // invalid format
+    public void execute_case6() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
+		class stubVertices implements VerticesManager {
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public void listRoute(ArrayList<Integer> route) {}
+			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
+		}
+		class stubGraph implements GraphUtility {
+			private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+			private int count = -1;
+			
+			stubGraph() {
+				ArrayList<Integer> r1 = new ArrayList<Integer>();
+				r1.add(0);r1.add(2);
+				routes.add(r1);
+				ArrayList<Integer> r2 = new ArrayList<Integer>();
+				r2.add(2);r2.add(5);
+				routes.add(r2);
+				ArrayList<Integer> r3 = new ArrayList<Integer>();
+				r3.add(5);r3.add(6);
+				routes.add(r3);
+			}
+			public void dijkstra(String priority, int s, int d) {}
+			public void dfs(int s, int d, ArrayList<Integer> temp) {}
+			public int getDistance(int d) {return 1;}
+			public int getRoutesNumber() {return 1;}
+			public ArrayList<Integer> getRoute(int i) {
+				count++;
+				return routes.get(count);
+			}
+			public void clearRoutes() {}
+		}
+		
+		String input = "0\n6\nY\n2 5\nN\na\n0\n";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		
+		CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in));
+		
+		mode.execute();
+
+		ArrayList<Integer> expected = new ArrayList<Integer>();
+		expected.add(0);expected.add(2);expected.add(5);expected.add(6);
+
+		Field route = CyclingMode.class.getDeclaredField("route");
+		route.setAccessible(true);
+		
+		assertEquals(expected, route.get(mode));
+	}
+	
+	@Test // invalid command
+    public void execute_case7() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
+		class stubVertices implements VerticesManager {
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public void listRoute(ArrayList<Integer> route) {}
+			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
+		}
+		class stubGraph implements GraphUtility {
+			private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+			private int count = -1;
+			
+			stubGraph() {
+				ArrayList<Integer> r1 = new ArrayList<Integer>();
+				r1.add(0);r1.add(2);
+				routes.add(r1);
+				ArrayList<Integer> r2 = new ArrayList<Integer>();
+				r2.add(2);r2.add(5);
+				routes.add(r2);
+				ArrayList<Integer> r3 = new ArrayList<Integer>();
+				r3.add(5);r3.add(6);
+				routes.add(r3);
+			}
+			public void dijkstra(String priority, int s, int d) {}
+			public void dfs(int s, int d, ArrayList<Integer> temp) {}
+			public int getDistance(int d) {return 1;}
+			public int getRoutesNumber() {return 1;}
+			public ArrayList<Integer> getRoute(int i) {
+				count++;
+				return routes.get(count);
+			}
+			public void clearRoutes() {}
+		}
+		
+		String input = "0\n6\nY\n2 5\nN\n5\n0\n";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		
+		CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in));
+		
+		mode.execute();
+
+		ArrayList<Integer> expected = new ArrayList<Integer>();
+		expected.add(0);expected.add(2);expected.add(5);expected.add(6);
+
+		Field route = CyclingMode.class.getDeclaredField("route");
+		route.setAccessible(true);
+		
+		assertEquals(expected, route.get(mode));
+	}
+	
+	@Test
+    public void modeSwitch_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
+		class stubVertices implements VerticesManager {
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public void listRoute(ArrayList<Integer> route) {}
+			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
+		}
+		class stubGraph implements GraphUtility {
+			private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+			private int count = -1;
+			
+			stubGraph() {
+				ArrayList<Integer> r1 = new ArrayList<Integer>();
+				r1.add(0);r1.add(2);
+				routes.add(r1);
+				ArrayList<Integer> r2 = new ArrayList<Integer>();
+				r2.add(2);r2.add(5);
+				routes.add(r2);
+				ArrayList<Integer> r3 = new ArrayList<Integer>();
+				r3.add(5);r3.add(6);
+				routes.add(r3);
+			}
+			public void dijkstra(String priority, int s, int d) {}
+			public void dfs(int s, int d, ArrayList<Integer> temp) {}
+			public int getDistance(int d) {return 1;}
+			public int getRoutesNumber() {return 1;}
+			public ArrayList<Integer> getRoute(int i) {
+				count++;
+				return routes.get(count);
+			}
+			public void clearRoutes() {}
+		}
+		
+		String input = "0\n1\nY\n2 5\nN\n0\n";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		
+		CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in));
+		
+		mode.modeSwitch(6);
+
+		ArrayList<Integer> expected = new ArrayList<Integer>();
+		expected.add(0);expected.add(2);expected.add(5);expected.add(6);
+
+		Field route = CyclingMode.class.getDeclaredField("route");
+		route.setAccessible(true);
+		
+		assertEquals(expected, route.get(mode));
+	}
 
 }
