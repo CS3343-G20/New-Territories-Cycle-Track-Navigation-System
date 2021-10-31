@@ -2,7 +2,7 @@ package SmartNavigationSystem;
 
 import java.util.*;
 
-public class Graph {
+public class Graph implements GraphUtility {
 
     private static String priority = "SP";
     private static List<String> priorityList = Arrays.asList(new String[]{"SP","ST"});
@@ -76,7 +76,7 @@ public class Graph {
         this.dist = new int[V]; 
         this.visited = new HashSet<Integer>();
         this.pqueue = new PriorityQueue<Path>(V, new Path());
-        this.routes=new ArrayList<ArrayList<Integer>> ();
+        this.routes = new ArrayList<ArrayList<Integer>> ();
 
         for (int i = 0; i < V; i++) {
             this.dist[i] = Integer.MAX_VALUE;
@@ -86,7 +86,7 @@ public class Graph {
         pqueue.add(new Path(src, src, 0, 0)); 
         this.dist[src] = 0;
 
-        while (pqueue.peek().to != dest) { 
+        while (!pqueue.isEmpty()) { 
             int u = pqueue.remove().to;
             if (!visited.contains(u)) {
                 visited.add(u);
