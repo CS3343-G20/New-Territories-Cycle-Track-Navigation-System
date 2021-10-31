@@ -6,6 +6,7 @@
 	</projects>
 	<buildSpec>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -14,6 +15,10 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+=======
+	</buildSpec>
+	<natures>
+>>>>>>> Stashed changes
 =======
 	</buildSpec>
 	<natures>
