@@ -14,7 +14,7 @@ public class MemberControlPanel extends ControlPanel {
         controlPanel.put(4, "Delete schedule");
         controlPanel.put(5, "Delete bookmark");
         controlPanel.put(6, "Make schedule");
-        controlPanel.put(7, "Add bookmark");
+        //controlPanel.put(7, "Add bookmark");
     }
 
     private static MemberControlPanel instance = new MemberControlPanel();
@@ -80,6 +80,7 @@ public class MemberControlPanel extends ControlPanel {
                 System.out.println("Bookmark mode input error!");
             }
             break;
+        /*
         case 7:
             System.out.println("Please choose a mode that you want to add bookmark:");
             System.out.println("1: Cycling Mode\n2: Climbing Mode");
@@ -92,6 +93,7 @@ public class MemberControlPanel extends ControlPanel {
                 System.out.println("Bookmark mode input error!");
             }
             break;
+        */
         }
 
         return nav;

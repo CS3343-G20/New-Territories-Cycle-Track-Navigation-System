@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.*;
 
 public class Login {
-    private String inpEmail, inpPwd;
-    private Register register = new Register();
+    protected String inpEmail, inpPwd;
+    protected Register register = new Register();
 
     public boolean login() throws IOException {
         Scanner userInput = new Scanner(System.in);

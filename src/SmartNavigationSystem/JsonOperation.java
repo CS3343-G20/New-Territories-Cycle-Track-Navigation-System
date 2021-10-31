@@ -15,7 +15,6 @@ import com.alibaba.fastjson.JSONObject;
 public class JsonOperation {
 
     private static JSONObject wholeJsonObject;
-    // private static String wholeJsonObjectString;
 
     public JsonOperation() throws FileNotFoundException {
         File f = new File("docs/MemberInfo.json");

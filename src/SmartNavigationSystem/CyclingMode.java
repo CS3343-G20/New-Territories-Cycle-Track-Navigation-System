@@ -1,5 +1,6 @@
 package SmartNavigationSystem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -262,6 +263,21 @@ public class CyclingMode implements Mode {
     }
 
     // make bookmark
+    public void makeBookmark(Member member) throws IOException {
+
+        Scanner userInput = new Scanner(System.in);
+        System.out.println("Please choose a mode that you want to add bookmark:");
+        System.out.println("1: Cycling Mode\n2: Climbing Mode");
+        int bookmModeNum = userInput.nextInt();
+        if (bookmModeNum == 1) {
+            Bookmark.addBookmark("Cycling Mode", member);
+        } else if (bookmModeNum == 2) {
+            Bookmark.addBookmark("Climbing Mode", member);
+        } else {
+            System.out.println("Bookmark mode input error!");
+        }
+
+    }
 
     // just for readability
     public void separator() {

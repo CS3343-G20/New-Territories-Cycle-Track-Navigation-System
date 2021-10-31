@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Member extends User{
 
-    private Login login;
+    protected Login login;
 
     public Member() {
         this.login = null;
