@@ -266,9 +266,6 @@ public class CyclingMode implements Mode {
                     catch (IndexOutOfBoundsException exception){
                         System.out.println(new ExInvalidIndex().getMessage());
                     }
-                    catch (InputMismatchException exception){
-                        System.out.println(new ExInvalidIndex().getMessage());
-                    }
                 }
             }
             else {
