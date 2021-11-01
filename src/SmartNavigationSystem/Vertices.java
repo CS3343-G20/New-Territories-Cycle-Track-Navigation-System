@@ -3,6 +3,8 @@ package SmartNavigationSystem;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import javax.swing.text.html.HTMLDocument.RunElement;
+
 public class Vertices implements VerticesManager, VerticesFinder {
 
     private TreeMap<Integer, Vertex> allVertices= new TreeMap<>();
@@ -56,16 +58,23 @@ public class Vertices implements VerticesManager, VerticesFinder {
     }
 
     @Override
-    public void listRoute(ArrayList<Integer> route) {
+    public String printRoute(ArrayList<Integer> route) {
+        String res = "";
         for(int i=0; i<route.size(); i++) {
-            System.out.print(getVertexNameByID(route.get(i)));
+            res += getVertexNameByID(route.get(i));
             if (i < route.size()-1) {
-                System.out.print(" -> ");
+                res += " -> ";
             }
             else {
-                System.out.println();
+                res += "\n";
             }
         }
+        return res;
+    }
+
+    @Override
+    public void listRoute(ArrayList<Integer> route) {
+        System.out.println(printRoute(route));
     }
 
     @Override

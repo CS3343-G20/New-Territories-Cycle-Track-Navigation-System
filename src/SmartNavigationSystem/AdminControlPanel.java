@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class AdminControlPanel extends ControlPanel {
 
     private static AdminControlPanel instance = new AdminControlPanel();
+    private User user;
 
     private AdminControlPanel() {
         this.user = new Admin();
