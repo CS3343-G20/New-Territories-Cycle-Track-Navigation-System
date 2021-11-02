@@ -289,16 +289,18 @@ public class JsonOperation {
 
         JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
         System.out.println("Schedule list:");
+        System.out.printf("%-30s%-18s%-15s%-9s%s\n", "Email", "ScheduleIndex", "Date", "Sent", "Event");
         for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
             JSONObject membObject = wholeMemberInfoArray.getJSONObject(i);
             JSONArray scheArr = membObject.getJSONArray("schedules");
-            System.out.println("Email\t\tScheduleIndex\tDate\tSent\tEvent");
             for (int j = 0; j < scheArr.size(); j++) {
-                System.out.print(membObject.getString("email") + "\t");
+                String email = membObject.getString("email");
                 JSONObject scheObj = scheArr.getJSONObject(j);
-                System.out.print(scheObj.getIntValue("scheduleIndex") + "\t" + scheObj.getString("scheduleDate") + "\t"
-                        + scheObj.getBoolean("state") + "\t" + scheObj.getString("event"));
-                System.out.println();
+                int scheduleIndex = scheObj.getIntValue("scheduleIndex");
+                String scheduleDate = scheObj.getString("scheduleDate");
+                boolean state = scheObj.getBoolean("state");
+                String event = scheObj.getString("event");
+                System.out.printf("%-30s%-18s%-15s%-9s%s\n", email, scheduleIndex, scheduleDate, state, event);
             }
         }
 
@@ -308,15 +310,16 @@ public class JsonOperation {
 
         JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
         System.out.println("Bookmark list:");
+        System.out.printf("%-30s%-18s%s\n", "Email", "BookmarkIndex", "Type");
         for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
             JSONObject membObject = wholeMemberInfoArray.getJSONObject(i);
             JSONArray bookmArr = membObject.getJSONArray("bookmarks");
-            System.out.println("Email\t\tBookmarkIndex\tType");
             for (int j = 0; j < bookmArr.size(); j++) {
-                System.out.print(membObject.getString("email") + "\t");
+                String email = membObject.getString("email");
                 JSONObject scheObj = bookmArr.getJSONObject(j);
-                System.out.print(scheObj.getIntValue("bookmarkIndex") + "\t" + scheObj.getString("bookmarkType"));
-                System.out.println();
+                int bookmarkIndex = scheObj.getIntValue("bookmarkIndex");
+                String bookmarkType = scheObj.getString("bookmarkType");
+                System.out.printf("%-30s%-18s%s", email, bookmarkIndex, bookmarkType);
             }
         }
 
