@@ -3,7 +3,6 @@ package SmartNavigationSystem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -60,7 +59,7 @@ public class CyclingMode implements Mode {
                 case 0:
                     isConfirmed = true;
                     routePlanning();
-                    // bookmark
+                    addBookmark(member, route);
                     break;
                 case 1:
                     setDeparture();
@@ -85,6 +84,8 @@ public class CyclingMode implements Mode {
                 e.printStackTrace();
             }
         }
+
+        //addBookmark(member, route);
         // input.close();
     }
 
@@ -275,13 +276,12 @@ public class CyclingMode implements Mode {
         System.out.printf("Total cost: %d\nRoute: ", totalCost);
         vManager.listRoute(route);
 
-        if (this.member != null)
-            addBookmark(this.member, route);
     }
 
     // make bookmark
-    public static void addBookmark(Member member, ArrayList<Integer> route) throws IOException {
-
+    public void addBookmark(Member member, ArrayList<Integer> route) throws IOException {
+        if (this.member == null)
+        return;
         System.out.print("Do you want to add a bookmark? [Y/N]");
         Scanner in = new Scanner(System.in);
         String choice = in.nextLine();
@@ -289,22 +289,8 @@ public class CyclingMode implements Mode {
             return;
         }
 
-        Scanner userInput = new Scanner(System.in);
-        System.out.println("Please choose a mode that you want to add bookmark:");
-        System.out.println("1: Cycling Mode\n2: Climbing Mode");
-        int bookmModeNum = userInput.nextInt();
-        if (bookmModeNum != 1 && bookmModeNum != 2) {
-            System.out.println("Bookmark mode input error!");
-        } else {
-            System.out.println("Please choose one route for bookmark:");
-            int route_index = userInput.nextInt();
-            String route_str = Vertices.getInstance().printRoute(route);
-            if (bookmModeNum == 1) {
-                Bookmark.addBookmark("Cycling Mode: " + route_str, member);
-            } else if (bookmModeNum == 2) {
-                Bookmark.addBookmark("Climbing Mode" + route_str, member);
-            }
-        }
+        String route_str = Vertices.getInstance().printRoute(route);
+        Bookmark.addBookmark("Cycling Mode: " + route_str, member);
 
     }
 

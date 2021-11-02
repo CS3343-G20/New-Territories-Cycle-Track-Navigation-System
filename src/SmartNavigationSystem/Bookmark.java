@@ -14,8 +14,8 @@ public class Bookmark {
         return this.member;
     }
 
-    public static void addBookmark(String mode, Member member) throws IOException {
-        JsonOperation.addNewBookMark(mode, member);
+    public static void addBookmark(String route, Member member) throws IOException {
+        JsonOperation.addNewBookMark(route, member);
     }
 
     public static void deleteBookmark(Member member, int index) throws IOException {

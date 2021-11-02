@@ -9,7 +9,7 @@ public class MemberControlPanel extends ControlPanel {
 
     private MemberControlPanel() {
         this.member = null;
-        controlPanel.put(0, "exit");
+        controlPanel.put(0, "Exit");
         controlPanel.put(1, "Reset Password");
         controlPanel.put(2, "Choose Mode");
         controlPanel.put(3, "Check Information");

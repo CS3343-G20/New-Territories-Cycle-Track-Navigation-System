@@ -37,4 +37,16 @@ public class Member extends User {
     public void resetPwd() throws IOException {
         this.login.resetPwd();
     }
+
+    @Override
+    public void chooseMode(String mode){
+        if (mode.equals(Mode.ClimbingMode.toString())) {
+            //
+        }
+        else if (mode.equals(Mode.CyclingMode.toString())) {
+            CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in));
+            cyclingMode.member_execute(this);
+        }
+    }
+
 }

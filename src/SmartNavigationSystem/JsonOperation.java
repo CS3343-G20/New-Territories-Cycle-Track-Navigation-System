@@ -141,14 +141,14 @@ public class JsonOperation {
 
     }
 
-    public static void addNewBookMark(String mode, Member member) throws IOException {
+    public static void addNewBookMark(String route, Member member) throws IOException {
 
         JSONArray arr = getMemberBookmArray(member.getEmail());
 
         int index = arr.size() + 1;
 
         // Here is to add more bookmark info
-        JSONObject obj = JSON.parseObject("{\"bookmarkIndex\": " + index + ",\"bookmarkType\": \"" + mode + "\"}");
+        JSONObject obj = JSON.parseObject("{\"bookmarkIndex\": " + index + ",\"bookmarkType\": \"" + route + "\"}");
         arr.add(obj);
 
         updateJsonFile();
@@ -169,6 +169,12 @@ public class JsonOperation {
                 break;
             }
         }
+
+        for (int i = 0; i < memberScheduleArray.size(); i++) {
+            JSONObject obj = memberScheduleArray.getJSONObject(i);
+            obj.replace("scheduleIndex", i+1);
+        }
+
 
         if (flag) {
             updateJsonFile();
@@ -192,6 +198,11 @@ public class JsonOperation {
                 flag = true;
                 break;
             }
+        }
+
+        for (int i = 0; i < memberBookmarkArray.size(); i++) {
+            JSONObject obj = memberBookmarkArray.getJSONObject(i);
+            obj.replace("bookmarkIndex", i+1);
         }
 
         if (flag) {

@@ -3,8 +3,6 @@ package SmartNavigationSystem;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import javax.swing.text.html.HTMLDocument.RunElement;
-
 public class Vertices implements VerticesManager, VerticesFinder {
 
     private TreeMap<Integer, Vertex> allVertices= new TreeMap<>();
