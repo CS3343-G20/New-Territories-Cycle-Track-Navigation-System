@@ -15,51 +15,19 @@ public class Main {
         JSONObject obj = JsonOperation.getMemberInfo(email);
         System.out.println(obj);
 
-        // JSONObject var1 = JsonOperation.getWholeJsonObject();
-        // String var2 = JsonOperation.getWholeJsonObjectString();
-        // JSONArray var3 = JsonOperation.getWholeMemberInfoArray();
-        // JSONObject var4 = JsonOperation.getMemberInfo("liusitong327@gmail.com");
-        // JSONArray var5 = JsonOperation.getMemberScheArray("liusitong327@gmail.com");
-        // JSONArray var6 = JsonOperation.getMemberBookmArray("liusitong327@gmail.com");
-        // String var7 = JsonOperation.getMemberPassword("liusitong327@gmail.com");
-        // JsonOperation.resetPwd("liusitong327@gmail.com", "newPwd");
-        // JsonOperation.clearJsonFile();
-        // JsonOperation.addNewMember("liusitong327@gmail.com", "pwd");
-        // boolean var8 = JsonOperation.checkMemberExist("liusitong327@gmail.com");
-        // boolean var9 = JsonOperation.checkMemberPwd("liusitong327@gmail.com",
-        // "lstPwd");
-
-        //Member m = new Member();
-
-        // JsonOperation.addNewSchedule(new Schedule(m, "2021/10/29", new
-        // CyclingMode(Graph.getInstance(), Vertices.getInstance(), new
-        // Scanner(System.in))));
-        // if (m.Login())
-        // JsonOperation.addNewBookMark(new Bookmark(new
-        // CyclingMode(Graph.getInstance(), Vertices.getInstance(), new
-        // Scanner(System.in)), m));
-
-        // JsonOperation.deleteMemberSchedule(m, 1);
-        // JsonOperation.deleteMemberBookmark(m, 2);
-        // JsonOperation.updateJsonFile();
-
-        //// Schedule.sendEmail();
+        // Schedule.sendEmail();
 
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
         launch(cp);
         in.close();
 
-        // JsonOperation.updateJsonFile();
-
-        // Admin.getInstance().printMemberList();
-
     }
 
     public static void launch(ControlPanel controlPanel) throws IOException {
 
         ControlPanel cp = controlPanel;
-        //try {
+        try {
             cp.showControlPanel();
             int nav = cp.makeDecision();
             if (nav == 0) {
@@ -76,8 +44,8 @@ public class Main {
             } else if (nav != 0) {
                 launch(cp);
             }
-        //} catch (Exception e) {
-            //System.out.println(e);
-        //}
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
