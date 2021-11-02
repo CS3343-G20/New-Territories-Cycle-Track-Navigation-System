@@ -8,19 +8,11 @@ import com.alibaba.fastjson.JSONObject;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        new JsonOperation();
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
-<<<<<<< HEAD
-        launch(in, cp);
-=======
         launch(cp);
         in.close();
-
-        // JsonOperation.updateJsonFile();
-
-        // Admin.getInstance().printMemberList();
-
->>>>>>> lst
     }
 
     public static void launch(ControlPanel controlPanel) throws IOException {
