@@ -7,6 +7,7 @@ public interface VerticesManager {
     public String getVertexNamesByID(ArrayList<Integer> ids);
     public void listAttractions();
     public void listAllVertices();
+    public String printRoute(ArrayList<Integer> route);
     public void listRoute(ArrayList<Integer> route);
     public int checkVertexIdValidity(int id) throws ExInvalidIndex;
     public int checkAttractionIdValidity(int id) throws ExInvalidIndex;

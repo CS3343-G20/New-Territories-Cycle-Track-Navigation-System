@@ -1,5 +1,7 @@
 package SmartNavigationSystem;
 
+import java.io.IOException;
+
 public interface Mode {
-    public void execute();
+    public void execute() throws IOException;
 }

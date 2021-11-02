@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Member extends User{
+public class Member extends User {
 
     protected Login login;
 
@@ -12,17 +12,24 @@ public class Member extends User{
         this.login = null;
     }
 
-    public boolean Login() throws IOException{
+    public Member Login() throws IOException {
         this.login = new Login();
-        return login.login();
+        boolean loginSuccess = login.login();
+        if (loginSuccess)
+            return this;
+        else
+            return null;
     }
-    public void Cycle(){ 
+
+    public void Cycle() {
         CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in));
-        cyclingMode.execute();
+        cyclingMode.member_execute(this);
     }
+
     public void CheckInfo() throws FileNotFoundException {
         JsonOperation.printMemberInfo(getEmail());
     }
+
     public String getEmail() {
         return this.login.getEmail();
     }
@@ -30,4 +37,16 @@ public class Member extends User{
     public void resetPwd() throws IOException {
         this.login.resetPwd();
     }
+
+    @Override
+    public void chooseMode(String mode){
+        if (mode.equals(Mode.ClimbingMode.toString())) {
+            //
+        }
+        else if (mode.equals(Mode.CyclingMode.toString())) {
+            CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in));
+            cyclingMode.member_execute(this);
+        }
+    }
+
 }

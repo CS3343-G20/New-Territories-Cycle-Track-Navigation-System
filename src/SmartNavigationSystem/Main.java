@@ -47,8 +47,8 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
-        //launch(in, cp);
-        in.close();
+        launch(in, cp);
+        //in.close();
 
         // JsonOperation.updateJsonFile();
 
@@ -65,9 +65,9 @@ public class Main {
                 System.out.println("========Exit========");
                 return;
             } else if (nav == 1 && cp.getClass().equals(UserControlPanel.class)) {
-                User tmp_m = cp.getMember();
+                Member tmp_m = ((UserControlPanel) cp).getMember();
                 cp = MemberControlPanel.getInstance();
-                cp.setMember(tmp_m);
+                ((MemberControlPanel) cp).setMember(tmp_m);
                 launch(in, cp);
             } else if (nav == 4 && cp.getClass().equals(UserControlPanel.class)) {
                 cp = AdminControlPanel.getInstance();

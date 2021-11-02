@@ -5,12 +5,14 @@ import java.util.*;
 
 public class UserControlPanel extends ControlPanel {
 
+    private Member user;
+
     private UserControlPanel() {
-        super();
+        this.user = null;
         this.controlPanel.put(0, "exit");
         this.controlPanel.put(1, "Login");
         this.controlPanel.put(2, "Register");
-        this.controlPanel.put(3, "Mode");
+        this.controlPanel.put(3, "Choose Mode");
         this.controlPanel.put(4, "Login As Admin");
     }
 
@@ -18,6 +20,14 @@ public class UserControlPanel extends ControlPanel {
 
     public static UserControlPanel getInstance() {
         return instance;
+    }
+
+    public Member getMember() {
+        return this.user;
+    }
+
+    public void setMember(Member m) {
+        this.user = m;
     }
 
     public int makeDecision(Scanner userInput) {
@@ -40,42 +50,44 @@ public class UserControlPanel extends ControlPanel {
         }
 
         switch (nav) {
-            case 0:
-                break;
-            case 1:
-                Member m = new Member();
-                // if (m.login())
-                //     this.user = m;
-                // else
-                //     nav = 6;
-                try {
-                    m.Login();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                break;
-            case 2:
-                Register r = new Register();
+        case 0:
+            break;
+        case 1:
+            Member m = new Member();
+            // if (m.login())
+            // this.user = m;
+            // else
+            // nav = 6;
+            try {
+                this.user = m.Login();
+                if (this.user == null)
+                    nav = 6;
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            break;
+        case 2:
+            Register r = new Register();
             try {
                 r.register();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-                break;
-            case 3:
-                // User u=new User();
-                User u=new Tourist();
-                System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
-                String mode=userInput.next();
-                u.chooseMode(mode);
-            case 4:
-                Admin admin = Admin.getInstance();
-                if (!admin.login())
-                    nav = 6;
-                break;
-            default:
-                System.out.println("Input error! Please try again.");
-                this.makeDecision(userInput);
+            break;
+        case 3:
+            // User u=new User();
+            User u = new Tourist();
+            System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
+            String mode = userInput.next();
+            u.chooseMode(mode);
+        case 4:
+            Admin admin = Admin.getInstance();
+            if (!admin.login())
+                nav = 6;
+            break;
+        default:
+            System.out.println("Input error! Please try again.");
+            this.makeDecision(userInput);
         }
 
         return nav;

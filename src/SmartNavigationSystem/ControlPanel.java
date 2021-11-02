@@ -6,23 +6,6 @@ import java.util.*;
 public abstract class ControlPanel {
     public HashMap<Integer, String> controlPanel= new HashMap<Integer, String>();
 
-    public User user;
-
-    ControlPanel(){ 
-        // this.user = new User();
-        this.user=new Tourist();
-    }
-    
-
-    public User getMember() {
-        return this.user;
-    }
-
-    public void setMember(User m) {
-        this.user = m;
-    }
-
-
     public void showControlPanel(){
         System.out.println("------------------------------");
         for(int nav: controlPanel.keySet()){

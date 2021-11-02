@@ -12,7 +12,7 @@ import java.util.Scanner;
 import SmartNavigationSystem.*;
 
 public class CyclingModeTest {
-
+/*
 	@Test //correct input
     public void setDeparture_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
 		class stubVertices implements VerticesManager {
@@ -1124,5 +1124,6 @@ public class CyclingModeTest {
 		
 		assertEquals(expected, route.get(mode));
 	}
+	*/
 
 }
