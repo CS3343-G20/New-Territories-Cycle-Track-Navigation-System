@@ -30,7 +30,9 @@ public class UserControlPanel extends ControlPanel {
         this.user = m;
     }
 
-    public int makeDecision(Scanner userInput) {
+    public int makeDecision() {
+
+        Scanner userInput = new Scanner(System.in);
 
         String line = "";
 
@@ -41,12 +43,12 @@ public class UserControlPanel extends ControlPanel {
 
         if (line.length() > 1) {
             System.out.println("Input format error! Please try again.");
-            this.makeDecision(userInput);
+            this.makeDecision();
         }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav > 4) {
             System.out.println("Input error! Please try again.");
-            this.makeDecision(userInput);
+            this.makeDecision();
         }
 
         switch (nav) {
@@ -87,7 +89,7 @@ public class UserControlPanel extends ControlPanel {
             break;
         default:
             System.out.println("Input error! Please try again.");
-            this.makeDecision(userInput);
+            this.makeDecision();
         }
 
         return nav;

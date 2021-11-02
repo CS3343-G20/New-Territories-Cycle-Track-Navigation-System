@@ -18,7 +18,7 @@ public class Register {
         // confirm password
         confirmPwd(userInput);
         cp.showControlPanel();
-        cp.makeDecision(userInput);
+        cp.makeDecision();
         //userInput.close();
     }
 

@@ -24,7 +24,10 @@ public class AdminControlPanel extends ControlPanel {
 
 
     @Override
-    public int makeDecision(Scanner userInput) throws IOException {
+    public int makeDecision() throws IOException {
+
+        Scanner userInput = new Scanner(System.in);
+
         String line = "";
 
         System.out.println("Please input a num:[select from ControlPanel]");
@@ -34,12 +37,12 @@ public class AdminControlPanel extends ControlPanel {
 
         if (line.length() > 1) {
             System.out.println("Input format error! Please try again.");
-            this.makeDecision(userInput);
+            this.makeDecision();
         }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav > 5) {
             System.out.println("Input error! Please try again.");
-            this.makeDecision(userInput);
+            this.makeDecision();
         }
 
         switch (nav) {
@@ -54,12 +57,14 @@ public class AdminControlPanel extends ControlPanel {
             case 3:
                 ((Admin) (this.user)).printBookmarkList();
                 break;
+            /*
             case 4:
-                //this.user.MountainClimbingTrails();
+                this.user.MountainClimbingTrails();
                 break;
             case 5:
-                //this.user.CycleTrails();
+                this.user.CycleTrails();
                 break;
+            */
         }
 
         return nav;
