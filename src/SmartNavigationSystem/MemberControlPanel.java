@@ -35,7 +35,10 @@ public class MemberControlPanel extends ControlPanel {
 
 
     @Override
-    public int makeDecision(Scanner userInput) throws IOException {
+    public int makeDecision() throws IOException {
+
+        Scanner userInput = new Scanner(System.in);
+        
         String line = "";
 
         System.out.println("Please input a num:[select from ControlPanel]");
@@ -44,13 +47,13 @@ public class MemberControlPanel extends ControlPanel {
         line = userInput.next();
 
         if (line.length() > 1) {
-            System.out.println("Input format error! Please try again.");
-            this.makeDecision(userInput);
+            System.out.println("Input format error!");
+            nav = 1000;
         }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav > 7) {
-            System.out.println("Input error! Please try again.");
-            this.makeDecision(userInput);
+            System.out.println("Input error!");
+            nav = 1000;
         }
 
         switch (nav) {
@@ -91,20 +94,6 @@ public class MemberControlPanel extends ControlPanel {
                 System.out.println("Bookmark mode input error!");
             }
             break;
-        /*
-        case 7:
-            System.out.println("Please choose a mode that you want to add bookmark:");
-            System.out.println("1: Cycling Mode\n2: Climbing Mode");
-            int bookmModeNum = userInput.nextInt();
-            if (bookmModeNum == 1) {
-                Bookmark.addBookmark("Cycling Mode", ((Member) (this.user)));
-            } else if (bookmModeNum == 2) {
-                Bookmark.addBookmark("Climbing Mode", ((Member) (this.user)));
-            } else {
-                System.out.println("Bookmark mode input error!");
-            }
-            break;
-        */
         }
 
         return nav;

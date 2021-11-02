@@ -10,14 +10,25 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
+<<<<<<< HEAD
         launch(in, cp);
+=======
+        launch(cp);
+        in.close();
+
+        // JsonOperation.updateJsonFile();
+
+        // Admin.getInstance().printMemberList();
+
+>>>>>>> lst
     }
 
-    public static void launch(Scanner in, ControlPanel controlPanel) throws IOException {
+    public static void launch(ControlPanel controlPanel) throws IOException {
+
         ControlPanel cp = controlPanel;
         //try {
             cp.showControlPanel();
-            int nav = cp.makeDecision(in);
+            int nav = cp.makeDecision();
             if (nav == 0) {
                 System.out.println("========Exit========");
                 return;
@@ -25,12 +36,12 @@ public class Main {
                 Member tmp_m = (Member) ((UserControlPanel) cp).getMember();
                 cp = MemberControlPanel.getInstance();
                 ((MemberControlPanel) cp).setMember(tmp_m);
-                launch(in, cp);
+                launch(cp);
             } else if (nav == 4 && cp.getClass().equals(UserControlPanel.class)) {
                 cp = AdminControlPanel.getInstance();
-                launch(in, cp);
+                launch(cp);
             } else if (nav != 0) {
-                launch(in, cp);
+                launch(cp);
             }
         //} catch (Exception e) {
             //System.out.println(e);
