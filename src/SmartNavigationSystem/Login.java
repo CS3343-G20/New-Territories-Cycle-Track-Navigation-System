@@ -3,10 +3,10 @@ package SmartNavigationSystem;
 import java.io.*;
 import java.util.*;
 
-public class Login {
+public class Login { 
     protected String inpEmail, inpPwd;
     protected Register register = new Register();
-
+ 
     public boolean login() throws IOException {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please input email: ");

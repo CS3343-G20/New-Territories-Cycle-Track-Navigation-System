@@ -30,6 +30,7 @@ public class UserControlPanel extends ControlPanel {
         this.user = m;
     }
 
+    @Override
     public int makeDecision() {
 
         Scanner userInput = new Scanner(System.in);
@@ -43,12 +44,12 @@ public class UserControlPanel extends ControlPanel {
 
         if (line.length() > 1) {
             System.out.println("Input format error! Please try again.");
-            this.makeDecision();
+            nav = 1000;
         }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav > 4) {
             System.out.println("Input error! Please try again.");
-            this.makeDecision();
+            nav = 1000;
         }
 
         switch (nav) {
@@ -56,14 +57,10 @@ public class UserControlPanel extends ControlPanel {
             break;
         case 1:
             Member m = new Member();
-            // if (m.login())
-            // this.user = m;
-            // else
-            // nav = 6;
             try {
                 this.user = m.Login();
                 if (this.user == null)
-                    nav = 6;
+                    nav = 1000;
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -76,7 +73,7 @@ public class UserControlPanel extends ControlPanel {
                 e.printStackTrace();
             }
             break;
-        case 3:
+        case 3: 
             // User u=new User();
             User u = new Tourist();
             System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
@@ -87,9 +84,6 @@ public class UserControlPanel extends ControlPanel {
             if (!admin.login())
                 nav = 6;
             break;
-        default:
-            System.out.println("Input error! Please try again.");
-            this.makeDecision();
         }
 
         return nav;

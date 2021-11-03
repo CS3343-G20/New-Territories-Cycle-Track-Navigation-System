@@ -10,20 +10,19 @@ public class MemberControlPanel extends ControlPanel {
     protected MemberControlPanel() {
         this.member = null;
         controlPanel.put(0, "Exit");
-        controlPanel.put(1, "Reset Password");
+        controlPanel.put(1, "Reset Password"); 
         controlPanel.put(2, "Choose Mode");
-        controlPanel.put(3, "Check Information");
+        controlPanel.put(3, "Check Information"); 
         controlPanel.put(4, "Delete schedule");
         controlPanel.put(5, "Delete bookmark");
         controlPanel.put(6, "Make schedule");
-        //controlPanel.put(7, "Add bookmark");
-    }
+    } 
 
     private static MemberControlPanel instance = new MemberControlPanel();
 
     public static MemberControlPanel getInstance() {
         return instance;
-    }
+    } 
 
     public Member getMember() {
         return this.member;
@@ -51,7 +50,7 @@ public class MemberControlPanel extends ControlPanel {
             nav = 1000;
         }
         nav = line.charAt(0) - 48;
-        if (nav < 0 || nav > 7) {
+        if (nav < 0 || nav >= 7) {
             System.out.println("Input error!");
             nav = 1000;
         }
@@ -66,19 +65,19 @@ public class MemberControlPanel extends ControlPanel {
             System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
             String mode = userInput.next();
             this.member.chooseMode(mode);
-            break;
+            break; 
         case 3:
             ((Member) (this.member)).CheckInfo();
-            break;
+            break; 
         case 4:
             System.out.println("Please input the index of schedule that you want to delete:");
             int scheIndex = userInput.nextInt();
-            Schedule.deleteSchedule(((Member) (this.member)), scheIndex);
+            ((Member) (this.member)).deleteSchedule(scheIndex);
             break;
         case 5:
             System.out.println("Please input the index of bookmark that you want to delete:");
             int bookmIndex = userInput.nextInt();
-            Bookmark.deleteBookmark(((Member) (this.member)), bookmIndex);
+            ((Member) (this.member)).deleteBookmark(bookmIndex);
             break;
         case 6:
             System.out.println("Please input the schedule date: [yyyy/mm/dd]");
@@ -87,9 +86,9 @@ public class MemberControlPanel extends ControlPanel {
             System.out.println("1: Cycling Mode\n2: Climbing Mode");
             int scheModeNum = userInput.nextInt();
             if (scheModeNum == 1) {
-                Schedule.makeSchedule("Cycling Mode", date, ((Member) (this.member)));
+            	((Member) (this.member)).makeSchedule("Cycling Mode", date);
             } else if (scheModeNum == 2) {
-                Schedule.makeSchedule("Climbing Mode", date, ((Member) (this.member)));
+            	((Member) (this.member)).makeSchedule("Climbing Mode", date);
             } else {
                 System.out.println("Bookmark mode input error!");
             }

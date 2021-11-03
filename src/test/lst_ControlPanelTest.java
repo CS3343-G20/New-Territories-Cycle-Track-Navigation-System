@@ -30,10 +30,13 @@ public class lst_ControlPanelTest {
 				controlPanel.put(0, "str");
 			}
 
+			// ignore
 			@Override
 			public int makeDecision() throws IOException {
+				// TODO Auto-generated method stub
 				return 0;
 			}
+
 		}
 		
 		Stub_ControlPanel cp = new Stub_ControlPanel();
