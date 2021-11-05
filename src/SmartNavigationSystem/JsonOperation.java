@@ -8,12 +8,14 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
+import javax.mail.MessagingException;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 public class JsonOperation {
-
+ 
     private static JSONObject wholeJsonObject;
 
     public JsonOperation() throws FileNotFoundException {
@@ -324,5 +326,42 @@ public class JsonOperation {
         }
 
     }
+    
+    public static void sendEmailToAllMembers() throws MessagingException {
+        JSONArray memberInfo_arr = JsonOperation.getWholeMemberInfoArray();
+        
+        for (int i = 0; memberInfo_arr != null && i < memberInfo_arr.size(); i++) {
 
+            JSONObject member = memberInfo_arr.getJSONObject(i);
+            String email = member.getString("email");
+
+            JSONArray sche_arr = member.getJSONArray("schedules");
+
+            int scheduleIndex = 0;
+            String event = null;
+            String scheduleDate = null;
+            Boolean state = null;
+            for (int j = 0; sche_arr != null && j < sche_arr.size(); j++) {
+                JSONObject sche = sche_arr.getJSONObject(j);
+                scheduleIndex = sche.getIntValue("scheduleIndex");
+                event = sche.getString("event");
+                scheduleDate = sche.getString("scheduleDate");
+                state = sche.getBooleanValue("state");
+
+                String d = ScheduleDate.getTomorrowDate();
+                if (state && scheduleDate.equals(d)) {
+                    String subject = "Remember your scchedule tomorrow?";
+                    String msg = "Schedule: schedule#" + scheduleIndex + "\nEvent: " + event + "\nDate: "
+                            + scheduleDate.toString();
+
+                    SendEmail.sendEmail(email, subject, msg);
+
+                    sche.replace("state", "true", "false");
+
+                }
+            }
+        }
+
+    }
+ 
 }
