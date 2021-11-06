@@ -209,7 +209,7 @@ public class JsonOperation {
         JSONArray memberScheArray = getMemberScheArray(email);
         int scheNum = memberScheArray.size();
         if (scheNum == 0) {
-            System.out.print("You haven't make schedules.\n");
+            System.out.print("You haven't make schedules.\n\n");
         } else {
             System.out.println("You have " + scheNum + " schedules:\n");
             for (int i = 0; i < scheNum; i++) {
@@ -248,6 +248,7 @@ public class JsonOperation {
     }
 
     public static void printMemberList() {
+        
         JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
         System.out.println("Member list:");
         for (int i = 0; i < wholeMemberInfoArray.size(); i++) {

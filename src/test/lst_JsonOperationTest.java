@@ -2,18 +2,33 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSONObject;
 
 import SmartNavigationSystem.JsonOperation;
+import SmartNavigationSystem.Member;
 
 public class lst_JsonOperationTest {
+
+        private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final PrintStream originalOut = System.out;
+	private final InputStream originalIn = System.in;
+
+	@Before
+	public void setUpStreams() {
+	    System.setOut(new PrintStream(outContent));
+	} 
 
         @Test
         public void getMemberInfo_case1() throws FileNotFoundException {
@@ -191,8 +206,83 @@ public class lst_JsonOperationTest {
 
         @Test
         public void addNewSchedule_case1() throws IOException {
+		
+                PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+                pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+                pw.close();
+                new JsonOperation();
+
+		class Stub_Member extends Member {
+
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
+			}
+		}
+		
+		Stub_Member m = new Stub_Member();
+
+                new JsonOperation();
+		JsonOperation.addNewSchedule(m, "2021/11/6", "mode");
+
+                String actual = JsonOperation.getWholeObjectString();
+                assertEquals("expected", actual);
+
+        }
+
+        @Test
+        public void deleteMemberSchedule_case1() throws IOException {
+                
+                PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+                pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+                pw.close();
+                new JsonOperation();
+
+		class Stub_Member extends Member {
+
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
+			}
+		}
+		
+		Stub_Member m = new Stub_Member();
+
+                new JsonOperation();
+                JsonOperation.deleteMemberSchedule(m, 0);
+
+                String actual = JsonOperation.getWholeObjectString();
+                assertEquals("expected", actual);
+        }
+
+        @Test
+        public void getAdminToken_case() throws FileNotFoundException {
+                String actual = JsonOperation.getAdminToken();
+                assertEquals("CS3343G20", actual);
+        }
+
+        @Test
+        public void printMemberList() throws FileNotFoundException {
+
+                PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+                pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+                pw.close();
+                new JsonOperation();
+
+                JsonOperation.printMemberList();
+                assertEquals("expected", outContent);
+
+        }
+
+        @Test
+        public void sendEmailToAllMembers() {
                 //
         }
 
-
+        
+	@After
+	public void restoreStreams() {
+	    System.setOut(originalOut);
+	    System.setIn(originalIn);
+	}
 }
