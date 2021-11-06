@@ -13,9 +13,10 @@ import javax.mail.MessagingException;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.JSONScanner;
 
 public class JsonOperation {
- 
+
     private static JSONObject wholeJsonObject;
 
     public JsonOperation() throws FileNotFoundException {
@@ -52,46 +53,22 @@ public class JsonOperation {
 
     public static JSONArray getMemberBookmArray(String email) throws FileNotFoundException {
 
-        JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
-
-        for (int i = 0; i < memberInfo_arr.size(); i++) {
-            JSONObject memberInfo = memberInfo_arr.getJSONObject(i);
-            String memberEmail = memberInfo.getString("email");
-            if (memberEmail.equals(email)) {
-                return memberInfo.getJSONArray("bookmarks");
-            }
-        }
-        return null;
+        JSONObject memberInfo = getMemberInfo(email);
+        return memberInfo.getJSONArray("bookmarks");
 
     }
 
     public static String getMemberPassword(String email) throws FileNotFoundException {
 
-        JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
-
-        for (int i = 0; i < memberInfo_arr.size(); i++) {
-            JSONObject memberInfo = memberInfo_arr.getJSONObject(i);
-            String memberEmail = memberInfo.getString("email");
-            if (memberEmail.equals(email)) {
-                return memberInfo.getString("password");
-            }
-        }
-        return null;
+        JSONObject memberInfo = getMemberInfo(email);
+        return memberInfo.getString("password");
 
     }
 
     public static void resetPwd(String email, String pwd) throws IOException {
 
-        JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
-
-        for (int i = 0; i < memberInfo_arr.size(); i++) {
-            JSONObject memberInfo = memberInfo_arr.getJSONObject(i);
-            String memberEmail = memberInfo.getString("email");
-            if (memberEmail.equals(email)) {
-                memberInfo.replace("password", pwd);
-                break;
-            }
-        }
+        JSONObject memberInfo = getMemberInfo(email);
+        memberInfo.replace("password", pwd);
 
         updateJsonFile();
 
@@ -111,16 +88,11 @@ public class JsonOperation {
 
     public static boolean checkMemberExist(String email) throws FileNotFoundException {
 
-        JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
-
-        for (int i = 0; i < memberInfo_arr.size(); i++) {
-            JSONObject memberInfo = memberInfo_arr.getJSONObject(i);
-            String memberEmail = memberInfo.getString("email");
-            if (memberEmail.equals(email)) {
-                return true;
-            }
-        }
-        return false;
+        JSONObject memberInfo = getMemberInfo(email);
+        if (memberInfo == null)
+            return false;
+        else
+            return true;
 
     }
 
@@ -174,9 +146,8 @@ public class JsonOperation {
 
         for (int i = 0; i < memberScheduleArray.size(); i++) {
             JSONObject obj = memberScheduleArray.getJSONObject(i);
-            obj.replace("scheduleIndex", i+1);
+            obj.replace("scheduleIndex", i + 1);
         }
-
 
         if (flag) {
             updateJsonFile();
@@ -204,7 +175,7 @@ public class JsonOperation {
 
         for (int i = 0; i < memberBookmarkArray.size(); i++) {
             JSONObject obj = memberBookmarkArray.getJSONObject(i);
-            obj.replace("bookmarkIndex", i+1);
+            obj.replace("bookmarkIndex", i + 1);
         }
 
         if (flag) {
@@ -232,14 +203,20 @@ public class JsonOperation {
     public static void printMemberInfo(String email) throws FileNotFoundException {
 
         System.out.println("Email: " + email);
-        JSONObject memberOnj = getMemberInfo(email);
-        String password = memberOnj.getString("password");
-        System.out.println("Password: " + password + "\n");
+        System.out.println("Password: " + JsonOperation.getMemberPassword(email) + "\n");
+        JsonOperation.printMemberSchedule(email);
+        JsonOperation.printMemberBookmark(email);
 
+    }
+
+    public static boolean printMemberSchedule(String email) throws FileNotFoundException {
+
+        JSONObject memberObj = getMemberInfo(email);
         JSONArray memberScheArray = getMemberScheArray(email);
         int scheNum = memberScheArray.size();
         if (scheNum == 0) {
-            System.out.print("You haven't make schedules.\n");
+            System.out.print("You haven't make schedules.\n\n");
+            return false;
         } else {
             System.out.println("You have " + scheNum + " schedules:\n");
             for (int i = 0; i < scheNum; i++) {
@@ -249,11 +226,18 @@ public class JsonOperation {
                 System.out.println();
             }
         }
+        return true;
+    }
+
+    public static boolean printMemberBookmark(String email) throws FileNotFoundException {
+
+        JSONObject memberObj = getMemberInfo(email);
 
         JSONArray memberBookmArray = getMemberBookmArray(email);
         int bookmNum = memberBookmArray.size();
         if (bookmNum == 0) {
-            System.out.print("You haven't add bookmarks.\n");
+            System.out.print("You haven't add bookmarks.\n\n");
+            return false;
         } else {
             System.out.println("You have " + bookmNum + " bookmarks:\n");
             for (int i = 0; i < bookmNum; i++) {
@@ -263,7 +247,7 @@ public class JsonOperation {
                 System.out.println();
             }
         }
-
+        return true;
     }
 
     public static String getAdminToken() throws FileNotFoundException {
@@ -278,6 +262,7 @@ public class JsonOperation {
     }
 
     public static void printMemberList() {
+
         JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
         System.out.println("Member list:");
         for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
@@ -326,10 +311,10 @@ public class JsonOperation {
         }
 
     }
-    
+
     public static void sendEmailToAllMembers() throws MessagingException {
         JSONArray memberInfo_arr = JsonOperation.getWholeMemberInfoArray();
-        
+
         for (int i = 0; memberInfo_arr != null && i < memberInfo_arr.size(); i++) {
 
             JSONObject member = memberInfo_arr.getJSONObject(i);
@@ -363,5 +348,5 @@ public class JsonOperation {
         }
 
     }
- 
+
 }

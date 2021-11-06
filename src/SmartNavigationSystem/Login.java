@@ -14,10 +14,13 @@ public class Login {
 
         Boolean emailExist = JsonOperation.checkMemberExist(this.inpEmail);
         if (!emailExist) {
-            System.out.println("Would you like to register one?[Y/N]");
+            System.out.println("Account doesn't exist. Would you like to register one?[Y/N]");
             String ans = userInput.nextLine();
             if (ans.equals("Y")) {
                 register.register();
+            } else if (!ans.equals("N")) {
+                System.out.println("Input error. Please try again.");
+                login();
             }
         } else {
             System.out.println("Please input password: ");
@@ -48,6 +51,8 @@ public class Login {
             } else {
                 System.out.println("Resetting failed!");
             }
+        } else if (!ans.equals("no")) {
+            System.out.println("Input error. Exiting...");
         }
         // userInput.close();
     }

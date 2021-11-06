@@ -33,7 +33,6 @@ public class lst_ControlPanelTest {
 			// ignore
 			@Override
 			public int makeDecision() throws IOException {
-				// TODO Auto-generated method stub
 				return 0;
 			}
 
