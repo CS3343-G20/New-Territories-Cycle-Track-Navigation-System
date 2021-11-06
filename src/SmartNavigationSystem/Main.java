@@ -11,10 +11,6 @@ public class Main {
 
         new JsonOperation();
 
-        String email = "cs3343g20system@gmail.com";
-        JSONObject obj = JsonOperation.getMemberInfo(email);
-        System.out.println(obj);
-
         // Schedule.sendEmail();
 
         Scanner in = new Scanner(System.in);

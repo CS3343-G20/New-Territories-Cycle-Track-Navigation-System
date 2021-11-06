@@ -7,9 +7,11 @@ import java.util.Scanner;
 public class Member extends User {
 
     protected Login login;
+    private String routeString;
 
     public Member() {
         this.login = null;
+        this.routeString = null;
     } 
 
     public Member Login() throws IOException {
@@ -18,6 +20,7 @@ public class Member extends User {
         if (loginSuccess)
             return this;
         else
+            System.out.print("Login failed. Exiting...\n\n");
             return null;
     }
 
@@ -59,6 +62,14 @@ public class Member extends User {
 
     public void makeSchedule(String mode, String date) throws IOException {
     	Schedule.makeSchedule(mode, date, this);
+    }
+
+    public void setRoute(String routeString) {
+        this.routeString = routeString;
+    }
+
+    public String getRoute() {
+        return this.routeString;
     }
 
 }

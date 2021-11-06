@@ -9,7 +9,7 @@ public class UserControlPanel extends ControlPanel {
 
     private UserControlPanel() {
         this.user = null;
-        this.controlPanel.put(0, "exit");
+        this.controlPanel.put(0, "Exit");
         this.controlPanel.put(1, "Login");
         this.controlPanel.put(2, "Register");
         this.controlPanel.put(3, "Choose Mode");
