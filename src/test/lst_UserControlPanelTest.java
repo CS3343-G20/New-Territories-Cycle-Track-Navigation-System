@@ -8,7 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Member;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,24 +18,51 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import SmartNavigationSystem.Admin;
+import SmartNavigationSystem.Member;
+import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Register;
 import SmartNavigationSystem.Tourist;
 import SmartNavigationSystem.UserControlPanel;
-
-@RunWith(MockitoJUnitRunner.class)
 
 public class lst_UserControlPanelTest {
     
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final PrintStream originalOut = System.out;
 	private final InputStream originalIn = System.in;
-
+	
 	@Before
 	public void setUpStreams() {
 	    System.setOut(new PrintStream(outContent));
 	}  
+	
+    @Test
+    public void getMember_case1() {
+    	
+		class Stub_Login extends Login {
+			@Override
+			public boolean login() {
+				return true; 
+			}
+		}
+		
+		class Stub_Member extends Member {
+			private Stub_Login login;
+			@Override
+			public Stub_Member Login() {
+				this.login = new Stub_Login();
+		        login.login();
+				return this;
+			} 
+		}
+		
+		Stub_Member m = new Stub_Member();
+		m.Login();
 
-    
+		UserControlPanel.getInstance().setMember(m);
+    	assertEquals(m, UserControlPanel.getInstance().getMember());
+    	
+    }
+	
     @Test
     public void makeDecision_case1() {
 		String input = "7";
@@ -60,22 +86,6 @@ public class lst_UserControlPanelTest {
 		int res = UserControlPanel.getInstance().makeDecision();
 		assertEquals(0, res);
     }
-
-	@Mock
-	private Member member;
-	private Register register;
-	private Tourist tourist;
-	private Admin admin;
-	
-	@Test
-	public void makeDecision_case4() throws IOException {
-		
-		String input = "2";
-		System.setIn(new ByteArrayInputStream(input.getBytes()));
-		int res = UserControlPanel.getInstance().makeDecision();
-		//assertEquals(1, res);
-		verify(register).register();
-	}
 
 
     @After

@@ -7,7 +7,7 @@ public class UserControlPanel extends ControlPanel {
 
     private Member user;
 
-    private UserControlPanel() {
+    protected UserControlPanel() {
         this.user = null; 
         this.controlPanel.put(0, "Exit");
         this.controlPanel.put(1, "Login");

@@ -7,11 +7,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import SmartNavigationSystem.JsonOperation;
 import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Member;
 import SmartNavigationSystem.MemberControlPanel;
@@ -166,6 +168,7 @@ public class lst_MemberControlPanelTest {
 		
 	}
 	
+	
 	@Test
 	public void makeDecision_case7() throws IOException {
 		
@@ -188,12 +191,22 @@ public class lst_MemberControlPanelTest {
 			public void deleteSchedule(int scheduleIndex) {
 				//pass
 			}
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
+			}
 		}
 		
 		Stub_Member m = new Stub_Member();
 		m.Login();
 		  
 		MemberControlPanel.getInstance().setMember(m);
+		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"}],\"email\":\"cs3343g20system@gmail.com\"}]}");
+        pw.close();
+
+		new JsonOperation();
 		
 		String input = "4\n1";
 		System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -221,8 +234,12 @@ public class lst_MemberControlPanelTest {
 				return this;
 			} 
 			@Override
-			public void deleteBookmark(int bookmarkIndex) {
+			public void deleteSchedule(int scheduleIndex) {
 				//pass
+			}
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
 			}
 		}
 		
@@ -231,12 +248,19 @@ public class lst_MemberControlPanelTest {
 		  
 		MemberControlPanel.getInstance().setMember(m);
 		
-		String input = "5\n1";
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+        pw.close();
+
+		new JsonOperation();
+		
+		String input = "4\n1";
 		System.setIn(new ByteArrayInputStream(input.getBytes()));
 		int res = MemberControlPanel.getInstance().makeDecision();
-		assertEquals(5, res);
+		assertEquals(4, res);
 		
 	}
+
 	
 	@Test
 	public void makeDecision_case9() throws IOException {
@@ -257,8 +281,12 @@ public class lst_MemberControlPanelTest {
 				return this;
 			} 
 			@Override
-			public void makeSchedule(String mode, String date) {
+			public void deleteBookmark(int bookmarkIndex) {
 				//pass
+			}
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
 			}
 		}
 		
@@ -267,6 +295,99 @@ public class lst_MemberControlPanelTest {
 		  
 		MemberControlPanel.getInstance().setMember(m);
 		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+        pw.close();
+
+		new JsonOperation();
+
+		String input = "5\n1";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		int res = MemberControlPanel.getInstance().makeDecision();
+		assertEquals(5, res);
+		
+	}
+
+	@Test
+	public void makeDecision_case10() throws IOException {
+		
+		class Stub_Login extends Login {
+			@Override
+			public boolean login() {
+				return true; 
+			}
+		}
+		
+		class Stub_Member extends Member {
+			private Stub_Login login;
+			@Override
+			public Stub_Member Login() {
+				this.login = new Stub_Login();
+		        login.login();
+				return this;
+			} 
+			@Override
+			public void deleteBookmark(int bookmarkIndex) {
+				//pass
+			}
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
+			}
+		}
+		
+		Stub_Member m = new Stub_Member();
+		m.Login();
+		  
+		MemberControlPanel.getInstance().setMember(m);
+		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum\\n\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+        pw.close();
+
+		new JsonOperation();
+
+		String input = "5\n1";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		int res = MemberControlPanel.getInstance().makeDecision();
+		assertEquals(5, res);
+		
+	}
+
+	@Test
+	public void makeDecision_case11() throws IOException {
+		
+		class Stub_Login extends Login {
+			@Override
+			public boolean login() {
+				return true; 
+			}
+		}
+		
+		class Stub_Member extends Member {
+			private Stub_Login login;
+			@Override
+			public Stub_Member Login() {
+				this.login = new Stub_Login();
+		        login.login();
+				return this;
+			} 
+			@Override
+			public void makeSchedule(String mode, String date) {
+				//pass
+			}
+			@Override
+			public void chooseMode(String mode) {
+				//pass
+			}
+		}
+		
+		Stub_Member m = new Stub_Member();
+		m.Login();
+		  
+		MemberControlPanel.getInstance().setMember(m);
+		new JsonOperation();
+
 		String input = "6\n2021/11/03\n1";
 		System.setIn(new ByteArrayInputStream(input.getBytes()));
 		int res = MemberControlPanel.getInstance().makeDecision();
@@ -275,7 +396,7 @@ public class lst_MemberControlPanelTest {
 	}
 
 	@Test
-	public void makeDecision_case10() throws IOException {
+	public void makeDecision_case12() throws IOException {
 		
 		class Stub_Login extends Login {
 			@Override
@@ -310,7 +431,7 @@ public class lst_MemberControlPanelTest {
 		
 	}
 	@Test
-	public void makeDecision_case11() throws IOException {
+	public void makeDecision_case13() throws IOException {
 		
 		class Stub_Login extends Login {
 			@Override

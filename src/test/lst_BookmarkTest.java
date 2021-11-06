@@ -38,6 +38,5 @@ public class lst_BookmarkTest {
 		assertEquals(m, bookm.getMember());
 
 	}
-
 	
 }
