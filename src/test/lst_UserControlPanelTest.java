@@ -1,9 +1,11 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Member;
@@ -16,8 +18,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import SmartNavigationSystem.Admin;
 import SmartNavigationSystem.Register;
+import SmartNavigationSystem.Tourist;
 import SmartNavigationSystem.UserControlPanel;
+
+@RunWith(MockitoJUnitRunner.class)
 
 public class lst_UserControlPanelTest {
     
@@ -34,7 +40,7 @@ public class lst_UserControlPanelTest {
     @Test
     public void makeDecision_case1() {
 		String input = "7";
-		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		System.setIn(new ByteArrayInputStream(input.getBytes())); 
 		int res = UserControlPanel.getInstance().makeDecision();
 		assertEquals(1000, res);
     }
@@ -55,9 +61,20 @@ public class lst_UserControlPanelTest {
 		assertEquals(0, res);
     }
 
+	@Mock
+	private Member member;
+	private Register register;
+	private Tourist tourist;
+	private Admin admin;
+	
 	@Test
-	public void makeDecision_case4() {
-		//
+	public void makeDecision_case4() throws IOException {
+		
+		String input = "2";
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		int res = UserControlPanel.getInstance().makeDecision();
+		//assertEquals(1, res);
+		verify(register).register();
 	}
 
 

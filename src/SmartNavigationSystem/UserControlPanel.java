@@ -8,7 +8,7 @@ public class UserControlPanel extends ControlPanel {
     private Member user;
 
     private UserControlPanel() {
-        this.user = null;
+        this.user = null; 
         this.controlPanel.put(0, "Exit");
         this.controlPanel.put(1, "Login");
         this.controlPanel.put(2, "Register");
@@ -74,7 +74,6 @@ public class UserControlPanel extends ControlPanel {
             }
             break;
         case 3: 
-            // User u=new User();
             User u = new Tourist();
             System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
             String mode = userInput.next();

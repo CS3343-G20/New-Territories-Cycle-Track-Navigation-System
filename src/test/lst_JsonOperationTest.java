@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
+import javax.mail.MessagingException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import SmartNavigationSystem.JsonOperation;
 import SmartNavigationSystem.Member;
+import SmartNavigationSystem.ScheduleDate;
 
 public class lst_JsonOperationTest {
 
@@ -190,7 +193,7 @@ public class lst_JsonOperationTest {
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
                 pw.close();
                 new JsonOperation();
-                boolean actual = JsonOperation.checkMemberExist("cs3343g20system@gmail.com");
+                boolean actual = JsonOperation.checkMemberPwd("cs3343g20system@gmail.com", "pwd");
                 assertEquals(true, actual);
         }
 
@@ -200,7 +203,7 @@ public class lst_JsonOperationTest {
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
                 pw.close();
                 new JsonOperation();
-                boolean actual = JsonOperation.checkMemberExist("system@gmail.com");
+                boolean actual = JsonOperation.checkMemberPwd("cs3343g20system@gmail.com", "wrong pwd");
                 assertEquals(false, actual);
         }
 
@@ -210,7 +213,6 @@ public class lst_JsonOperationTest {
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
                 pw.close();
-                new JsonOperation();
 
 		class Stub_Member extends Member {
 
@@ -223,11 +225,40 @@ public class lst_JsonOperationTest {
 		Stub_Member m = new Stub_Member();
 
                 new JsonOperation();
-		JsonOperation.addNewSchedule(m, "2021/11/6", "mode");
+		JsonOperation.addNewSchedule(m, "2021/11/6", "Cycling Mode: null");
 
                 String actual = JsonOperation.getWholeObjectString();
-                assertEquals("expected", actual);
+                String expected = "{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"}],\"email\":\"cs3343g20system@gmail.com\"}]}";
+                assertEquals(expected, actual);
 
+        }
+        
+        @Test
+        public void addNewBookmark_case1() throws IOException {
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+            pw.close();
+            new JsonOperation();
+
+    		class Stub_Member extends Member {
+
+    			@Override
+    			public String getEmail() {
+    				return "cs3343g20system@gmail.com";
+    			}
+    		}
+    		
+    		Stub_Member m = new Stub_Member();
+
+    		new JsonOperation();
+    		
+    		JsonOperation.addNewBookMark("route", m);
+    		
+            String actual = JsonOperation.getWholeObjectString();
+            String expected = "{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"route\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}";
+            assertEquals(expected, actual);
+        	
         }
 
         @Test
@@ -249,10 +280,212 @@ public class lst_JsonOperationTest {
 		Stub_Member m = new Stub_Member();
 
                 new JsonOperation();
-                JsonOperation.deleteMemberSchedule(m, 0);
+                JsonOperation.deleteMemberSchedule(m, 1);
 
                 String actual = JsonOperation.getWholeObjectString();
-                assertEquals("expected", actual);
+                assertEquals("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}", actual);
+        }
+        
+        @Test
+        public void deleteMemberSchedule_case2() throws IOException {
+                
+                PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+                pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"}],\"email\":\"cs3343g20system@gmail.com\"}]}");
+                pw.close();
+                new JsonOperation();
+
+		class Stub_Member extends Member {
+
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
+			}
+		}
+		
+		Stub_Member m = new Stub_Member();
+
+                new JsonOperation();
+                JsonOperation.deleteMemberSchedule(m, 1);
+
+                String actual = JsonOperation.getWholeObjectString();
+                assertEquals("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}", actual);
+        }
+        
+        @Test
+        public void deleteMemberSchedule_case3() throws IOException {
+            
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"}],\"email\":\"cs3343g20system@gmail.com\"}]}");
+            pw.close();
+            new JsonOperation();
+
+	class Stub_Member extends Member {
+
+		@Override
+		public String getEmail() {
+			return "cs3343g20system@gmail.com";
+		}
+	}
+	
+	Stub_Member m = new Stub_Member();
+
+            new JsonOperation();
+            JsonOperation.deleteMemberSchedule(m, 7);
+
+            String actual = JsonOperation.getWholeObjectString();
+            assertEquals("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"}],\"email\":\"cs3343g20system@gmail.com\"}]}", actual);
+
+        }
+
+        @Test
+        public void deleteMemberBookmark_case1() throws IOException {
+                
+                PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+                pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+                pw.close();
+                new JsonOperation();
+
+		class Stub_Member extends Member {
+
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
+			}
+		}
+		
+		Stub_Member m = new Stub_Member();
+
+                new JsonOperation();
+                JsonOperation.deleteMemberBookmark(m, 1);
+
+                String actual = JsonOperation.getWholeObjectString();
+                assertEquals("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}", actual);
+        }
+        
+        @Test
+        public void deleteMemberBookmark_case2() throws IOException {
+                
+                PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+                pw.write("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum\n\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+                pw.close();
+                new JsonOperation();
+
+		class Stub_Member extends Member {
+
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
+			}
+		}
+		
+		Stub_Member m = new Stub_Member();
+
+                new JsonOperation();
+                JsonOperation.deleteMemberBookmark(m, 1);
+
+                String actual = JsonOperation.getWholeObjectString();
+                assertEquals("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}", actual);
+        }
+
+        @Test
+        public void deleteMemberBookmark_case3() throws IOException {
+                
+                PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+                pw.write("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum\\n\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+                pw.close();
+                new JsonOperation();
+
+		class Stub_Member extends Member {
+
+			@Override
+			public String getEmail() {
+				return "cs3343g20system@gmail.com";
+			}
+		}
+		
+		Stub_Member m = new Stub_Member();
+
+                new JsonOperation();
+                JsonOperation.deleteMemberBookmark(m, 7);
+
+                String actual = JsonOperation.getWholeObjectString();
+                assertEquals("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum\\n\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}", actual);
+        }
+
+        @Test 
+        public void printMemberInfo_case1() throws FileNotFoundException {
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+            pw.close();
+            new JsonOperation();
+
+            JsonOperation.printMemberInfo("cs3343g20system@gmail.com");
+    		String expected = "Email: cs3343g20system@gmail.com\nPassword: pwd\n\nYou haven't make schedules.\n\nYou haven't add bookmarks.\n\n";
+    		
+    		assertEquals(expected, outContent.toString());
+
+        	
+        }
+        
+        @Test
+        public void printMemberSchedule_case1() throws FileNotFoundException {
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"}],\"email\":\"cs3343g20system@gmail.com\"}]}");
+            pw.close();
+            new JsonOperation();
+
+            JsonOperation.printMemberSchedule("cs3343g20system@gmail.com");
+    		String expected = "You have 1 schedules:\n\nSchedule index: 1\nEvent: Cycling Mode: null\nSchedule date: 2021/11/6\n\n";
+    		
+    		assertEquals(expected, outContent.toString());
+            
+        }
+
+        @Test
+        public void printMemberSchedule_case2() throws FileNotFoundException {
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+            pw.close();
+            new JsonOperation();
+
+            JsonOperation.printMemberSchedule("cs3343g20system@gmail.com");
+    		String expected = "You haven't make schedules.\n\n";
+    		
+    		assertEquals(expected, outContent.toString());
+            
+        }
+
+        @Test
+        public void printMemberBookmark_case1() throws FileNotFoundException {
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: null\n\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+            pw.close();
+            new JsonOperation();
+
+            JsonOperation.printMemberBookmark("cs3343g20system@gmail.com");
+    		String expected = "You have 1 bookmarks:\n\nBookmark index: 1\nType: Cycling Mode: null\n\n";
+    		
+    		assertEquals(expected, outContent.toString());
+            
+        }
+
+        @Test
+        public void printMemberBookmark_case2() throws FileNotFoundException {
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+            pw.close();
+            new JsonOperation();
+
+            JsonOperation.printMemberBookmark("cs3343g20system@gmail.com");
+    		String expected = "You haven't add bookmarks.\n\n";
+    		
+    		assertEquals(expected, outContent.toString());
+            
         }
 
         @Test
@@ -270,13 +503,75 @@ public class lst_JsonOperationTest {
                 new JsonOperation();
 
                 JsonOperation.printMemberList();
-                assertEquals("expected", outContent);
+                assertEquals("Member list:\ncs3343g20system@gmail.com\n", outContent.toString());
 
         }
 
         @Test
-        public void sendEmailToAllMembers() {
-                //
+        public void printScheduleList_case1() throws FileNotFoundException {
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\\n\"}],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"},{\"scheduleIndex\":2,\"scheduleDate\":\"2021/11/06\",\"state\":\"true\",\"event\":\"Cycling Mode: Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\\n\"}],\"email\":\"cs3343g20system@gmail.com\"},{\"bookmarks\":[],\"password\":\"test password\",\"schedules\":[],\"email\":\"test email\"}]}");
+            pw.close();
+            new JsonOperation();
+
+            JsonOperation.printScheduleList();
+            String actual = outContent.toString();
+            
+            String expected = "Schedule list:\n"
+            		+ "Email                         ScheduleIndex     Date           Sent     Event\n"
+            		+ "cs3343g20system@gmail.com     1                 2021/11/6      true     Cycling Mode: null\n"
+            		+ "cs3343g20system@gmail.com     2                 2021/11/06     true     Cycling Mode: Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\n"
+            		+ "\n";
+            assertEquals(expected, actual);
+
+        	
+        }
+
+        @Test
+        public void printBookmarkList_case1() throws FileNotFoundException {
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\n\"}],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"},{\"scheduleIndex\":2,\"scheduleDate\":\"2021/11/06\",\"state\":\"true\",\"event\":\"Cycling Mode: Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\n\"}],\"email\":\"cs3343g20system@gmail.com\"},{\"bookmarks\":[],\"password\":\"test password\",\"schedules\":[],\"email\":\"test email\"}]}");
+            pw.close();
+            new JsonOperation();
+
+            JsonOperation.printBookmarkList();
+            
+            String expected = "Bookmark list:\n"
+            		+ "Email                         BookmarkIndex     Type\n"
+            		+ "cs3343g20system@gmail.com     1                 Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\n";
+            
+            assertEquals(expected, outContent.toString());
+
+        	
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        @Test
+        public void sendEmailToAllMembers() throws FileNotFoundException, MessagingException {
+                
+        	String date = ScheduleDate.getTomorrowDate();
+        	
+            PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+            pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"" + date + "\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"},{\"scheduleIndex\":2,\"scheduleDate\":\"" + date + "\",\"state\":\"true\",\"event\":\"Cycling Mode: Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\\n\"}],\"email\":\"cs3343g20system@gmail.com\"}]}");
+            pw.close();
+            new JsonOperation();
+
+        	JsonOperation.sendEmailToAllMembers();
+        	
+        	String actual = JsonOperation.getWholeObjectString();
+        	String expected = "{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"" + date + "\",\"state\":\"false\",\"event\":\"Cycling Mode: null\"},{\"scheduleIndex\":2,\"scheduleDate\":\"" + date + "\",\"state\":\"false\",\"event\":\"Cycling Mode: Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\\n\"}],\"email\":\"cs3343g20system@gmail.com\"}]}";
+        	
+        	assertEquals(expected, actual);
         }
 
         

@@ -13,7 +13,6 @@ import javax.mail.MessagingException;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.JSONScanner;
 
 public class JsonOperation {
 
@@ -202,8 +201,8 @@ public class JsonOperation {
 
     public static void printMemberInfo(String email) throws FileNotFoundException {
 
-        System.out.println("Email: " + email);
-        System.out.println("Password: " + JsonOperation.getMemberPassword(email) + "\n");
+        System.out.print("Email: " + email + "\n");
+        System.out.print("Password: " + JsonOperation.getMemberPassword(email) + "\n\n");
         JsonOperation.printMemberSchedule(email);
         JsonOperation.printMemberBookmark(email);
 
@@ -211,19 +210,17 @@ public class JsonOperation {
 
     public static boolean printMemberSchedule(String email) throws FileNotFoundException {
 
-        JSONObject memberObj = getMemberInfo(email);
         JSONArray memberScheArray = getMemberScheArray(email);
         int scheNum = memberScheArray.size();
         if (scheNum == 0) {
             System.out.print("You haven't make schedules.\n\n");
             return false;
         } else {
-            System.out.println("You have " + scheNum + " schedules:\n");
+            System.out.print("You have " + scheNum + " schedules:\n\n");
             for (int i = 0; i < scheNum; i++) {
                 JSONObject memberSche = memberScheArray.getJSONObject(i);
-                System.out.println("Schedule index: " + memberSche.getIntValue("scheduleIndex") + "\nEvent: "
-                        + memberSche.getString("event") + "\nSchedule date: " + memberSche.getString("scheduleDate"));
-                System.out.println();
+                System.out.print("Schedule index: " + memberSche.getIntValue("scheduleIndex") + "\nEvent: "
+                        + memberSche.getString("event") + "\nSchedule date: " + memberSche.getString("scheduleDate") + "\n\n");
             }
         }
         return true;
@@ -231,20 +228,17 @@ public class JsonOperation {
 
     public static boolean printMemberBookmark(String email) throws FileNotFoundException {
 
-        JSONObject memberObj = getMemberInfo(email);
-
         JSONArray memberBookmArray = getMemberBookmArray(email);
         int bookmNum = memberBookmArray.size();
         if (bookmNum == 0) {
             System.out.print("You haven't add bookmarks.\n\n");
             return false;
         } else {
-            System.out.println("You have " + bookmNum + " bookmarks:\n");
+            System.out.print("You have " + bookmNum + " bookmarks:\n\n");
             for (int i = 0; i < bookmNum; i++) {
                 JSONObject memberBookm = memberBookmArray.getJSONObject(i);
-                System.out.println("Bookmark index: " + memberBookm.getIntValue("bookmarkIndex") + "\nType: "
-                        + memberBookm.getString("bookmarkType"));
-                System.out.println();
+                System.out.print("Bookmark index: " + memberBookm.getIntValue("bookmarkIndex") + "\nType: "
+                        + memberBookm.getString("bookmarkType") + "\n");
             }
         }
         return true;
@@ -264,10 +258,10 @@ public class JsonOperation {
     public static void printMemberList() {
 
         JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
-        System.out.println("Member list:");
+        System.out.print("Member list:\n");
         for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
             JSONObject membObject = wholeMemberInfoArray.getJSONObject(i);
-            System.out.println(membObject.getString("email"));
+            System.out.print(membObject.getString("email") + "\n");
         }
 
     }
@@ -275,7 +269,7 @@ public class JsonOperation {
     public static void printScheduleList() {
 
         JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
-        System.out.println("Schedule list:");
+        System.out.print("Schedule list:\n");
         System.out.printf("%-30s%-18s%-15s%-9s%s\n", "Email", "ScheduleIndex", "Date", "Sent", "Event");
         for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
             JSONObject membObject = wholeMemberInfoArray.getJSONObject(i);
@@ -296,7 +290,7 @@ public class JsonOperation {
     public static void printBookmarkList() {
 
         JSONArray wholeMemberInfoArray = getWholeMemberInfoArray();
-        System.out.println("Bookmark list:");
+        System.out.print("Bookmark list:\n");
         System.out.printf("%-30s%-18s%s\n", "Email", "BookmarkIndex", "Type");
         for (int i = 0; i < wholeMemberInfoArray.size(); i++) {
             JSONObject membObject = wholeMemberInfoArray.getJSONObject(i);
@@ -322,7 +316,7 @@ public class JsonOperation {
 
             JSONArray sche_arr = member.getJSONArray("schedules");
 
-            int scheduleIndex = 0;
+            int scheduleIndex = 0; 
             String event = null;
             String scheduleDate = null;
             Boolean state = null;
