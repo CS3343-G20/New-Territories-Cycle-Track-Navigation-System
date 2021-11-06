@@ -8,17 +8,27 @@ public class Register {
     private int tryTimes = 0;
     ControlPanel cp = UserControlPanel.getInstance();
 
+
     public void register() throws IOException {
         // request user input
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please input email: ");
         this.inpEmail = userInput.next();
-        System.out.println("Please input password: ");
-        this.inpPwd = userInput.next();
-        // confirm password
-        confirmPwd(userInput);
-        cp.showControlPanel();
-        cp.makeDecision();
+
+        //check email is exist
+        String p=JsonOperation.getMemberPassword(inpEmail);
+        if (p==null){
+            System.out.println("Please input password: ");
+            this.inpPwd = userInput.next();
+            // confirm password
+            confirmPwd(userInput);
+            cp.showControlPanel();
+            cp.makeDecision(userInput);
+        }else{
+            System.out.println("Email is exist!");
+        }
+
+
         //userInput.close();
     }
 
@@ -40,8 +50,6 @@ public class Register {
     }
 
     public void writeinFile(String email, String password) throws IOException {
-        
         JsonOperation.addNewMember(email, password);
-
     }
 }

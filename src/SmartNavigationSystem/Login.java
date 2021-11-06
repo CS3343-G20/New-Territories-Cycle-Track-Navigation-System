@@ -4,10 +4,12 @@ import java.io.*;
 import java.util.*;
 
 public class Login {
-    protected String inpEmail, inpPwd;
-    protected Register register = new Register();
+    private String inpEmail, inpPwd;
+    private Register register = new Register();
 
     public boolean login() throws IOException {
+        new JsonOperation();
+
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please input email: ");
         this.inpEmail = userInput.nextLine();
@@ -28,12 +30,12 @@ public class Login {
         return false;
     }
 
-    public boolean verifyPwd(String email, String pwd) throws FileNotFoundException {
+    public boolean verifyPwd(String email, String pwd){
         return JsonOperation.checkMemberPwd(email, pwd);
     }
 
     // reset password
-    public void resetPwd() throws IOException {
+    public boolean resetPwd() throws IOException {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Would you like to reset your password?[yes/no]");
         String ans = userInput.nextLine();
@@ -45,11 +47,14 @@ public class Login {
             if (inpPwd.equals(inPwd2)) {
                 JsonOperation.resetPwd(this.inpEmail, this.inpPwd);
                 System.out.println("Reset successfully!");
+                return true;
             } else {
                 System.out.println("Resetting failed!");
+                return false;
             }
         }
         // userInput.close();
+        return false;
     }
 
     public String getEmail() {

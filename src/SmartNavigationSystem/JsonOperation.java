@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 public class JsonOperation {
 
     private static JSONObject wholeJsonObject;
+    // private static String wholeJsonObjectString;
 
     public JsonOperation() throws FileNotFoundException {
         File f = new File("docs/MemberInfo.json");
@@ -63,7 +64,7 @@ public class JsonOperation {
 
     }
 
-    public static String getMemberPassword(String email) throws FileNotFoundException {
+    public static String getMemberPassword(String email) {
 
         JSONArray memberInfo_arr = wholeJsonObject.getJSONArray("memberInfo");
 
@@ -122,7 +123,7 @@ public class JsonOperation {
 
     }
 
-    public static boolean checkMemberPwd(String email, String pwd) throws FileNotFoundException {
+    public static boolean checkMemberPwd(String email, String pwd) {
         return getMemberPassword(email).equals(pwd);
     }
 
@@ -141,14 +142,14 @@ public class JsonOperation {
 
     }
 
-    public static void addNewBookMark(String route, Member member) throws IOException {
+    public static void addNewBookMark(String mode, Member member) throws IOException {
 
         JSONArray arr = getMemberBookmArray(member.getEmail());
 
         int index = arr.size() + 1;
 
         // Here is to add more bookmark info
-        JSONObject obj = JSON.parseObject("{\"bookmarkIndex\": " + index + ",\"bookmarkType\": \"" + route + "\"}");
+        JSONObject obj = JSON.parseObject("{\"bookmarkIndex\": " + index + ",\"bookmarkType\": \"" + mode + "\"}");
         arr.add(obj);
 
         updateJsonFile();
@@ -169,12 +170,6 @@ public class JsonOperation {
                 break;
             }
         }
-
-        for (int i = 0; i < memberScheduleArray.size(); i++) {
-            JSONObject obj = memberScheduleArray.getJSONObject(i);
-            obj.replace("scheduleIndex", i+1);
-        }
-
 
         if (flag) {
             updateJsonFile();
@@ -200,11 +195,6 @@ public class JsonOperation {
             }
         }
 
-        for (int i = 0; i < memberBookmarkArray.size(); i++) {
-            JSONObject obj = memberBookmarkArray.getJSONObject(i);
-            obj.replace("bookmarkIndex", i+1);
-        }
-
         if (flag) {
             updateJsonFile();
             System.out.println("Delete successfully!");
@@ -227,24 +217,31 @@ public class JsonOperation {
         return wholeJsonObject.getJSONArray("memberInfo");
     }
 
-    public static void printMemberInfo(String email) throws FileNotFoundException {
-
+    public static String printMemberInfo(String email) throws FileNotFoundException {
+        StringBuffer sb=new StringBuffer();
         System.out.println("Email: " + email);
+        sb.append("Email: " + email+"\n");
         JSONObject memberOnj = getMemberInfo(email);
         String password = memberOnj.getString("password");
         System.out.println("Password: " + password + "\n");
+        sb.append("Password: " + password + "\n\n");
 
         JSONArray memberScheArray = getMemberScheArray(email);
         int scheNum = memberScheArray.size();
         if (scheNum == 0) {
             System.out.print("You haven't make schedules.\n");
+            sb.append("You haven't make schedules.\n");
         } else {
             System.out.println("You have " + scheNum + " schedules:\n");
+            sb.append("You have " + scheNum + " schedules:\n");
             for (int i = 0; i < scheNum; i++) {
                 JSONObject memberSche = memberScheArray.getJSONObject(i);
                 System.out.println("Schedule index: " + memberSche.getIntValue("scheduleIndex") + "\nEvent: "
                         + memberSche.getString("event") + "\nSchedule date: " + memberSche.getString("scheduleDate"));
+                sb.append("Schedule index: " + memberSche.getIntValue("scheduleIndex") + "\nEvent: "
+                        + memberSche.getString("event") + "\nSchedule date: " + memberSche.getString("scheduleDate")+"\n");
                 System.out.println();
+                sb.append("\n");
             }
         }
 
@@ -252,16 +249,21 @@ public class JsonOperation {
         int bookmNum = memberBookmArray.size();
         if (bookmNum == 0) {
             System.out.print("You haven't add bookmarks.\n");
+            sb.append("You haven't add bookmarks.\n");
         } else {
             System.out.println("You have " + bookmNum + " bookmarks:\n");
+            sb.append("You have " + bookmNum + " bookmarks:\n\n");
             for (int i = 0; i < bookmNum; i++) {
                 JSONObject memberBookm = memberBookmArray.getJSONObject(i);
                 System.out.println("Bookmark index: " + memberBookm.getIntValue("bookmarkIndex") + "\nType: "
                         + memberBookm.getString("bookmarkType"));
+                sb.append("Bookmark index: " + memberBookm.getIntValue("bookmarkIndex") + "\nType: "
+                        + memberBookm.getString("bookmarkType")+"\n");
                 System.out.println();
+                sb.append("\n");
             }
         }
-
+        return sb.toString();
     }
 
     public static String getAdminToken() throws FileNotFoundException {

@@ -56,23 +56,16 @@ public class Vertices implements VerticesManager, VerticesFinder {
     }
 
     @Override
-    public String printRoute(ArrayList<Integer> route) {
-        String res = "";
+    public void listRoute(ArrayList<Integer> route) {
         for(int i=0; i<route.size(); i++) {
-            res += getVertexNameByID(route.get(i));
+            System.out.print(getVertexNameByID(route.get(i)));
             if (i < route.size()-1) {
-                res += " -> ";
+                System.out.print(" -> ");
             }
             else {
-                res += "\n";
+                System.out.println();
             }
         }
-        return res;
-    }
-
-    @Override
-    public void listRoute(ArrayList<Integer> route) {
-        System.out.println(printRoute(route));
     }
 
     @Override

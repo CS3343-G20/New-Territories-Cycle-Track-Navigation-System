@@ -110,7 +110,7 @@ public class VerticesTest {
     	));
 	}
     
-    @Test 
+    @Test
     public void listAttractions_TestCase2() {  
     	Vertices vertices = Vertices.getInstance();
     	vertices.listAttractions();
@@ -134,7 +134,7 @@ public class VerticesTest {
     
     
     @Test 
-    public void listAttractions_TestCase5() {  
+    public void listAttractions_TestCase5()	 {
     	Vertices vertices = Vertices.getInstance();
     	vertices.listAttractions();
     	assertEquals(true, outputContent.toString().contains("[5] Tsang Tai Uk"));    	
