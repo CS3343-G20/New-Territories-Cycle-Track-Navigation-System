@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-
         new JsonOperation();
+<<<<<<< HEAD
 
         try {
             Schedule.sendEmail();
@@ -15,11 +15,16 @@ public class Main {
             e.printStackTrace();
         }
 
+=======
+>>>>>>> master
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
         launch(cp);
         in.close();
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     }
 
     public static void launch(ControlPanel controlPanel) throws IOException {
@@ -32,7 +37,7 @@ public class Main {
                 System.out.println("========Exit========");
                 return;
             } else if (nav == 1 && cp.getClass().equals(UserControlPanel.class)) {
-                Member tmp_m = ((UserControlPanel) cp).getMember();
+                Member tmp_m = (Member) ((UserControlPanel) cp).getMember();
                 cp = MemberControlPanel.getInstance();
                 ((MemberControlPanel) cp).setMember(tmp_m);
                 launch(cp);
