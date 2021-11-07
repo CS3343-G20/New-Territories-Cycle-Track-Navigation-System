@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>src</name>
+	<name>G20</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -15,18 +13,10 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-=======
-	</buildSpec>
-	<natures>
->>>>>>> Stashed changes
-=======
-	</buildSpec>
-	<natures>
->>>>>>> Stashed changes
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1635354128569</id>
+			<id>1634219188800</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

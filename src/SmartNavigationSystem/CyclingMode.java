@@ -31,6 +31,7 @@ public class CyclingMode implements Mode {
     public void member_execute(Member member) {
         this.member = member;
         execute();
+        this.member.setRoute("Cycling Mode: " + Vertices.getInstance().printRoute(route));
     }
 
     @Override
@@ -59,7 +60,7 @@ public class CyclingMode implements Mode {
                 case 0:
                     isConfirmed = true;
                     routePlanning();
-                    addBookmark(member, route);
+                    addBookmark();
                     break;
                 case 1:
                     setDeparture();
@@ -85,7 +86,6 @@ public class CyclingMode implements Mode {
             }
         }
 
-        //addBookmark(member, route);
         // input.close();
     }
 
@@ -278,19 +278,21 @@ public class CyclingMode implements Mode {
 
     }
 
-    // make bookmark
-    public void addBookmark(Member member, ArrayList<Integer> route) throws IOException {
+    public void addBookmark() throws IOException {
         if (this.member == null)
-        return;
+            return;
         System.out.print("Do you want to add a bookmark? [Y/N]");
         Scanner in = new Scanner(System.in);
         String choice = in.nextLine();
         if (choice.equals("N")) {
             return;
+        } else if (choice.equals("Y")) {
+            String route_str = Vertices.getInstance().printRoute(route);
+            Bookmark.addBookmark("Cycling Mode: " + route_str, member);
+        } else {
+            System.out.println("Input error. Please try again.");
+            addBookmark();
         }
-
-        String route_str = Vertices.getInstance().printRoute(route);
-        Bookmark.addBookmark("Cycling Mode: " + route_str, member);
 
     }
 

@@ -7,7 +7,7 @@ public class MemberControlPanel extends ControlPanel {
 
     private Member member;
 
-    private MemberControlPanel() {
+    protected MemberControlPanel() {
         this.member = null;
         controlPanel.put(0, "Exit");
         controlPanel.put(1, "Reset Password");
@@ -16,7 +16,6 @@ public class MemberControlPanel extends ControlPanel {
         controlPanel.put(4, "Delete schedule");
         controlPanel.put(5, "Delete bookmark");
         controlPanel.put(6, "Make schedule");
-        //controlPanel.put(7, "Add bookmark");
     }
 
     private static MemberControlPanel instance = new MemberControlPanel();
@@ -33,12 +32,11 @@ public class MemberControlPanel extends ControlPanel {
         this.member = m;
     }
 
-
     @Override
     public int makeDecision() throws IOException {
 
         Scanner userInput = new Scanner(System.in);
-        
+
         String line = "";
 
         System.out.println("Please input a num:[select from ControlPanel]");
@@ -47,12 +45,12 @@ public class MemberControlPanel extends ControlPanel {
         line = userInput.next();
 
         if (line.length() > 1) {
-            System.out.println("Input format error!");
+            System.out.println("Input format error! Please try again.");
             nav = 1000;
         }
         nav = line.charAt(0) - 48;
-        if (nav < 0 || nav > 7) {
-            System.out.println("Input error!");
+        if (nav < 0 || nav >= 7) {
+            System.out.println("Input error! Please try again.");
             nav = 1000;
         }
 
@@ -71,14 +69,20 @@ public class MemberControlPanel extends ControlPanel {
             ((Member) (this.member)).CheckInfo();
             break;
         case 4:
+            boolean hasSche = JsonOperation.printMemberSchedule(this.member.getEmail());
+            if (!hasSche)
+                break;
             System.out.println("Please input the index of schedule that you want to delete:");
             int scheIndex = userInput.nextInt();
-            Schedule.deleteSchedule(((Member) (this.member)), scheIndex);
+            ((Member) (this.member)).deleteSchedule(scheIndex);
             break;
         case 5:
+            boolean hasBookm = JsonOperation.printMemberBookmark(this.member.getEmail());
+            if (!hasBookm)
+                break;
             System.out.println("Please input the index of bookmark that you want to delete:");
             int bookmIndex = userInput.nextInt();
-            Bookmark.deleteBookmark(((Member) (this.member)), bookmIndex);
+            ((Member) (this.member)).deleteBookmark(bookmIndex);
             break;
         case 6:
             System.out.println("Please input the schedule date: [yyyy/mm/dd]");
@@ -87,11 +91,13 @@ public class MemberControlPanel extends ControlPanel {
             System.out.println("1: Cycling Mode\n2: Climbing Mode");
             int scheModeNum = userInput.nextInt();
             if (scheModeNum == 1) {
-                Schedule.makeSchedule("Cycling Mode", date, ((Member) (this.member)));
+                this.member.chooseMode("CyclingMode");
+                ((Member) (this.member)).makeSchedule("Cycling Mode: " + this.member.getRoute(), date);
             } else if (scheModeNum == 2) {
-                Schedule.makeSchedule("Climbing Mode", date, ((Member) (this.member)));
+                this.member.chooseMode("ClimbingMode");
+                ((Member) (this.member)).makeSchedule("Climbing Mode: " + this.member.getRoute(), date);
             } else {
-                System.out.println("Bookmark mode input error!");
+                System.out.println("Mode input error!");
             }
             break;
         }

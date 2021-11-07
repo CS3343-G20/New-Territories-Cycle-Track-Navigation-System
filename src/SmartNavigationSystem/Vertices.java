@@ -63,9 +63,11 @@ public class Vertices implements VerticesManager, VerticesFinder {
             if (i < route.size()-1) {
                 res += " -> ";
             }
+            /*
             else {
                 res += "\n";
             }
+            */
         }
         return res;
     }

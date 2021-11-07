@@ -3,22 +3,34 @@ package SmartNavigationSystem;
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.alibaba.fastjson.JSONObject;
-
 public class Main {
 
     public static void main(String[] args) throws IOException {
         new JsonOperation();
+<<<<<<< HEAD
+
+        try {
+            Schedule.sendEmail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+=======
+>>>>>>> master
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
         launch(cp);
         in.close();
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
     }
 
     public static void launch(ControlPanel controlPanel) throws IOException {
 
         ControlPanel cp = controlPanel;
-        //try {
+        try {
             cp.showControlPanel();
             int nav = cp.makeDecision();
             if (nav == 0) {
@@ -35,8 +47,8 @@ public class Main {
             } else if (nav != 0) {
                 launch(cp);
             }
-        //} catch (Exception e) {
-            //System.out.println(e);
-        //}
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

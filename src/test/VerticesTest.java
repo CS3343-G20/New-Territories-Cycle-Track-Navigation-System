@@ -128,8 +128,7 @@ public class VerticesTest {
     public void listAttractions_TestCase4() {  
     	Vertices vertices = Vertices.getInstance();
     	vertices.listAttractions();
-    	assertEquals(false, outputContent.toString().contains("[6] Badminton court"								    			
-    	));
+    	assertEquals(false, outputContent.toString().contains("[6] Badminton court"));
 	}
     
     
