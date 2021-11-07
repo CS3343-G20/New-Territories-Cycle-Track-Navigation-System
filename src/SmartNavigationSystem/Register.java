@@ -17,8 +17,8 @@ public class Register {
         this.inpPwd = userInput.next();
         // confirm password
         confirmPwd(userInput);
-        cp.showControlPanel();
-        cp.makeDecision();
+        //cp.showControlPanel();
+        //cp.makeDecision();
         //userInput.close();
     }
 

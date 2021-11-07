@@ -6,16 +6,12 @@ import java.util.Scanner;
 public class AdminControlPanel extends ControlPanel {
 
     private static AdminControlPanel instance = new AdminControlPanel();
-    private User user;
 
     private AdminControlPanel() {
-        this.user = new Admin();
         this.controlPanel.put(0, "Exit");
         this.controlPanel.put(1, "Print Member List");
         this.controlPanel.put(2, "Print Schedule List");
         this.controlPanel.put(3, "Print Bookmark List");
-        //this.controlPanel.put(4, "Mountain Climbing Trails");
-        //this.controlPanel.put(5, "Cycle Trails");
     }
 
     public static AdminControlPanel getInstance() {
@@ -37,34 +33,26 @@ public class AdminControlPanel extends ControlPanel {
 
         if (line.length() > 1) {
             System.out.println("Input format error! Please try again.");
-            this.makeDecision();
+            nav = 1000;
         }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav > 5) {
             System.out.println("Input error! Please try again.");
-            this.makeDecision();
+            nav = 1000;
         }
 
         switch (nav) {
             case 0:
                 break;
             case 1:
-                ((Admin) (this.user)).printMemberList();
+                Admin.printMemberList();
                 break;
             case 2:
-                ((Admin) (this.user)).printScheduleList();
+                Admin.printScheduleList();
                 break;
             case 3:
-                ((Admin) (this.user)).printBookmarkList();
+                Admin.printBookmarkList();
                 break;
-            /*
-            case 4:
-                this.user.MountainClimbingTrails();
-                break;
-            case 5:
-                this.user.CycleTrails();
-                break;
-            */
         }
 
         return nav;

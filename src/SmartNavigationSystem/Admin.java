@@ -9,18 +9,18 @@ public class Admin extends User {
     }
 
     public boolean login() {
-        return new AdminLogin().login();
+        return AdminLogin.login();
     }
-
-    public void printMemberList() {
+ 
+    public static void printMemberList() {
         JsonOperation.printMemberList();
     }
 
-    public void printScheduleList() {
+    public static void printScheduleList() {
         JsonOperation.printScheduleList();
     }
 
-    public void printBookmarkList() {
+    public static void printBookmarkList() {
         JsonOperation.printBookmarkList();
     }
 
