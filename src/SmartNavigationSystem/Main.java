@@ -7,24 +7,16 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         new JsonOperation();
-<<<<<<< HEAD
 
         try {
             Schedule.sendEmail();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-=======
->>>>>>> master
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
         launch(cp);
         in.close();
-<<<<<<< HEAD
-
-=======
->>>>>>> master
     }
 
     public static void launch(ControlPanel controlPanel) throws IOException {
