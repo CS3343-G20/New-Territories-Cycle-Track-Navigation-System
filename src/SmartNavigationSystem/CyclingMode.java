@@ -18,20 +18,14 @@ public class CyclingMode implements Mode {
     private Scanner input = null;
     private GraphUtility map;
     private VerticesManager vManager;
+    private Member member = null;
+    private BookmarkManager mark;
 
-    private Member member;
-
-    public CyclingMode(GraphUtility map, VerticesManager vManager, Scanner in) {
+    public CyclingMode(GraphUtility map, VerticesManager vManager, Scanner in, BookmarkManager mark) {
         this.map = map;
         this.vManager = vManager;
         this.input = in;
-        this.member = null;
-    }
-
-    public void member_execute(Member member) {
-        this.member = member;
-        execute();
-        this.member.setRoute("Cycling Mode: " + Vertices.getInstance().printRoute(route));
+        this.mark = mark;
     }
 
     @Override
@@ -81,12 +75,16 @@ public class CyclingMode implements Mode {
                 System.out.println(new ExWrongNumberFormat().getMessage());
             } catch (ExInvalidCommand e) {
                 System.out.println(e.getMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 
         // input.close();
+    }
+
+    public void memberExecute(Member member) {
+        this.member = member;
+        execute();
+        this.member.setRoute("Cycling Mode: " + vManager.getRouteString(route));
     }
 
     public void modeSwitch(int d) {
@@ -235,7 +233,7 @@ public class CyclingMode implements Mode {
         System.out.println();
     }
 
-    public void routePlanning() throws IOException {
+    public void routePlanning() {
         separator();
 
         ArrayList<Integer> places = new ArrayList<>();
@@ -275,25 +273,26 @@ public class CyclingMode implements Mode {
 
         System.out.printf("Total cost: %d\nRoute: ", totalCost);
         vManager.listRoute(route);
-
     }
 
-    public void addBookmark() throws IOException {
+    public void addBookmark() {
         if (this.member == null)
             return;
-        System.out.print("Do you want to add a bookmark? [Y/N]");
-        Scanner in = new Scanner(System.in);
-        String choice = in.nextLine();
-        if (choice.equals("N")) {
-            return;
-        } else if (choice.equals("Y")) {
-            String route_str = Vertices.getInstance().printRoute(route);
-            Bookmark.addBookmark("Cycling Mode: " + route_str, member);
-        } else {
-            System.out.println("Input error. Please try again.");
-            addBookmark();
+        System.out.println("Do you want to add this route as a bookmark? [Y/N]");
+        boolean isChosen = false;
+        while (!isChosen) {
+            try {
+                String in = input.nextLine();
+                if (in.equals("Y")) {
+                    mark.addBookmark("Cycling Mode: " + vManager.getRouteString(route), this.member);
+                } else if (!in.equals("N")) {
+                    throw new ExInvalidCommand();
+                }
+                isChosen = true;
+            } catch (ExInvalidCommand e) {
+                System.out.println(e.getMessage());
+            }
         }
-
     }
 
     // just for readability

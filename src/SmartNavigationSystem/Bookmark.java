@@ -1,13 +1,21 @@
 package SmartNavigationSystem;
 
-import java.io.IOException;
+public class Bookmark implements BookmarkManager {
 
-public class Bookmark {
-    public static void addBookmark(String route, Member member) throws IOException {
+    private static Bookmark instance = new Bookmark();
+
+    private Bookmark() {
+    }
+
+    public static Bookmark getInstance() {
+        return instance;
+    }
+
+    public void addBookmark(String route, Member member) {
         JsonOperation.addNewBookMark(route, member);
     }
 
-    public static void deleteBookmark(Member member, int index) throws IOException {
+    public void deleteBookmark(Member member, int index) {
         JsonOperation.deleteMemberBookmark(member, index);
     }
 }

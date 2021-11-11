@@ -114,17 +114,20 @@ public class JsonOperation {
 
     }
 
-    public static void addNewBookMark(String route, Member member) throws IOException {
+    public static void addNewBookMark(String route, Member member) {
 
-        JSONArray arr = getMemberBookmArray(member.getEmail());
+        try {
+            JSONArray arr = getMemberBookmArray(member.getEmail());
+            int index = arr.size() + 1;
 
-        int index = arr.size() + 1;
+            // Here is to add more bookmark info
+            JSONObject obj = JSON.parseObject("{\"bookmarkIndex\": " + index + ",\"bookmarkType\": \"" + route + "\"}");
+            arr.add(obj);
 
-        // Here is to add more bookmark info
-        JSONObject obj = JSON.parseObject("{\"bookmarkIndex\": " + index + ",\"bookmarkType\": \"" + route + "\"}");
-        arr.add(obj);
-
-        updateJsonFile();
+            updateJsonFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -157,31 +160,35 @@ public class JsonOperation {
 
     }
 
-    public static void deleteMemberBookmark(Member member, int index) throws IOException {
+    public static void deleteMemberBookmark(Member member, int index) {
 
-        JSONArray memberBookmarkArray = getMemberBookmArray(member.getEmail());
+        try {
+            JSONArray memberBookmarkArray = getMemberBookmArray(member.getEmail());
 
-        boolean flag = false;
+            boolean flag = false;
 
-        for (int i = 0; i < memberBookmarkArray.size(); i++) {
-            JSONObject obj = memberBookmarkArray.getJSONObject(i);
-            if (obj.getIntValue("bookmarkIndex") == index) {
-                memberBookmarkArray.remove(obj);
-                flag = true;
-                break;
+            for (int i = 0; i < memberBookmarkArray.size(); i++) {
+                JSONObject obj = memberBookmarkArray.getJSONObject(i);
+                if (obj.getIntValue("bookmarkIndex") == index) {
+                    memberBookmarkArray.remove(obj);
+                    flag = true;
+                    break;
+                }
             }
-        }
 
-        for (int i = 0; i < memberBookmarkArray.size(); i++) {
-            JSONObject obj = memberBookmarkArray.getJSONObject(i);
-            obj.replace("bookmarkIndex", i + 1);
-        }
+            for (int i = 0; i < memberBookmarkArray.size(); i++) {
+                JSONObject obj = memberBookmarkArray.getJSONObject(i);
+                obj.replace("bookmarkIndex", i + 1);
+            }
 
-        if (flag) {
-            updateJsonFile();
-            System.out.println("Delete successfully!");
-        } else {
-            System.out.println("Bookmark index input error!");
+            if (flag) {
+                updateJsonFile();
+                System.out.println("Delete successfully!");
+            } else {
+                System.out.println("Bookmark index input error!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -220,7 +227,8 @@ public class JsonOperation {
             for (int i = 0; i < scheNum; i++) {
                 JSONObject memberSche = memberScheArray.getJSONObject(i);
                 System.out.print("Schedule index: " + memberSche.getIntValue("scheduleIndex") + "\nEvent: "
-                        + memberSche.getString("event") + "\nSchedule date: " + memberSche.getString("scheduleDate") + "\n\n");
+                        + memberSche.getString("event") + "\nSchedule date: " + memberSche.getString("scheduleDate")
+                        + "\n\n");
             }
         }
         return true;
@@ -316,7 +324,7 @@ public class JsonOperation {
 
             JSONArray sche_arr = member.getJSONArray("schedules");
 
-            int scheduleIndex = 0; 
+            int scheduleIndex = 0;
             String event = null;
             String scheduleDate = null;
             Boolean state = null;
