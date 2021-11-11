@@ -12,7 +12,7 @@ public class Member extends User {
     public Member() {
         this.login = null;
         this.routeString = null;
-    } 
+    }
 
     public Member Login() throws IOException {
         this.login = new Login();
@@ -21,12 +21,13 @@ public class Member extends User {
             return this;
         else
             System.out.print("Login failed. Exiting...\n\n");
-            return null;
+        return null;
     }
 
     public void Cycle() {
-        CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in));
-        cyclingMode.member_execute(this);
+        CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in),
+                Bookmark.getInstance());
+        cyclingMode.memberExecute(this);
     }
 
     public void CheckInfo() throws FileNotFoundException {
@@ -42,26 +43,26 @@ public class Member extends User {
     }
 
     @Override
-    public void chooseMode(String mode){
+    public void chooseMode(String mode) {
         if (mode.equals(Mode.ClimbingMode.toString())) {
             //
-        }
-        else if (mode.equals(Mode.CyclingMode.toString())) {
-            CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in));
-            cyclingMode.member_execute(this);
+        } else if (mode.equals(Mode.CyclingMode.toString())) {
+            CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(),
+                    new Scanner(System.in), Bookmark.getInstance());
+            cyclingMode.memberExecute(this);
         }
     }
-    
+
     public void deleteBookmark(int bookmarkIndex) throws IOException {
-    	Bookmark.deleteBookmark(this, bookmarkIndex);
+        Bookmark.getInstance().deleteBookmark(this, bookmarkIndex);
     }
-    
+
     public void deleteSchedule(int scheduleIndex) throws IOException {
-    	Schedule.deleteSchedule(this, scheduleIndex);
+        Schedule.deleteSchedule(this, scheduleIndex);
     }
 
     public void makeSchedule(String mode, String date) throws IOException {
-    	Schedule.makeSchedule(mode, date, this);
+        Schedule.makeSchedule(mode, date, this);
     }
 
     public void setRoute(String routeString) {
@@ -71,5 +72,4 @@ public class Member extends User {
     public String getRoute() {
         return this.routeString;
     }
-
 }

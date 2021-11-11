@@ -2,15 +2,28 @@ package SmartNavigationSystem;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
-public class Login { 
+public class Login {
     protected String inpEmail, inpPwd;
     protected Register register = new Register();
- 
+
     public boolean login() throws IOException {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please input email: ");
         this.inpEmail = userInput.nextLine();
+
+        String pattern = "[a-zA-Z0-9_-]+@gmail.com$";
+        int flag = 1;
+        while (!Pattern.matches(pattern, inpEmail) && flag <3) {
+            System.out.println("Please input a correct email address!");
+            System.out.println("Please input email: ");
+            this.inpEmail = userInput.nextLine();
+            flag ++;
+        }
+        if (flag == 3){
+            return false;
+        }
 
         Boolean emailExist = JsonOperation.checkMemberExist(this.inpEmail);
         if (!emailExist) {
@@ -30,6 +43,7 @@ public class Login {
         // userInput.close();
         return false;
     }
+    
 
     public boolean verifyPwd(String email, String pwd) throws FileNotFoundException {
         return JsonOperation.checkMemberPwd(email, pwd);
