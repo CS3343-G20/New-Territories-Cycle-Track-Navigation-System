@@ -8,8 +8,7 @@ public class Login {
     protected String inpEmail, inpPwd;
     protected Register register = new Register();
 
-    public boolean login() throws IOException {
-        Scanner userInput = new Scanner(System.in);
+    public boolean login(Scanner userInput) throws IOException {
         System.out.println("Please input email: ");
         this.inpEmail = userInput.nextLine();
 
@@ -30,10 +29,10 @@ public class Login {
             System.out.println("Account doesn't exist. Would you like to register one?[Y/N]");
             String ans = userInput.nextLine();
             if (ans.equals("Y")) {
-                register.register();
+                register.register(userInput);
             } else if (!ans.equals("N")) {
                 System.out.println("Input error. Please try again.");
-                login();
+                login(userInput);
             }
         } else {
             System.out.println("Please input password: ");
@@ -50,8 +49,7 @@ public class Login {
     }
 
     // reset password
-    public void resetPwd() throws IOException {
-        Scanner userInput = new Scanner(System.in);
+    public void resetPwd(Scanner userInput) throws IOException {
         System.out.println("Would you like to reset your password?[yes/no]");
         String ans = userInput.nextLine();
         if (ans.equals("yes")) {
@@ -68,7 +66,6 @@ public class Login {
         } else if (!ans.equals("no")) {
             System.out.println("Input error. Exiting...");
         }
-        // userInput.close();
     }
 
     public String getEmail() {

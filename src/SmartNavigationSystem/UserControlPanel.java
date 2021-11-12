@@ -31,16 +31,12 @@ public class UserControlPanel extends ControlPanel {
     }
 
     @Override
-    public int makeDecision() {
-
-        Scanner userInput = new Scanner(System.in);
-
-        String line = "";
+    public int makeDecision(Scanner userInput) {
 
         System.out.println("Please input a num:[select from ControlPanel]");
         int nav = 0;
 
-        line = userInput.next();
+        String line = userInput.nextLine();
 
         if (line.length() > 1) {
             System.out.println("Input format error! Please try again.");
@@ -56,31 +52,26 @@ public class UserControlPanel extends ControlPanel {
         case 0:
             break;
         case 1:
-            Member m = new Member();
             try {
-                this.user = m.Login();
+                this.user = new Member().Login(userInput);
                 if (this.user == null)
                     nav = 1000;
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             break;
         case 2:
-            Register r = new Register();
             try {
-                r.register();
+                new Register().register(userInput);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             break;
         case 3: 
-            User u = new Tourist();
-            System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
-            String mode = userInput.next();
-            u.chooseMode(mode);
+            new User().chooseMode(userInput);
+            break;
         case 4:
-            Admin admin = Admin.getInstance();
-            if (!admin.login())
+            if (!Admin.getInstance().login(userInput))
                 nav = 6;
             break;
         }

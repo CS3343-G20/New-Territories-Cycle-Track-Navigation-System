@@ -9,8 +9,7 @@ public class Register {
     private int tryTimes = 0;
     ControlPanel cp = UserControlPanel.getInstance();
 
-    public void register() throws IOException {
-        Scanner userInput = new Scanner(System.in);
+    public void register(Scanner userInput) throws IOException {
         System.out.println("Please input email: ");
         this.inpEmail = userInput.next();
 

@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -1019,7 +1018,7 @@ public class CyclingModeTest {
     public void routePlanning_case4()
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
 
             stubGraph() {
                 ArrayList<Integer> r1 = new ArrayList<Integer>();
@@ -1120,7 +1119,7 @@ public class CyclingModeTest {
     public void routePlanning_case5()
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -1493,7 +1492,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -1589,7 +1588,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -1685,7 +1684,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -1781,7 +1780,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -1877,7 +1876,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -1973,7 +1972,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -2069,7 +2068,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -2164,7 +2163,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {
@@ -2259,7 +2258,7 @@ public class CyclingModeTest {
             }
         }
         class stubGraph implements GraphUtility {
-            private ArrayList<ArrayList<Integer>> routes = new ArrayList();
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
             private int count = -1;
 
             stubGraph() {

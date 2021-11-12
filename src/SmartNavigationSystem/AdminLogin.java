@@ -7,8 +7,7 @@ public class AdminLogin {
 
     private static int flag = 0;
 
-    public static boolean login() {
-        Scanner in = new Scanner(System.in);
+    public static boolean login(Scanner in) {
         System.out.println("Please input the admin token:");
         String inpToken = in.nextLine();
         try {

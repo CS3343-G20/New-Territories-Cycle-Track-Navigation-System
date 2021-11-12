@@ -1,5 +1,7 @@
 package SmartNavigationSystem;
 
+import java.util.Scanner;
+
 public class Admin extends User {
 
     private static Admin admin = new Admin();
@@ -8,8 +10,8 @@ public class Admin extends User {
         return admin;
     }
 
-    public boolean login() {
-        return AdminLogin.login();
+    public boolean login(Scanner in) {
+        return AdminLogin.login(in);
     }
  
     public static void printMemberList() {
