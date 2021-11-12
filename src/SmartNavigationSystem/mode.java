@@ -1,5 +1,5 @@
-package code;
+package SmartNavigationSystem;
 
-public interface mode {
-	void execute();
+public interface Mode {
+    public void execute();
 }

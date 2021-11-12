@@ -1,4 +1,4 @@
-package code;
+package SmartNavigationSystem;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -6,7 +6,7 @@ import java.util.Scanner;
 /*
 This is a singleton class
  */
-public class ClimbingMode implements mode {
+public class ClimbingMode implements Mode {
 	private static ClimbingTrailRepoManager ctrManager;
 	private static Scanner scan ;
 

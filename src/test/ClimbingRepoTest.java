@@ -6,8 +6,7 @@ import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
 
-import code.ClimbingTrail;
-import code.ClimbingTrailRepository;
+import SmartNavigationSystem.*;
 
 class ClimbingRepoTest {
 

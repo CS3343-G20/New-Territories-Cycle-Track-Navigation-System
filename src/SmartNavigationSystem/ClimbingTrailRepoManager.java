@@ -1,4 +1,4 @@
-package code;
+package SmartNavigationSystem;
 
 public interface ClimbingTrailRepoManager {
 	String filterByDifficulty(int difficulty);

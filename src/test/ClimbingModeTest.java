@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 import org.junit.Test;
 
-import code.ClimbingMode;
-import code.ClimbingTrailRepoManager;
+import SmartNavigationSystem.*;
 
 public class ClimbingModeTest {
 	private ClimbingTrailRepoManager ctrm = new ClimbingTrailRepoManagerStub();
