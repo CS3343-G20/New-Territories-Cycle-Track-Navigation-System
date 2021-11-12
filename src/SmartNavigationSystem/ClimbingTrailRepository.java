@@ -6,16 +6,16 @@ import java.util.TreeSet;
 /*
 Singleton class
  */
-public class ClimbingTrailRepository {
+public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
     private TreeSet<ClimbingTrail> climbingTrails;
-    private static ClimbingTrailRepository ctr;
+    private static ClimbingTrailRepository ctr = new ClimbingTrailRepository();
 
     public static ClimbingTrailRepository getInstance() {
         return ctr;
     }
 
-    private ClimbingTrailRepository() {
-        climbingTrails = new TreeSet<>();
+    private  ClimbingTrailRepository() {
+    	climbingTrails  =new TreeSet<>();
     }
 
     public String sort(int order) {
@@ -24,14 +24,17 @@ public class ClimbingTrailRepository {
             return resStr;
         } else if (order == 1) {
             StringBuilder strC = new StringBuilder();
-            Iterator it = climbingTrails.descendingIterator();
+            Iterator<ClimbingTrail> it = climbingTrails.descendingIterator();
             while (it.hasNext()) {
-                strC.append(((ClimbingTrail) it).displayInformation()).append("\n");
-                it.next();
+            	ClimbingTrail ct = it.next();
+                strC.append(ct.displayInformation()).append("\n");
             }
             return String.valueOf(strC);
         }
         return null;
+    }
+    public void clearClimbingTrails() {
+    	climbingTrails= new TreeSet<>();
     }
 
     public void addClimbingTrail(ClimbingTrail ct) {
@@ -44,57 +47,55 @@ public class ClimbingTrailRepository {
 
     public String list() {
         StringBuilder strB = new StringBuilder();
-        Iterator it = climbingTrails.iterator();
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
-            strB.append(((ClimbingTrail) it).displayInformation()).append("\n");
-            it.next();
+            ClimbingTrail cttmp = it.next();
+
+            strB.append(cttmp.displayInformation()).append("\n");
         }
         return String.valueOf(strB);
     }
 
     public String filterByDifficulty(int difficulty) {
         StringBuilder strB = new StringBuilder();
-        Iterator it = climbingTrails.iterator();
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
-            ClimbingTrail tmp = (ClimbingTrail) it;
+            ClimbingTrail tmp = it.next();
             if (tmp.getDifficulty() == difficulty) {
                 strB.append(tmp.displayInformation()).append("\n");
             }
-            it.next();
         }
         return String.valueOf(strB);
     }
-
+    
     public String filterTrailByDest(String destName) {
         StringBuilder strB = new StringBuilder();
-        Iterator it = climbingTrails.iterator();
+        Iterator <ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
-            ClimbingTrail tmp = (ClimbingTrail) it;
+            ClimbingTrail tmp = it.next();
             if (tmp.getDestinationName().equals(destName)) {
                 strB.append(tmp.displayInformation()).append("\n");
             }
-            it.next();
         }
         return String.valueOf(strB);
     }
 
     public String filterTrailByDeparture(String departureName) {
         StringBuilder strB = new StringBuilder();
-        Iterator it = climbingTrails.iterator();
+        Iterator <ClimbingTrail>it = climbingTrails.iterator();
         while (it.hasNext()) {
-            ClimbingTrail tmp = (ClimbingTrail) it;
+            ClimbingTrail tmp = it.next();
             if (tmp.getDepartureName().equals(departureName)) {
                 strB.append(tmp.displayInformation()).append("\n");
             }
-            it.next();
         }
         return String.valueOf(strB);
     }
 
     public String findTrailByID(String id) {
-        Iterator it = climbingTrails.iterator();
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
-            ClimbingTrail tmp = (ClimbingTrail) it;
+            ClimbingTrail tmp = it.next();
             if (tmp.getID().equals(id)) {
                 return tmp.displayInformation();
             }
