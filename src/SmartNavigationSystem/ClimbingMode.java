@@ -84,7 +84,7 @@ public class ClimbingMode implements Mode {
 	public int chooseClimbingPath() {
 
 		System.out.println("Please enter the id of the climbing path that you would like to choose :");
-		int pathID = Integer.parseInt(scan.next()) ;
+		int pathID = Integer.parseInt( scan.next());
 		String trail = ctrManager.findTrailByID(pathID);
 		if (trail != null) {
 			System.out.println(trail);
@@ -110,6 +110,5 @@ public class ClimbingMode implements Mode {
         execute();
         this.member.setRoute("Climbing Mode: " + listTrails());
     }
-	
-
 }
+
