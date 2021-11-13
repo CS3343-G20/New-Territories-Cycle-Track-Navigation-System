@@ -12,4 +12,10 @@ public interface ClimbingTrailRepoManager {
 	String sort(int order);
 
 	String list();
+
+	String listDestinations();
+
+	String listDepartures();
+	
+	String listDifficulties();
 }

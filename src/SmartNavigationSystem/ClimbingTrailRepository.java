@@ -6,7 +6,7 @@ import java.util.TreeSet;
 /*
 Singleton class
  */
-public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
+public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
     private TreeSet<ClimbingTrail> climbingTrails;
     private static ClimbingTrailRepository ctr = new ClimbingTrailRepository();
 
@@ -14,8 +14,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
         return ctr;
     }
 
-    private  ClimbingTrailRepository() {
-    	climbingTrails  =new TreeSet<>();
+    private ClimbingTrailRepository() {
+        climbingTrails = new TreeSet<>();
+        ClimbingTrail[] cts = Constants.ct;
+        for (ClimbingTrail c : cts) {
+            climbingTrails.add(c);
+        }
     }
 
     public String sort(int order) {
@@ -26,15 +30,16 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
             StringBuilder strC = new StringBuilder();
             Iterator<ClimbingTrail> it = climbingTrails.descendingIterator();
             while (it.hasNext()) {
-            	ClimbingTrail ct = it.next();
+                ClimbingTrail ct = it.next();
                 strC.append(ct.displayInformation()).append("\n");
             }
             return String.valueOf(strC);
         }
         return null;
     }
+
     public void clearClimbingTrails() {
-    	climbingTrails= new TreeSet<>();
+        climbingTrails = new TreeSet<>();
     }
 
     public void addClimbingTrail(ClimbingTrail ct) {
@@ -67,10 +72,10 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
         }
         return String.valueOf(strB);
     }
-    
+
     public String filterTrailByDest(String destName) {
         StringBuilder strB = new StringBuilder();
-        Iterator <ClimbingTrail> it = climbingTrails.iterator();
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getDestinationName().equals(destName)) {
@@ -82,7 +87,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
 
     public String filterTrailByDeparture(String departureName) {
         StringBuilder strB = new StringBuilder();
-        Iterator <ClimbingTrail>it = climbingTrails.iterator();
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getDepartureName().equals(departureName)) {
@@ -92,16 +97,52 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
         return String.valueOf(strB);
     }
 
-
-    public String findTrailByID(int id) {
+    @Override
+    public String findTrailByID(int pathID) {
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            if (tmp.getID()==pathID) {
+            if (Integer.parseInt(tmp.getID()) == pathID) {
                 return tmp.displayInformation();
             }
         }
         return null;
+    }
+
+    @Override
+    public String listDifficulties() {
+        String difficulties = "";
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        while (it.hasNext()) {
+            ClimbingTrail tmp = it.next();
+            difficulties += tmp.getDifficulty();
+            difficulties += " ";
+        }
+        return difficulties;
+    }
+
+    @Override
+    public String listDepartures() {
+        String departures = "";
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        while (it.hasNext()) {
+            ClimbingTrail tmp = it.next();
+            departures += tmp.getDepartureName();
+            departures += " ";
+        }
+        return departures;
+    }
+
+    @Override
+    public String listDestinations() {
+        String destinations = "";
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        while (it.hasNext()) {
+            ClimbingTrail tmp = it.next();
+            destinations += tmp.getDestinationName();
+            destinations += " ";
+        }
+        return destinations;
     }
 
 }

@@ -8,21 +8,21 @@ This is a singleton class
  */
 public class ClimbingMode implements Mode {
 	private static ClimbingTrailRepoManager ctrManager;
-	private static Scanner scan ;
+	private static Scanner scan;
 	private Member member = null;
 
-	public ClimbingMode(ClimbingTrailRepoManager ctrm,InputStream is) {
+	public ClimbingMode(ClimbingTrailRepoManager ctrm, InputStream is) {
 		ctrManager = ctrm;
-		scan= new Scanner(is);
+		scan = new Scanner(is);
 	}
 
-	
-	public ClimbingMode (ClimbingTrailRepoManager ctrm) {
-		ctrManager= ctrm;
+	public ClimbingMode(ClimbingTrailRepoManager ctrm) {
+		ctrManager = ctrm;
 	}
+
 	public ClimbingMode() {
 		ctrManager = ClimbingTrailRepository.getInstance();
-		scan= new Scanner(System.in);
+		scan = new Scanner(System.in);
 	}
 
 	public String listTrails() {
@@ -37,19 +37,43 @@ public class ClimbingMode implements Mode {
 		return result;
 	}
 
+	public String listDifficulties() {
+		String result = ctrManager.listDifficulties();
+		System.out.println(result);
+		return result;
+	}
+
+	public String listDepartures() {
+		String result = ctrManager.listDepartures();
+		System.out.println(result);
+		return result;
+	}
+
+	public String listDestinations() {
+		String result = ctrManager.listDestinations();
+		System.out.println(result);
+		return result;
+	}
+
 	public String chooseSelectionCriteria() {
 		System.out.printf(
-				"Please choose the selection criteria: \n" + "1. Difficulty\n" + "2. Departure\n" + "3. Destination");
+				"Please choose the selection criteria: \n" + "1. Difficulty\n" + "2. Departure\n" + "3. Destination\n");
 		int selection = scan.nextInt();
 		switch (selection) {
 		case 1:
+			System.out.printf("Please choose the difficulty from following numbers:\n");
+            listDifficulties();
 			int difficulty = scan.nextInt();
 			return findTrailsByDifficulty(difficulty);
 		case 2:
+			System.out.printf("Please choose the departure from following departures:");
+			listDepartures();
 			String departure = scan.next();
 			return findTrailsByDeparture(departure);
 
 		case 3:
+			System.out.printf("Please choose the destination from following destinations:");
+			listDestinations();
 			String destination = scan.next();
 			return findTrailsByDestination(destination);
 
@@ -61,7 +85,7 @@ public class ClimbingMode implements Mode {
 	}
 
 	public void addCycling(int PathID) {
-		System.out.println("Do you want to cycle to the point?");
+		System.out.println("Do you want to cycle to the point? [true/false]");
 		boolean cycling = scan.nextBoolean();
 		if (cycling) {
 			CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance());
@@ -84,7 +108,7 @@ public class ClimbingMode implements Mode {
 	public int chooseClimbingPath() {
 
 		System.out.println("Please enter the id of the climbing path that you would like to choose :");
-		int pathID = Integer.parseInt( scan.next());
+		int pathID = Integer.parseInt(scan.next());
 		String trail = ctrManager.findTrailByID(pathID);
 		if (trail != null) {
 			System.out.println(trail);
@@ -97,18 +121,18 @@ public class ClimbingMode implements Mode {
 
 	@Override
 	public void execute() {
+		System.out.println("Here are all the trails:");
 		listTrails();
 		chooseSelectionCriteria();
 		int PathID = chooseClimbingPath();
 		addCycling(PathID);
 	}
 
-
 	@Override
 	public void memberExecute(Member member) {
 		this.member = member;
-        execute();
-        this.member.setRoute("Climbing Mode: " + listTrails());
-    }
-}
+		execute();
+		this.member.setRoute("Climbing Mode: " + listTrails());
+	}
 
+}
