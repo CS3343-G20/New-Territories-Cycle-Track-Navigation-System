@@ -92,11 +92,11 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
         return String.valueOf(strB);
     }
     @Override
-    public String findTrailByID(String id) {
+    public String findTrailByID(int pathID) {
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            if (tmp.getID().equals(id)) {
+            if (tmp.getID()==pathID) {
                 return tmp.displayInformation();
             }
         }
