@@ -92,14 +92,16 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
         return String.valueOf(strB);
     }
 
+
     public String findTrailByID(int id) {
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            if (tmp.getID().equals(id)) {
+            if (tmp.getID()==pathID) {
                 return tmp.displayInformation();
             }
         }
         return null;
     }
+
 }
