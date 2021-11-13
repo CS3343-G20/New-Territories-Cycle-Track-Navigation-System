@@ -1,5 +1,6 @@
 package SmartNavigationSystem;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -9,6 +10,7 @@ Singleton class
 public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
     private TreeSet<ClimbingTrail> climbingTrails;
     private static ClimbingTrailRepository ctr = new ClimbingTrailRepository();
+    private static ArrayList<ClimbingTrail> filteredClimbingTrails;
 
     public static ClimbingTrailRepository getInstance() {
         return ctr;
@@ -17,6 +19,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
     private ClimbingTrailRepository() {
         climbingTrails = new TreeSet<>();
         ClimbingTrail[] cts = Constants.ct;
+        filteredClimbingTrails = new ArrayList<>();
         for (ClimbingTrail c : cts) {
             climbingTrails.add(c);
         }
@@ -55,43 +58,51 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail cttmp = it.next();
-
-            strB.append(cttmp.displayInformation()).append("\n");
+            strB.append(cttmp.displayInformation());
+            if (it.hasNext()){
+                strB.append("\n");
+            }
         }
         return String.valueOf(strB);
     }
 
     public String filterByDifficulty(int difficulty) {
+        filteredClimbingTrails.clear();
         StringBuilder strB = new StringBuilder();
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getDifficulty() == difficulty) {
                 strB.append(tmp.displayInformation()).append("\n");
+                filteredClimbingTrails.add(tmp);
             }
         }
         return String.valueOf(strB);
     }
 
     public String filterTrailByDest(String destName) {
+        filteredClimbingTrails.clear();
         StringBuilder strB = new StringBuilder();
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getDestinationName().equals(destName)) {
                 strB.append(tmp.displayInformation()).append("\n");
+                filteredClimbingTrails.add(tmp);
             }
         }
         return String.valueOf(strB);
     }
 
     public String filterTrailByDeparture(String departureName) {
+        filteredClimbingTrails.clear();
         StringBuilder strB = new StringBuilder();
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getDepartureName().equals(departureName)) {
                 strB.append(tmp.displayInformation()).append("\n");
+                filteredClimbingTrails.add(tmp);
             }
         }
         return String.valueOf(strB);
@@ -116,7 +127,9 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             difficulties += tmp.getDifficulty();
-            difficulties += " ";
+            if (it.hasNext() ==true) {
+                difficulties += ", ";
+            }
         }
         return difficulties;
     }
@@ -128,7 +141,9 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             departures += tmp.getDepartureName();
-            departures += " ";
+            if (it.hasNext() ==true) {
+                departures += ", ";
+            }
         }
         return departures;
     }
@@ -140,9 +155,15 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             destinations += tmp.getDestinationName();
-            destinations += " ";
+            if (it.hasNext() ==true) {
+                destinations += ", ";
+            }
         }
         return destinations;
     }
 
+    @Override
+    public ArrayList<ClimbingTrail> getFilteredClimbingTrails() {
+        return filteredClimbingTrails;
+    }
 }

@@ -1,5 +1,7 @@
 package SmartNavigationSystem;
 
+import java.util.ArrayList;
+
 public interface ClimbingTrailRepoManager {
 	String filterByDifficulty(int difficulty);
 
@@ -18,4 +20,6 @@ public interface ClimbingTrailRepoManager {
 	String listDepartures();
 	
 	String listDifficulties();
+	
+	ArrayList<ClimbingTrail> getFilteredClimbingTrails();
 }

@@ -13,7 +13,7 @@ public class ClimbingTrail implements Comparable<ClimbingTrail> {
     	this.departure_name = departure_name;
     }
     public String displayInformation() {
-        return "The climbing trail with id " + id + ", difficulty " + difficulty + ", destination " + destination_name + ", departure_name " + departure_name;
+        return "The climbing trail with id " + id + ", difficulty " + difficulty + ", destination_name " + destination_name + ", departure_name " + departure_name;
     }
 
     public int getDifficulty() {

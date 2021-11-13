@@ -11,7 +11,7 @@ public class ClimbingMode implements Mode {
 	private static Scanner scan;
 	private static BookmarkManager bmManager;
 	private Member member = null;
-    private int pathID;
+	private int pathID;
 
 	public ClimbingMode(ClimbingTrailRepoManager ctrm, InputStream is) {
 		ctrManager = ctrm;
@@ -34,9 +34,22 @@ public class ClimbingMode implements Mode {
 	}
 
 	public String findTrailsByDifficulty(int difficulty) {
+		boolean inFilteredTrails1 = false;
 		String result = ctrManager.filterByDifficulty(difficulty);
-		System.out.println(result);
-		return result;
+		for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
+			if (c.getDifficulty() == difficulty) {
+				inFilteredTrails1 = true;
+			}
+		}
+		if (inFilteredTrails1) {
+			System.out.println("The following are the filtered trails:");
+			System.out.print(result);
+			return result;
+		} else {
+			System.out.println("Invalid id, please reenter.");
+			chooseSelectionCriteria();
+		}
+		return null;
 	}
 
 	public String listDifficulties() {
@@ -64,19 +77,22 @@ public class ClimbingMode implements Mode {
 		switch (selection) {
 		case 1:
 			System.out.printf("Please choose the difficulty from following numbers:\n");
-            listDifficulties();
+			listDifficulties();
 			int difficulty = scan.nextInt();
 			return findTrailsByDifficulty(difficulty);
+
 		case 2:
 			System.out.printf("Please choose the departure from following departures:");
 			listDepartures();
-			String departure = scan.next();
+			scan.nextLine();
+			String departure = scan.nextLine();
 			return findTrailsByDeparture(departure);
 
 		case 3:
 			System.out.printf("Please choose the destination from following destinations:");
 			listDestinations();
-			String destination = scan.next();
+			scan.nextLine();
+			String destination = scan.nextLine();
 			return findTrailsByDestination(destination);
 
 		default:
@@ -97,23 +113,54 @@ public class ClimbingMode implements Mode {
 
 	public String findTrailsByDeparture(String name) {
 		String result = ctrManager.filterTrailByDeparture(name);
-		System.out.println(result);
-		return result;
+		boolean inFilteredTrails2 = false;
+		for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
+			if (c.getDepartureName().equals(name)) {
+				inFilteredTrails2 = true;
+			}
+		}
+		if (inFilteredTrails2) {
+			System.out.println("The following are the filtered trails:");
+			System.out.print(result);
+			return result;
+		} else {
+			System.out.println("Invalid departure name, please reenter.");
+			chooseSelectionCriteria();
+		}
+		return null;
 	}
 
 	public String findTrailsByDestination(String name) {
 		String result = ctrManager.filterTrailByDest(name);
-		System.out.println(result);
-		return result;
+		boolean inFilteredTrails3 = false;
+		for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
+			if (c.getDestinationName().equals(name)) {
+				inFilteredTrails3 = true;
+			}
+		}
+		if (inFilteredTrails3) {
+			System.out.println("The following are the filtered trails:");
+			System.out.print(result);
+			return result;
+		} else {
+			System.out.println("Invalid destination name, please reenter.");
+			chooseSelectionCriteria();
+		}
+		return null;
 	}
 
 	public int chooseClimbingPath() {
-
 		System.out.println("Please enter the id of the climbing path that you would like to choose :");
 		int pathID = Integer.parseInt(scan.next());
 		String trail = ctrManager.findTrailByID(pathID);
-		if (trail != null) {
-			System.out.println("This is the climbingTrail chosen");
+		boolean inFilteredTrails4 = false;
+		for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
+			if (Integer.parseInt(c.getID())==pathID) {
+				inFilteredTrails4 = true;
+			}
+		}
+		if (trail != null&&inFilteredTrails4) {
+			System.out.println("This is the climbing trail chosen:");
 			System.out.println(trail);
 		} else {
 			System.out.println("The climbing path doesn't exist, please enter a valid climbing path id");
@@ -135,7 +182,11 @@ public class ClimbingMode implements Mode {
 	public void memberExecute(Member member) {
 		this.member = member;
 		execute();
-		bmManager.addBookmark(ctrManager.findTrailByID(pathID), member);
+		System.out.println("Do you want to add the selected route as bookmark? [yes/no]");
+		boolean choice = scan.nextBoolean();
+		if (choice) {
+			bmManager.addBookmark(ctrManager.findTrailByID(pathID), member);
+		}
 		this.member.setRoute("Climbing Mode: " + listTrails());
 	}
 
