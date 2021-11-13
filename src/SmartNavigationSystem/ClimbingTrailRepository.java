@@ -103,5 +103,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager{
         return null;
     }
 
+    //-----------new --------------------------------------------------------------------------------
+    @Override
+    public String findTrailByID(int pathID) {
+        
+        return null;
+    }
+
 
 }
