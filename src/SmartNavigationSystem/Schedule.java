@@ -4,9 +4,6 @@ import java.io.IOException;
 
 import javax.mail.MessagingException;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 public class Schedule {
 
     private Member member;
@@ -31,11 +28,11 @@ public class Schedule {
         return this.state;
     }
 
-    public static void makeSchedule(String mode, String date, Member member) throws IOException {
-        JsonOperation.addNewSchedule(member, date, mode);
+    public static void makeSchedule(String route, String date, Member member) throws IOException {
+        JsonOperation.addNewSchedule(member, date, route);
     }
 
-    public static void deleteSchedule(Member member, int index) throws IOException {
+    public static void deleteSchedule(Member member, int index) throws IOException, ExInvalidIndex {
         JsonOperation.deleteMemberSchedule(member, index);
     }
 

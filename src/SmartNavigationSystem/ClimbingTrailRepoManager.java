@@ -7,7 +7,7 @@ public interface ClimbingTrailRepoManager {
 
 	String filterTrailByDeparture(String departureName);
 
-	String findTrailByID(String ID);
+	String findTrailByID(int pathID);
 
 	String sort(int order);
 

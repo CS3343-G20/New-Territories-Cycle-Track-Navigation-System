@@ -9,6 +9,7 @@ This is a singleton class
 public class ClimbingMode implements Mode {
 	private static ClimbingTrailRepoManager ctrManager;
 	private static Scanner scan ;
+	private Member member = null;
 
 	public ClimbingMode(ClimbingTrailRepoManager ctrm,InputStream is) {
 		ctrManager = ctrm;
@@ -59,12 +60,12 @@ public class ClimbingMode implements Mode {
 		}
 	}
 
-	public void addCycling(String PathID) {
+	public void addCycling(int PathID) {
 		System.out.println("Do you want to cycle to the point?");
 		boolean cycling = scan.nextBoolean();
 		if (cycling) {
-			// CyclingMode cm = new CyclingMode();
-			// cm.modeswitch(PathID);
+			CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance());
+			cm.modeSwitch(PathID);
 		}
 	}
 
@@ -80,10 +81,10 @@ public class ClimbingMode implements Mode {
 		return result;
 	}
 
-	public String chooseClimbingPath() {
+	public int chooseClimbingPath() {
 
 		System.out.println("Please enter the id of the climbing path that you would like to choose :");
-		String pathID = scan.next();
+		int pathID = Integer.parseInt(scan.next()) ;
 		String trail = ctrManager.findTrailByID(pathID);
 		if (trail != null) {
 			System.out.println(trail);
@@ -98,8 +99,17 @@ public class ClimbingMode implements Mode {
 	public void execute() {
 		listTrails();
 		chooseSelectionCriteria();
-		String PathID = chooseClimbingPath();
+		int PathID = chooseClimbingPath();
 		addCycling(PathID);
 	}
+
+
+	@Override
+	public void memberExecute(Member member) {
+		this.member = member;
+        execute();
+        this.member.setRoute("Climbing Mode: " + listTrails());
+    }
+	
 
 }

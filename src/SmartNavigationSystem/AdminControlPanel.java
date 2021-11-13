@@ -20,9 +20,7 @@ public class AdminControlPanel extends ControlPanel {
 
 
     @Override
-    public int makeDecision() throws IOException {
-
-        Scanner userInput = new Scanner(System.in);
+    public int makeDecision(Scanner userInput) throws IOException {
 
         String line = "";
 
