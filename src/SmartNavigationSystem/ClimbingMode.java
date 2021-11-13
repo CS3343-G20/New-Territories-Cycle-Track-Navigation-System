@@ -9,7 +9,9 @@ This is a singleton class
 public class ClimbingMode implements Mode {
 	private static ClimbingTrailRepoManager ctrManager;
 	private static Scanner scan;
+	private static BookmarkManager bmManager;
 	private Member member = null;
+    private int pathID;
 
 	public ClimbingMode(ClimbingTrailRepoManager ctrm, InputStream is) {
 		ctrManager = ctrm;
@@ -111,6 +113,7 @@ public class ClimbingMode implements Mode {
 		int pathID = Integer.parseInt(scan.next());
 		String trail = ctrManager.findTrailByID(pathID);
 		if (trail != null) {
+			System.out.println("This is the climbingTrail chosen");
 			System.out.println(trail);
 		} else {
 			System.out.println("The climbing path doesn't exist, please enter a valid climbing path id");
@@ -124,14 +127,15 @@ public class ClimbingMode implements Mode {
 		System.out.println("Here are all the trails:");
 		listTrails();
 		chooseSelectionCriteria();
-		int PathID = chooseClimbingPath();
-		addCycling(PathID);
+		pathID = chooseClimbingPath();
+		addCycling(pathID);
 	}
 
 	@Override
 	public void memberExecute(Member member) {
 		this.member = member;
 		execute();
+		bmManager.addBookmark(ctrManager.findTrailByID(pathID), member);
 		this.member.setRoute("Climbing Mode: " + listTrails());
 	}
 
