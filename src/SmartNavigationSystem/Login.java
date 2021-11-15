@@ -31,13 +31,18 @@ public class Login {
             if (ans.equals("Y")) {
                 register.register(userInput);
             } else if (!ans.equals("N")) {
-                System.out.println("Input error. Please try again.");
+                System.out.println("Input error. Please login again.");
                 login(userInput);
             }
         } else {
             System.out.println("Please input password: ");
             this.inpPwd = userInput.nextLine();
-            return verifyPwd(this.inpEmail, this.inpPwd);
+            boolean verification = verifyPwd(this.inpEmail, this.inpPwd);
+            if (!verification) {
+                System.out.println("Password error. Please try again.");
+            	this.inpPwd = userInput.nextLine();
+            	return verifyPwd(this.inpEmail, this.inpPwd);
+            }
         }
         // userInput.close();
         return false;
