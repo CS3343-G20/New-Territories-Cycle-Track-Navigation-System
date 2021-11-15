@@ -1,7 +1,5 @@
 package SmartNavigationSystem;
 
-import static org.mockito.Answers.values;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -89,14 +87,20 @@ public class CyclingMode implements Mode {
         execute();
         this.member.setRoute("Cycling Mode: " + vManager.getRouteString(route));
     }
-
-    public void modeSwitch(int trail_id) {
-        separator();
+    
+    public void modeSwitch(int trail_id, Member member) {
+    	separator();
 
         this.destination = tQuerier.getTrailDepartureID(trail_id);
         forClimbing = true;
-        execute();
+        if (member == null) {
+        	execute();
+        }
+        else {
+        	memberExecute(member);
+        }
         if (forClimbing) {
+        	System.out.printf("Cycling Route: %s\n", vManager.getRouteString(route));
             System.out.printf("Climbing Route: %s -> %s\n", vManager.getVertexNameByID(this.destination), tQuerier.getTrailDestinationName(trail_id));
         }
     }
@@ -277,8 +281,7 @@ public class CyclingMode implements Mode {
         }
         route.add(destination);
 
-        System.out.printf("Total cost: %d\nCycling Route: ", totalCost);
-        vManager.listRoute(route);
+        System.out.printf("Total cost: %d\nCycling Planning Result: %s\n", totalCost, vManager.getRouteString(route));
     }
 
     public void addBookmark() {
