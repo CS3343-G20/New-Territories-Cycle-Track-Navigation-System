@@ -101,6 +101,7 @@ public class CyclingMode implements Mode {
         	memberExecute(member);
         }
         if (forClimbing) {
+            separator();
         	System.out.printf("Cycling Route: %s\n", vManager.getRouteString(route));
             System.out.printf("Climbing Route: %s -> %s\n", vManager.getVertexNameByID(this.destination), tQuerier.getTrailDestinationName(trail_id));
         }

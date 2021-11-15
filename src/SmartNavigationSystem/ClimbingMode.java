@@ -7,7 +7,7 @@ This is a singleton class
  */
 public class ClimbingMode implements Mode {
 	private static ClimbingTrailRepoManager ctrManager;
-	private static Scanner scan;
+	private Scanner scan;
 	private BookmarkManager bmManager;
 	private Member member = null;
 	private int pathID;
@@ -23,6 +23,7 @@ public class ClimbingMode implements Mode {
 
 	public ClimbingMode(Scanner scan) {
 		ctrManager = ClimbingTrailRepository.getInstance();
+		this.scan = scan;
 		this.bmManager = Bookmark.getInstance();
 	}
 
@@ -48,110 +49,101 @@ public class ClimbingMode implements Mode {
 	}
 
 	public String chooseSelectionCriteria() {
-		System.out.printf(
-				"Please choose the selection criteria: \n" + "1. Difficulty\n" + "2. Departure\n" + "3. Destination\n");
-		int selection = Integer.parseInt(scan.nextLine());
-		switch (selection) {
-		case 1:
-			System.out.printf("Please choose the difficulty from following numbers:\n");
-			System.out.println(ctrManager.listDifficulties());
-			int difficulty = Integer.parseInt(scan.nextLine());
-			return findTrailsByDifficulty(difficulty);
+		System.out.printf("Please choose the selection criteria: \n" + "1. Difficulty\n" + "2. Departure\n" + "3. Destination\n");
+		while (true) {
+			try {
+				int selection = Integer.parseInt(scan.nextLine());
+				switch (selection) {
+					case 1:
+						return findTrailsByDifficulty();
+					case 2:
+						return findTrailsByDeparture();
+					case 3:
+						return findTrailsByDestination();
+					default:
+						System.out.println("ERROR: Invalid selection criteria");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println(new ExWrongNumberFormat().getMessage());
+			}
+		}
+	}
 
-		case 2:
-			System.out.printf("Please choose the departure from following departures:");
-			System.out.println(ctrManager.listDepartures());
+	public String findTrailsByDifficulty() {
+		System.out.printf("Please choose the difficulty from following numbers:\n");
+		System.out.println(ctrManager.listDifficulties());
+		while (true) {
+			try {
+				int difficulty = Integer.parseInt(scan.nextLine());
+				String result = ctrManager.filterByDifficulty(difficulty);
+				if (result.length() != 0) {
+					System.out.println("The following are the filtered trails:");
+					System.out.print(result);
+					return result;
+				} else {
+					System.out.println("Invalid difficulty. Please try again.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println(new ExWrongNumberFormat().getMessage());
+			}
+		}
+	}
+
+	public String findTrailsByDeparture() {
+		System.out.printf("Please choose the departure from following departures:");
+		System.out.println(ctrManager.listDepartures());
+		while (true) {
 			String departure = scan.nextLine();
-			return findTrailsByDeparture(departure);
+			String result = ctrManager.filterTrailByDeparture(departure);
+			if (result.length() != 0) {
+				System.out.println("The following are the filtered trails:");
+				System.out.print(result);
+				return result;
+			} else {
+				System.out.println("Invalid departure name. Please reenter.");
+			}
+		}
+	}
 
-		case 3:
-			System.out.printf("Please choose the destination from following destinations:");
-			System.out.println(ctrManager.listDestinations());
+	public String findTrailsByDestination() {
+		System.out.printf("Please choose the destination from following destinations:");
+		System.out.println(ctrManager.listDestinations());
+		while (true) {
 			String destination = scan.nextLine();
-			return findTrailsByDestination(destination);
-
-		default:
-			System.out.println("ERROR: Invalid selection criteria");
-			chooseSelectionCriteria();
-			return null;
-		}
-	}
-
-	public String findTrailsByDifficulty(int difficulty) {
-		boolean inFilteredTrails1 = false;
-		String result = ctrManager.filterByDifficulty(difficulty);
-		for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
-			if (c.getDifficulty() == difficulty) {
-				inFilteredTrails1 = true;
+			String result = ctrManager.filterTrailByDest(destination);
+			if (result.length() != 0) {
+				System.out.println("The following are the filtered trails:");
+				System.out.print(result);
+				return result;
+			} else {
+				System.out.println("Invalid destination name, please reenter.");
 			}
 		}
-		if (inFilteredTrails1) {
-			System.out.println("The following are the filtered trails:");
-			System.out.print(result);
-			return result;
-		} else {
-			System.out.println("Invalid id, please reenter.");
-			chooseSelectionCriteria();
-		}
-		return null;
-	}
-
-	public String findTrailsByDeparture(String name) {
-		String result = ctrManager.filterTrailByDeparture(name);
-		boolean inFilteredTrails2 = false;
-		for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
-			if (c.getDepartureName().equals(name)) {
-				inFilteredTrails2 = true;
-			}
-		}
-		if (inFilteredTrails2) {
-			System.out.println("The following are the filtered trails:");
-			System.out.print(result);
-			return result;
-		} else {
-			System.out.println("Invalid departure name, please reenter.");
-			chooseSelectionCriteria();
-		}
-		return null;
-	}
-
-	public String findTrailsByDestination(String name) {
-		String result = ctrManager.filterTrailByDest(name);
-		boolean inFilteredTrails3 = false;
-		for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
-			if (c.getDestinationName().equals(name)) {
-				inFilteredTrails3 = true;
-			}
-		}
-		if (inFilteredTrails3) {
-			System.out.println("The following are the filtered trails:");
-			System.out.print(result);
-			return result;
-		} else {
-			System.out.println("Invalid destination name, please reenter.");
-			chooseSelectionCriteria();
-		}
-		return null;
 	}
 
 	public int chooseClimbingPath() {
 		System.out.println("Please enter the id of the climbing path that you would like to choose :");
-		int pathID = Integer.parseInt(scan.nextLine());
-		String trail = ctrManager.findTrailByID(pathID);
-		boolean inFilteredTrails4 = false;
-		for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
-			if (c.getID()==pathID) {
-				inFilteredTrails4 = true;
+		while (true) {
+			try {
+				int pathID = Integer.parseInt(scan.nextLine());
+				String trail = ctrManager.findTrailByID(pathID);
+				boolean inFilteredTrails = false;
+				for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
+					if (c.getID()==pathID) {
+						inFilteredTrails = true;
+					}
+				}
+				if (trail != null && inFilteredTrails) {
+					System.out.println("This is the climbing trail chosen:");
+					System.out.println(trail);
+					return pathID;
+				} else {
+					System.out.println("The climbing path doesn't exist, please enter a valid climbing path id");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println(new ExWrongNumberFormat().getMessage());
 			}
 		}
-		if (trail != null&&inFilteredTrails4) {
-			System.out.println("This is the climbing trail chosen:");
-			System.out.println(trail);
-		} else {
-			System.out.println("The climbing path doesn't exist, please enter a valid climbing path id");
-			chooseClimbingPath();
-		}
-		return pathID;
 	}
 
 	public void addCycling(int PathID) {
