@@ -13,7 +13,7 @@ public class User {
                 int modeIndex = Integer.parseInt(userInput.nextLine());
                 if (modeIndex == 1) {
                     mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(),
-                    userInput, Bookmark.getInstance());
+                    userInput, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
                 }
                 else if (modeIndex == 2) {
                     mode = new ClimbingMode();

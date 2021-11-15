@@ -7,7 +7,7 @@ import java.util.TreeSet;
 /*
 Singleton class
  */
-public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
+public class ClimbingTrailRepository implements ClimbingTrailRepoManager, ClimbingTrailsQuerier {
     private TreeSet<ClimbingTrail> climbingTrails;
     private static ClimbingTrailRepository ctr = new ClimbingTrailRepository();
     private static ArrayList<ClimbingTrail> filteredClimbingTrails;
@@ -165,5 +165,17 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager {
     @Override
     public ArrayList<ClimbingTrail> getFilteredClimbingTrails() {
         return filteredClimbingTrails;
+    }
+
+    @Override
+    public int getTrailDepartureID(int id) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public String getTrailDestinationName(int id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

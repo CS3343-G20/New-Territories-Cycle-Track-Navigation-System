@@ -63,16 +63,8 @@ public class Vertices implements VerticesManager, VerticesFinder {
             if (i < route.size() - 1) {
                 res += " -> ";
             }
-            /*
-             * else { res += "\n"; }
-             */
         }
         return res;
-    }
-
-    @Override
-    public void listRoute(ArrayList<Integer> route) {
-        System.out.println(getRouteString(route) + "\n");
     }
 
     @Override

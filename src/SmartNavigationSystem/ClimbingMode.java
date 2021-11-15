@@ -104,6 +104,13 @@ public class ClimbingMode implements Mode {
 	}
 
 	public void addCycling(int PathID) {
+<<<<<<< HEAD
+		System.out.println("Do you want to cycle to the point? [true/false]");
+		boolean cycling = scan.nextBoolean();
+		if (cycling) {
+			CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+			cm.modeSwitch(PathID);
+=======
 		System.out.println("Do you want to cycle to the point? [Y/N]");
 		boolean isChosen = false;
 		while (!isChosen) {
@@ -119,6 +126,7 @@ public class ClimbingMode implements Mode {
 			}catch(ExInvalidCommand e){
 					System.out.println(e.getMessage());
 				}
+>>>>>>> master
 		}
 	}
 
