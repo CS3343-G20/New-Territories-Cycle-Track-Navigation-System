@@ -16,7 +16,7 @@ public class User {
                     userInput, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
                 }
                 else if (modeIndex == 2) {
-                    mode = new ClimbingMode();
+                    mode = new ClimbingMode(userInput);
                 }
                 executeMode();
                 isChosen = true;
