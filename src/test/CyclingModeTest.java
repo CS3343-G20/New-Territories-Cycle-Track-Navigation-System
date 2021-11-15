@@ -5,6 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -51,7 +53,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setDeparture();
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
@@ -97,7 +99,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setDeparture();
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
@@ -146,7 +148,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setDeparture();
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
@@ -192,7 +194,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setDestination();
 
         Field destination = CyclingMode.class.getDeclaredField("destination");
@@ -238,7 +240,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setDestination();
 
         Field destination = CyclingMode.class.getDeclaredField("destination");
@@ -287,7 +289,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setDestination();
 
         Field destination = CyclingMode.class.getDeclaredField("destination");
@@ -334,7 +336,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         Field forClimbing = CyclingMode.class.getDeclaredField("forClimbing");
         forClimbing.setAccessible(true);
         forClimbing.set(mode, true);
@@ -386,7 +388,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         Field forClimbing = CyclingMode.class.getDeclaredField("forClimbing");
         forClimbing.setAccessible(true);
         forClimbing.set(mode, true);
@@ -438,7 +440,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         Field forClimbing = CyclingMode.class.getDeclaredField("forClimbing");
         forClimbing.setAccessible(true);
         forClimbing.set(mode, true);
@@ -490,7 +492,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         Field forClimbing = CyclingMode.class.getDeclaredField("forClimbing");
         forClimbing.setAccessible(true);
         forClimbing.set(mode, true);
@@ -542,7 +544,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.addAttractions();
 
         Field attractions = CyclingMode.class.getDeclaredField("attractions");
@@ -589,7 +591,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.addAttractions();
 
         Field attractions = CyclingMode.class.getDeclaredField("attractions");
@@ -639,7 +641,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.addAttractions();
 
         Field attractions = CyclingMode.class.getDeclaredField("attractions");
@@ -654,7 +656,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.addAttractions();
 
         Field attractions = CyclingMode.class.getDeclaredField("attractions");
@@ -701,7 +703,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.addAttractions();
 
         Field attractions = CyclingMode.class.getDeclaredField("attractions");
@@ -716,7 +718,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setPriority();
 
         Field priority = CyclingMode.class.getDeclaredField("priority");
@@ -731,7 +733,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setPriority();
 
         Field priority = CyclingMode.class.getDeclaredField("priority");
@@ -746,7 +748,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
         mode.setPriority();
 
         Field priority = CyclingMode.class.getDeclaredField("priority");
@@ -820,7 +822,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
         departure.setAccessible(true);
@@ -904,7 +906,7 @@ public class CyclingModeTest {
         }
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
         departure.setAccessible(true);
@@ -991,7 +993,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
         departure.setAccessible(true);
@@ -1092,7 +1094,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
         departure.setAccessible(true);
@@ -1192,7 +1194,7 @@ public class CyclingModeTest {
         }
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
         departure.setAccessible(true);
@@ -1267,7 +1269,7 @@ public class CyclingModeTest {
         }
 
         stubBookmark mark = new stubBookmark();
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark);
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
 
         mode.addBookmark();
 
@@ -1323,7 +1325,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         stubBookmark mark = new stubBookmark();
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark);
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
 
         Field member = CyclingMode.class.getDeclaredField("member");
         member.setAccessible(true);
@@ -1384,7 +1386,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         stubBookmark mark = new stubBookmark();
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark);
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
 
         Field member = CyclingMode.class.getDeclaredField("member");
         member.setAccessible(true);
@@ -1445,7 +1447,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         stubBookmark mark = new stubBookmark();
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark);
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
 
         Field member = CyclingMode.class.getDeclaredField("member");
         member.setAccessible(true);
@@ -1537,7 +1539,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         mode.execute();
 
@@ -1633,7 +1635,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         mode.execute();
 
@@ -1729,7 +1731,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         mode.execute();
 
@@ -1825,7 +1827,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         mode.execute();
 
@@ -1921,7 +1923,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         mode.execute();
 
@@ -2017,7 +2019,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         mode.execute();
 
@@ -2113,7 +2115,7 @@ public class CyclingModeTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 
         mode.execute();
 
@@ -2141,7 +2143,7 @@ public class CyclingModeTest {
             }
 
             public String getVertexNameByID(int id) {
-                return null;
+                return "a";
             }
 
             public String getVertexNamesByID(ArrayList<Integer> ids) {
@@ -2204,28 +2206,127 @@ public class CyclingModeTest {
             }
         }
 
+        class stubClimgbingTrailRepo implements ClimbingTrailsQuerier {
+
+            public int getTrailDepartureID(int id) {return 7;}
+
+            public String getTrailDestinationName(int id) {return "b";}
+        }
+
         String input = "0\n1\nY\n2 5\nN\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
-                Bookmark.getInstance());
+                Bookmark.getInstance(), new stubClimgbingTrailRepo());
 
-        mode.modeSwitch(6);
+        mode.modeSwitch(1);
 
-        ArrayList<Integer> expected = new ArrayList<Integer>();
-        expected.add(0);
-        expected.add(2);
-        expected.add(5);
-        expected.add(6);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
 
-        Field route = CyclingMode.class.getDeclaredField("route");
-        route.setAccessible(true);
-
-        assertEquals(expected, route.get(mode));
+        String expected = "Climbing Route: " + "a -> " + "b\n"; 
+        assertEquals(true, output.toString().contains(expected));
     }
 
     @Test
-    public void membeExecute_case1()
+    public void modeSwitch_case2()
+            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        class stubVertices implements VerticesManager {
+            public void listAllVertices() {
+            }
+
+            public int checkVertexIdValidity(int id) throws ExInvalidIndex {
+                return id;
+            }
+
+            public String getVertexNameByID(int id) {
+                return "a";
+            }
+
+            public String getVertexNamesByID(ArrayList<Integer> ids) {
+                return null;
+            }
+
+            public void listAttractions() {
+            }
+
+            public void listRoute(ArrayList<Integer> route) {
+            }
+
+            public int checkAttractionIdValidity(int id) throws ExInvalidIndex {
+                return id;
+            }
+
+            public String getRouteString(ArrayList<Integer> route) {
+                return null;
+            }
+        }
+        class stubGraph implements GraphUtility {
+            private ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>();
+            private int count = -1;
+
+            stubGraph() {
+                ArrayList<Integer> r1 = new ArrayList<Integer>();
+                r1.add(0);
+                r1.add(2);
+                routes.add(r1);
+                ArrayList<Integer> r2 = new ArrayList<Integer>();
+                r2.add(2);
+                r2.add(5);
+                routes.add(r2);
+                ArrayList<Integer> r3 = new ArrayList<Integer>();
+                r3.add(5);
+                r3.add(6);
+                routes.add(r3);
+            }
+
+            public void dijkstra(String priority, int s) {
+            }
+
+            public void dfs(int s, int d, ArrayList<Integer> temp) {
+            }
+
+            public int getDistance(int d) {
+                return 1;
+            }
+
+            public int getRoutesNumber() {
+                return 1;
+            }
+
+            public ArrayList<Integer> getRoute(int i) {
+                count++;
+                return routes.get(count);
+            }
+
+            public void clearRoutes() {
+            }
+        }
+
+        class stubClimgbingTrailRepo implements ClimbingTrailsQuerier {
+
+            public int getTrailDepartureID(int id) {return 7;}
+
+            public String getTrailDestinationName(int id) {return "b";}
+        }
+
+        String input = "0\n2\n6\nY\n2 5\nN\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        CyclingMode mode = new CyclingMode(new stubGraph(), new stubVertices(), new Scanner(System.in),
+                Bookmark.getInstance(), new stubClimgbingTrailRepo());
+
+        mode.modeSwitch(1);
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        String expected = "Climbing Route: "; 
+        assertEquals(false, output.toString().contains(expected));
+    }
+
+    @Test
+    public void memberExecute_case1()
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         class stubVertices implements VerticesManager {
             public void listAllVertices() {

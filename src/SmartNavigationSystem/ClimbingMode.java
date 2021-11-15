@@ -106,7 +106,7 @@ public class ClimbingMode implements Mode {
 		System.out.println("Do you want to cycle to the point? [true/false]");
 		boolean cycling = scan.nextBoolean();
 		if (cycling) {
-			CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance());
+			CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 			cm.modeSwitch(PathID);
 		}
 	}
