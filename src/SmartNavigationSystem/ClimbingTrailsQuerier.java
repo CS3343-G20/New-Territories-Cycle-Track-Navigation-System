@@ -1,6 +1,6 @@
 package SmartNavigationSystem;
 
 public interface ClimbingTrailsQuerier {
-    public String getTrailDepartureName(int id);
+    public int getTrailDepartureID(int id);
     public String getTrailDestinationName(int id);
 }

@@ -185,12 +185,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
     }
 
     @Override
-    public String getTrailDepartureName(int id) {
+    public int getTrailDepartureID(int id) {
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (Integer.parseInt(tmp.getID()) == id) {
-                return tmp.getDepartureName();
+                return tmp.getDepartureID();
             }
         }
         return null;
