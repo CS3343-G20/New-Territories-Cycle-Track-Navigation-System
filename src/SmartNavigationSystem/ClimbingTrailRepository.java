@@ -193,7 +193,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 return tmp.getDepartureID();
             }
         }
-        return null;
+        return -1;
     }
 
     @Override

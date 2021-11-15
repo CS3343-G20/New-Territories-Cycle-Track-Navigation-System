@@ -5,12 +5,14 @@ public class ClimbingTrail implements Comparable<ClimbingTrail> {
     private int difficulty;
     private String destination_name;
     private String departure_name;
+    private int departure_id;
 
-    public ClimbingTrail(String id, int difficulty, String destination_name, String departure_name) {
+    public ClimbingTrail(String id, int difficulty, String destination_name, String departure_name,int departure_id) {
     	this.id = id;
     	this.difficulty = difficulty;
     	this.destination_name = destination_name;
     	this.departure_name = departure_name;
+        this.departure_id = departure_id;
     }
     public String displayInformation() {
         return "id " + id + ", difficulty " + difficulty + ", destination_name " + destination_name + ", departure_name " + departure_name;
@@ -28,6 +30,7 @@ public class ClimbingTrail implements Comparable<ClimbingTrail> {
         return departure_name;
     }
 
+    public int getDepartureID(){return departure_id;}
     @Override
     public int compareTo(ClimbingTrail ct2) {
     	if (this.getDifficulty()!=ct2.getDifficulty()) {
