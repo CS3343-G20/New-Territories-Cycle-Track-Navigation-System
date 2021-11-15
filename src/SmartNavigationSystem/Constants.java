@@ -24,8 +24,8 @@ public class Constants {
         };
 
     public static final ClimbingTrail ct[] = { (new ClimbingTrail("1", 1, "Tai Po", "Sheung Shui",7)),
-            (new ClimbingTrail("2", 3, "Sheung Shui", "Shatin",8)),
-            (new ClimbingTrail("3", 3, "Tuen Muen", "Yuen Long",9)) };
+                                                (new ClimbingTrail("2", 3, "Sheung Shui", "Shatin",8)),
+                                                (new ClimbingTrail("3", 3, "Tuen Muen", "Yuen Long",9)) };
 
     public static final int[][] weight = new int[][] { 
             { 0, 1, 1, 2 }, 

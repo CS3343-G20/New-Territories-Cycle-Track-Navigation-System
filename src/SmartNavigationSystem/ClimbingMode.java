@@ -108,7 +108,8 @@ public class ClimbingMode implements Mode {
 		boolean isChosen = false;
 		while (!isChosen) {
 			try{
-				String isCycling = scan.next();
+				scan.nextLine();
+				String isCycling = scan.nextLine();
 				if (isCycling.equals("Y")) {
 					CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(),
                     scan, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
@@ -199,7 +200,7 @@ public class ClimbingMode implements Mode {
 		addBookmark();
 		pathID = chooseClimbingPath();
 		addCycling(pathID);
-		this.member.setRoute("Climbing Mode: " + listTrails());
+		// this.member.setRoute("Climbing Mode: " + listTrails());
 	}
 
 	public void addBookmark() {
@@ -207,7 +208,8 @@ public class ClimbingMode implements Mode {
         boolean isChosen = false;
         while (!isChosen) {
             try {
-                String choice = scan.next();
+				scan.nextLine();
+                String choice = scan.nextLine();
                 if (choice.equals("Y")) {
 					bmManager.addBookmark("Climbing Mode: " + ctrManager.findTrailByID(pathID), this.member);
                 } else if (!choice.equals("N")) {
