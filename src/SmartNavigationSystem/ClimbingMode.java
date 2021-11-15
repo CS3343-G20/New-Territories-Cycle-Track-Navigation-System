@@ -104,21 +104,15 @@ public class ClimbingMode implements Mode {
 	}
 
 	public void addCycling(int PathID) {
-<<<<<<< HEAD
-		System.out.println("Do you want to cycle to the point? [true/false]");
-		boolean cycling = scan.nextBoolean();
-		if (cycling) {
-			CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
-			cm.modeSwitch(PathID);
-=======
 		System.out.println("Do you want to cycle to the point? [Y/N]");
 		boolean isChosen = false;
 		while (!isChosen) {
 			try{
 				String isCycling = scan.next();
 				if (isCycling.equals("Y")) {
-					CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance());
-					cm.modeSwitch(PathID);
+					CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(),
+                    scan, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+					cm.modeSwitch(PathID, this.member);
 				}else if(!isCycling.equals("N")){
 					throw new ExInvalidCommand();
 				}
@@ -126,7 +120,6 @@ public class ClimbingMode implements Mode {
 			}catch(ExInvalidCommand e){
 					System.out.println(e.getMessage());
 				}
->>>>>>> master
 		}
 	}
 
