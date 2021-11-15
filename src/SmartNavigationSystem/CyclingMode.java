@@ -1,5 +1,7 @@
 package SmartNavigationSystem;
 
+import static org.mockito.Answers.values;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,12 +21,14 @@ public class CyclingMode implements Mode {
     private VerticesManager vManager;
     private Member member = null;
     private BookmarkManager mark;
+    private ClimbingTrailsQuerier tQuerier;
 
-    public CyclingMode(GraphUtility map, VerticesManager vManager, Scanner in, BookmarkManager mark) {
+    public CyclingMode(GraphUtility map, VerticesManager vManager, Scanner in, BookmarkManager mark, ClimbingTrailsQuerier querier) {
         this.map = map;
         this.vManager = vManager;
         this.input = in;
         this.mark = mark;
+        this.tQuerier = querier;
     }
 
     @Override
@@ -86,12 +90,15 @@ public class CyclingMode implements Mode {
         this.member.setRoute("Cycling Mode: " + vManager.getRouteString(route));
     }
 
-    public void modeSwitch(int d) {
+    public void modeSwitch(int trail_id) {
         separator();
 
-        this.destination = d;
+        this.destination = tQuerier.getTrailDepartureID(trail_id);
         forClimbing = true;
         execute();
+        if (forClimbing) {
+            System.out.printf("Climbing Route: %s -> %s\n", vManager.getVertexNameByID(this.destination), tQuerier.getTrailDestinationName(trail_id));
+        }
     }
 
     public void setDeparture() {
@@ -270,7 +277,7 @@ public class CyclingMode implements Mode {
         }
         route.add(destination);
 
-        System.out.printf("Total cost: %d\nRoute: ", totalCost);
+        System.out.printf("Total cost: %d\nCycling Route: ", totalCost);
         vManager.listRoute(route);
     }
 
