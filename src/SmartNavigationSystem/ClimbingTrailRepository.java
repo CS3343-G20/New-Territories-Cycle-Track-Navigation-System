@@ -1,13 +1,14 @@
 package SmartNavigationSystem;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.TreeSet;
 
 /*
 Singleton class
  */
-public class ClimbingTrailRepository implements ClimbingTrailRepoManager, ClimbingTrailsQuerier {
+public class ClimbingTrailRepository implements ClimbingTrailRepoManager,ClimbingTrailsQuerier{
     private TreeSet<ClimbingTrail> climbingTrails;
     private static ClimbingTrailRepository ctr = new ClimbingTrailRepository();
     private static ArrayList<ClimbingTrail> filteredClimbingTrails;
@@ -124,10 +125,15 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager, Climbi
     public String listDifficulties() {
         String difficulties = "";
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        HashSet<Integer> hs = new HashSet<>();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            difficulties += tmp.getDifficulty();
-            if (it.hasNext() ==true) {
+            hs.add(tmp.getDifficulty());
+        }
+        Iterator<Integer> iths = hs.iterator();
+        while(iths.hasNext()){
+            difficulties+=iths.next();
+            if (iths.hasNext() ==true) {
                 difficulties += ", ";
             }
         }
@@ -136,12 +142,17 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager, Climbi
 
     @Override
     public String listDepartures() {
-        String departures = "";
+        String departures = " ";
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        HashSet<String> hs = new HashSet<>();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            departures += tmp.getDepartureName();
-            if (it.hasNext() ==true) {
+            hs.add(tmp.getDepartureName());
+        }
+        Iterator<String> iths = hs.iterator();
+        while (iths.hasNext()) {
+            departures += iths.next();
+            if (iths.hasNext() ==true) {
                 departures += ", ";
             }
         }
@@ -150,16 +161,22 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager, Climbi
 
     @Override
     public String listDestinations() {
-        String destinations = "";
+        String destinations = " ";
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        HashSet<String> hs= new HashSet<>();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            destinations += tmp.getDestinationName();
-            if (it.hasNext() ==true) {
+            hs.add(tmp.getDestinationName());
+        }
+
+        Iterator<String> iths= hs.iterator();
+        while(iths.hasNext())
+        {
+            destinations+=iths.next();
+            if (iths.hasNext() ==true) {
                 destinations += ", ";
             }
-        }
-        return destinations;
+        }        return destinations;
     }
 
     @Override
@@ -168,14 +185,26 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager, Climbi
     }
 
     @Override
-    public int getTrailDepartureID(int id) {
-        // TODO Auto-generated method stub
-        return 0;
+    public String getTrailDepartureName(int id) {
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        while (it.hasNext()) {
+            ClimbingTrail tmp = it.next();
+            if (Integer.parseInt(tmp.getID()) == id) {
+                return tmp.getDepartureName();
+            }
+        }
+        return null;
     }
 
     @Override
     public String getTrailDestinationName(int id) {
-        // TODO Auto-generated method stub
+        Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        while (it.hasNext()) {
+            ClimbingTrail tmp = it.next();
+            if (Integer.parseInt(tmp.getID()) == id) {
+                return tmp.getDestinationName();
+            }
+        }
         return null;
     }
 }
