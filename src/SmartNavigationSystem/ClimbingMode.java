@@ -9,22 +9,23 @@ This is a singleton class
 public class ClimbingMode implements Mode {
 	private static ClimbingTrailRepoManager ctrManager;
 	private static Scanner scan;
-	private static BookmarkManager bmManager;
+	private BookmarkManager bmManager;
 	private Member member = null;
 	private int pathID;
 
-	public ClimbingMode(ClimbingTrailRepoManager ctrm, InputStream is) {
-		ctrManager = ctrm;
-		scan = new Scanner(is);
-	}
+	// public ClimbingMode(ClimbingTrailRepoManager ctrm, InputStream is) {
+	// 	ctrManager = ctrm;
+	// 	scan = new Scanner(is);
+	// }
 
-	public ClimbingMode(ClimbingTrailRepoManager ctrm) {
-		ctrManager = ctrm;
-	}
+	// public ClimbingMode(ClimbingTrailRepoManager ctrm) {
+	// 	ctrManager = ctrm;
+	// }
 
 	public ClimbingMode() {
 		ctrManager = ClimbingTrailRepository.getInstance();
 		scan = new Scanner(System.in);
+		this.bmManager = Bookmark.getInstance();
 	}
 
 	public String listTrails() {
@@ -103,11 +104,21 @@ public class ClimbingMode implements Mode {
 	}
 
 	public void addCycling(int PathID) {
-		System.out.println("Do you want to cycle to the point? [true/false]");
-		boolean cycling = scan.nextBoolean();
-		if (cycling) {
-			CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance());
-			cm.modeSwitch(PathID);
+		System.out.println("Do you want to cycle to the point? [Y/N]");
+		boolean isChosen = false;
+		while (!isChosen) {
+			try{
+				String isCycling = scan.next();
+				if (isCycling.equals("Y")) {
+					CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan, Bookmark.getInstance());
+					cm.modeSwitch(PathID);
+				}else if(!isCycling.equals("N")){
+					throw new ExInvalidCommand();
+				}
+				isChosen = true;
+			}catch(ExInvalidCommand e){
+					System.out.println(e.getMessage());
+				}
 		}
 	}
 
@@ -175,19 +186,37 @@ public class ClimbingMode implements Mode {
 		listTrails();
 		chooseSelectionCriteria();
 		pathID = chooseClimbingPath();
-		addCycling(pathID);
+		if (this.member == null){
+			addCycling(pathID);
+		}
 	}
 
 	@Override
 	public void memberExecute(Member member) {
 		this.member = member;
 		execute();
-		System.out.println("Do you want to add the selected route as bookmark? [yes/no]");
-		boolean choice = scan.nextBoolean();
-		if (choice) {
-			bmManager.addBookmark(ctrManager.findTrailByID(pathID), member);
-		}
+		addBookmark();
+		pathID = chooseClimbingPath();
+		addCycling(pathID);
 		this.member.setRoute("Climbing Mode: " + listTrails());
 	}
+
+	public void addBookmark() {
+        System.out.println("Do you want to add the selected route as bookmark? [Y/N]");
+        boolean isChosen = false;
+        while (!isChosen) {
+            try {
+                String choice = scan.next();
+                if (choice.equals("Y")) {
+					bmManager.addBookmark("Climbing Mode: " + ctrManager.findTrailByID(pathID), this.member);
+                } else if (!choice.equals("N")) {
+                    throw new ExInvalidCommand();
+                }
+                isChosen = true;
+            } catch (ExInvalidCommand e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
 }

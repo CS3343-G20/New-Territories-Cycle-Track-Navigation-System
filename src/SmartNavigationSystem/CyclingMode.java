@@ -80,6 +80,7 @@ public class CyclingMode implements Mode {
         // input.close();
     }
 
+    @Override
     public void memberExecute(Member member) {
         this.member = member;
         execute();
