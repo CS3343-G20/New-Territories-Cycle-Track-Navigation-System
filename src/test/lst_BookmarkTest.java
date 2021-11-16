@@ -1,11 +1,9 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Scanner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
