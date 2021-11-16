@@ -11,6 +11,7 @@ public class Bookmark implements BookmarkManager {
         return instance;
     }
 
+    @Override
     public void addBookmark(String route, Member member) {
         JsonOperation.addNewBookMark(route, member);
     }
