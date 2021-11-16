@@ -308,7 +308,7 @@ public class JsonOperation {
                 JSONObject scheObj = bookmArr.getJSONObject(j);
                 int bookmarkIndex = scheObj.getIntValue("bookmarkIndex");
                 String bookmarkType = scheObj.getString("bookmarkType");
-                System.out.printf("%-30s%-18s%s", email, bookmarkIndex, bookmarkType);
+                System.out.printf("%-30s%-18s%s\n", email, bookmarkIndex, bookmarkType);
             }
         }
 

@@ -10,8 +10,8 @@ public class Register {
     ControlPanel cp = UserControlPanel.getInstance();
 
     public void register(Scanner userInput) throws IOException {
-        System.out.println("Please input email: ");
-        this.inpEmail = userInput.next();
+        System.out.println("Please input email: (Please note that we only accept Gmail Account)");
+        this.inpEmail = userInput.nextLine();
 
         String pattern = "[a-zA-Z0-9_-]+@gmail.com$";
         int flag = 1;
