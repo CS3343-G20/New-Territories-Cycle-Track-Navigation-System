@@ -9,10 +9,18 @@ public class ClimbingMode implements Mode {
 	private Member member = null;
 	private int pathID;
 
-	public ClimbingMode(Scanner scan) {
-		ctrManager = ClimbingTrailRepository.getInstance();
+	public ClimbingMode(ClimbingTrailRepoManager ctrm, Scanner scan, BookmarkManager bmManager) {
+		if (ctrm == null) {
+			ctrManager = ClimbingTrailRepository.getInstance();
+		} else {
+			ctrManager = ctrm;
+		}
 		this.scan = scan;
-		this.bmManager = Bookmark.getInstance();
+		if (bmManager == null) {
+			this.bmManager = Bookmark.getInstance();
+		} else {
+			this.bmManager = bmManager;
+		}
 	}
 
 	public void run() {
@@ -38,19 +46,20 @@ public class ClimbingMode implements Mode {
 	}
 
 	public String chooseSelectionCriteria() {
-		System.out.printf("Please choose the selection criteria: \n" + "1. Difficulty\n" + "2. Departure\n" + "3. Destination\n");
+		System.out.printf(
+				"Please choose the selection criteria: \n" + "1. Difficulty\n" + "2. Departure\n" + "3. Destination\n");
 		while (true) {
 			try {
 				int selection = Integer.parseInt(scan.nextLine());
 				switch (selection) {
-					case 1:
-						return findTrailsByDifficulty();
-					case 2:
-						return findTrailsByDeparture();
-					case 3:
-						return findTrailsByDestination();
-					default:
-						System.out.println("ERROR: Invalid selection criteria");
+				case 1:
+					return findTrailsByDifficulty();
+				case 2:
+					return findTrailsByDeparture();
+				case 3:
+					return findTrailsByDestination();
+				default:
+					System.out.println("ERROR: Invalid selection criteria");
 				}
 			} catch (NumberFormatException e) {
 				System.out.println(new ExWrongNumberFormat().getMessage());
@@ -118,7 +127,7 @@ public class ClimbingMode implements Mode {
 				String trail = ctrManager.findTrailByID(pathID);
 				boolean inFilteredTrails = false;
 				for (ClimbingTrail c : ctrManager.getFilteredClimbingTrails()) {
-					if (c.getID()==pathID) {
+					if (c.getID() == pathID) {
 						inFilteredTrails = true;
 					}
 				}
@@ -139,38 +148,38 @@ public class ClimbingMode implements Mode {
 		System.out.println("Do you want to cycle to the point? [Y/N]");
 		boolean isChosen = false;
 		while (!isChosen) {
-			try{
+			try {
 				String isCycling = scan.nextLine();
 				if (isCycling.equals("Y")) {
-					CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(),
-                    scan, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+					CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan,
+							Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
 					cm.modeSwitch(PathID, this.member);
-				}else if(!isCycling.equals("N")){
+				} else if (!isCycling.equals("N")) {
 					throw new ExInvalidCommand();
 				}
 				isChosen = true;
-			}catch(ExInvalidCommand e){
-					System.out.println(e.getMessage());
-				}
+			} catch (ExInvalidCommand e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
 	public void addBookmark() {
-        System.out.println("Do you want to add the selected route as bookmark? [Y/N]");
-        boolean isChosen = false;
-        while (!isChosen) {
-            try {
-                String choice = scan.nextLine();
-                if (choice.equals("Y")) {
+		System.out.println("Do you want to add the selected route as bookmark? [Y/N]");
+		boolean isChosen = false;
+		while (!isChosen) {
+			try {
+				String choice = scan.nextLine();
+				if (choice.equals("Y")) {
 					bmManager.addBookmark("Climbing Mode: " + ctrManager.findTrailByID(pathID), this.member);
-                } else if (!choice.equals("N")) {
-                    throw new ExInvalidCommand();
-                }
-                isChosen = true;
-            } catch (ExInvalidCommand e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
+				} else if (!choice.equals("N")) {
+					throw new ExInvalidCommand();
+				}
+				isChosen = true;
+			} catch (ExInvalidCommand e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
 
 }
