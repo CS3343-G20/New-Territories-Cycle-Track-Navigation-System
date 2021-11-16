@@ -47,7 +47,6 @@ public class MemberControlPanel extends ControlPanel {
         }
 
         if (line.length() > 1) {
-            System.out.println("Input format error! Please try again.");
             nav = 1000;
             return nav;
         }
