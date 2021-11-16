@@ -2,9 +2,6 @@ package SmartNavigationSystem;
 
 import java.util.Scanner;
 
-/*
-This is a singleton class
- */
 public class ClimbingMode implements Mode {
 	private static ClimbingTrailRepoManager ctrManager;
 	private Scanner scan;
@@ -12,40 +9,32 @@ public class ClimbingMode implements Mode {
 	private Member member = null;
 	private int pathID;
 
-	// public ClimbingMode(ClimbingTrailRepoManager ctrm, InputStream is) {
-	// 	ctrManager = ctrm;
-	// 	scan = new Scanner(is);
-	// }
-
-	// public ClimbingMode(ClimbingTrailRepoManager ctrm) {
-	// 	ctrManager = ctrm;
-	// }
-
 	public ClimbingMode(Scanner scan) {
 		ctrManager = ClimbingTrailRepository.getInstance();
 		this.scan = scan;
 		this.bmManager = Bookmark.getInstance();
 	}
 
-	@Override
-	public void execute() {
+	public void run() {
 		System.out.println("Here are all the trails:");
 		System.out.println(ctrManager.list());
 		chooseSelectionCriteria();
 		pathID = chooseClimbingPath();
-		if (this.member == null){
-			addCycling(pathID);
-		}
+	}
+
+	@Override
+	public void execute() {
+		run();
+		addCycling(pathID);
 	}
 
 	@Override
 	public void memberExecute(Member member) {
 		this.member = member;
-		execute();
+		run();
 		addBookmark();
-		pathID = chooseClimbingPath();
+		this.member.setRoute("Climbing Mode: " + ctrManager.findTrailByID(pathID));
 		addCycling(pathID);
-		this.member.setRoute("Climbing Mode: " + ctrManager.list());
 	}
 
 	public String chooseSelectionCriteria() {

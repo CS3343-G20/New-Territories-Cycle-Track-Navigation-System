@@ -63,13 +63,14 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 strB.append("\n");
             }
         }
-        return String.valueOf(strB);
+        return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
     }
 
     public String filterByDifficulty(int difficulty) {
         filteredClimbingTrails.clear();
         StringBuilder strB = new StringBuilder();
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getDifficulty() == difficulty) {
@@ -77,7 +78,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 filteredClimbingTrails.add(tmp);
             }
         }
-        return String.valueOf(strB);
+        if (strB.length() != 0 ) {
+            return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
+        }
+        else {
+            return "";
+        }
     }
 
     public String filterTrailByDest(String destName) {
@@ -91,7 +97,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 filteredClimbingTrails.add(tmp);
             }
         }
-        return String.valueOf(strB);
+        if (strB.length() != 0 ) {
+            return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
+        }
+        else {
+            return "";
+        }
     }
 
     public String filterTrailByDeparture(String departureName) {
@@ -114,7 +125,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getID() == pathID) {
-                return tmp.displayInformation();
+                return tmp.fullInformation();
             }
         }
         return null;
