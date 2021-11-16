@@ -5,10 +5,9 @@ import java.util.Scanner;
 
 public class AdminLogin {
 
-    private int flag = 0;
+    private static int flag = 0;
 
-    public boolean login() {
-        Scanner in = new Scanner(System.in);
+    public static boolean login(Scanner in) {
         System.out.println("Please input the admin token:");
         String inpToken = in.nextLine();
         try {

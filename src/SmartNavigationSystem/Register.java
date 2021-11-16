@@ -2,37 +2,34 @@ package SmartNavigationSystem;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Register {
     private String inpEmail, inpPwd;
     private int tryTimes = 0;
     ControlPanel cp = UserControlPanel.getInstance();
 
+    public void register(Scanner userInput) throws IOException {
+        System.out.println("Please input email: (Please note that we only accept Gmail Account)");
+        this.inpEmail = userInput.nextLine();
 
-    public void register() throws IOException {
-        // request user input
-        Scanner userInput = new Scanner(System.in);
-        System.out.println("Please input email: ");
-        this.inpEmail = userInput.next();
-
-        //check email is exist
-        String p=JsonOperation.getMemberPassword(inpEmail);
-        if (p==null){
+        String pattern = "[a-zA-Z0-9_-]+@gmail.com$";
+        int flag = 1;
+        while (!Pattern.matches(pattern, inpEmail) && flag <3) {
+            System.out.println("Please input a correct email address!");
+            System.out.println("Please input email: ");
+            this.inpEmail = userInput.nextLine();
+            flag ++;
+        }
+        if (flag == 3){
+            System.out.println("Registration failed!");
+        } else{
             System.out.println("Please input password: ");
             this.inpPwd = userInput.next();
-            // confirm password
             confirmPwd(userInput);
-            cp.showControlPanel();
-            cp.makeDecision(userInput);
-        }else{
-            System.out.println("Email is exist!");
         }
-
-
-        //userInput.close();
     }
 
-    // confirm password
     public void confirmPwd(Scanner userInput) throws IOException {
         System.out.println("Please input password again: ");
         String inpPwd2 = userInput.next();

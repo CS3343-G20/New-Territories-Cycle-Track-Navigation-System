@@ -5,16 +5,17 @@ import java.util.Scanner;
 
 public class MemberControlPanel extends ControlPanel {
 
-    private MemberControlPanel() {
-        this.user = new Member();
-        controlPanel.put(0, "exit");
+    private Member member;
+
+    protected MemberControlPanel() {
+        this.member = null;
+        controlPanel.put(0, "Exit");
         controlPanel.put(1, "Reset Password");
-        controlPanel.put(2, "Mode");
+        controlPanel.put(2, "Choose Mode");
         controlPanel.put(3, "Check Information");
         controlPanel.put(4, "Delete schedule");
         controlPanel.put(5, "Delete bookmark");
         controlPanel.put(6, "Make schedule");
-        controlPanel.put(7, "Add bookmark");
     }
 
     private static MemberControlPanel instance = new MemberControlPanel();
@@ -23,74 +24,59 @@ public class MemberControlPanel extends ControlPanel {
         return instance;
     }
 
+    public Member getMember() {
+        return this.member;
+    }
+
+    public void setMember(Member m) {
+        this.member = m;
+    }
+
     @Override
     public int makeDecision(Scanner userInput) throws IOException {
+
         String line = "";
 
         System.out.println("Please input a num:[select from ControlPanel]");
         int nav = 0;
 
-        line = userInput.next();
+        line = userInput.nextLine().trim();
+        while (line.length() == 0 || line.length() > 1) {
+            System.out.println("Input format error! Please try again.");
+            line = userInput.nextLine().trim();
+        }
 
         if (line.length() > 1) {
-            System.out.println("Input format error! Please try again.");
-            this.makeDecision(userInput);
+            nav = 1000;
+            return nav;
         }
         nav = line.charAt(0) - 48;
-        if (nav < 0 || nav > 7) {
+        if (nav < 0 || nav >= 7) {
             System.out.println("Input error! Please try again.");
-            this.makeDecision(userInput);
+            nav = 1000;
+            return nav;
         }
 
         switch (nav) {
         case 0:
             break;
         case 1:
-            ((Member) (this.user)).resetPwd();
+            member.resetPwd(userInput);
             break;
         case 2:
-            System.out.println("Please choose a mode:[CyclingMode/ClimbingMode]");
-            String mode = userInput.next();
-            this.user.chooseMode(mode);
+            member.chooseMode(userInput);
             break;
         case 3:
-            ((Member) (this.user)).CheckInfo();
+            member.CheckInfo();
             break;
         case 4:
-            System.out.println("Please input the index of schedule that you want to delete:");
-            int scheIndex = userInput.nextInt();
-            Schedule.deleteSchedule(((Member) (this.user)), scheIndex);
+            member.deleteSchedule(userInput);
             break;
         case 5:
-            System.out.println("Please input the index of bookmark that you want to delete:");
-            int bookmIndex = userInput.nextInt();
-            Bookmark.deleteBookmark(((Member) (this.user)), bookmIndex);
+            member.deleteBookmark(userInput);
             break;
         case 6:
-            System.out.println("Please input the schedule date: [yyyy/mm/dd]");
-            String date = userInput.next();
-            System.out.println("Please choose a mode that you want to make schedule:");
-            System.out.println("1: Cycling Mode\n2: Climbing Mode");
-            int scheModeNum = userInput.nextInt();
-            if (scheModeNum == 1) {
-                Schedule.makeSchedule("Cycling Mode", date, ((Member) (this.user)));
-            } else if (scheModeNum == 2) {
-                Schedule.makeSchedule("Climbing Mode", date, ((Member) (this.user)));
-            } else {
-                System.out.println("Bookmark mode input error!");
-            }
-            break;
-        case 7:
-            System.out.println("Please choose a mode that you want to add bookmark:");
-            System.out.println("1: Cycling Mode\n2: Climbing Mode");
-            int bookmModeNum = userInput.nextInt();
-            if (bookmModeNum == 1) {
-                Bookmark.addBookmark("Cycling Mode", ((Member) (this.user)));
-            } else if (bookmModeNum == 2) {
-                Bookmark.addBookmark("Climbing Mode", ((Member) (this.user)));
-            } else {
-                System.out.println("Bookmark mode input error!");
-            }
+            member.makeSchedule(userInput);
             break;
         }
 

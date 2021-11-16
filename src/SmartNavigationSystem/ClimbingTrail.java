@@ -1,14 +1,21 @@
 package SmartNavigationSystem;
 
 public class ClimbingTrail implements Comparable<ClimbingTrail> {
-    private String id;
+    private int id;
     private int difficulty;
+    private int departure_id;
     private String destination_name;
     private String departure_name;
-    private String region;
 
+    public ClimbingTrail(int id, int difficulty, int departure_id, String departure_name, String destination_name) {
+    	this.id = id;
+    	this.difficulty = difficulty;
+        this.departure_id = departure_id;
+        this.departure_name = departure_name;
+    	this.destination_name = destination_name;
+    }
     public String displayInformation() {
-        return "The climbing trail with id " + id + ", difficulty " + difficulty + ", destination " + destination_name + ", departure_name " + departure_name;
+        return "id " + id + ", difficulty " + difficulty + ", departure_name " + departure_name + ", destination_name " + destination_name;
     }
 
     public int getDifficulty() {
@@ -23,12 +30,18 @@ public class ClimbingTrail implements Comparable<ClimbingTrail> {
         return departure_name;
     }
 
+    public int getDepartureID(){return departure_id;}
     @Override
     public int compareTo(ClimbingTrail ct2) {
-        return this.getDifficulty() - ct2.getDifficulty();
+    	if (this.getDifficulty()!=ct2.getDifficulty()) {
+            return this.getDifficulty() - ct2.getDifficulty();
+    	}
+    	else {
+    		return this.id-ct2.id;
+    	}
     }
 
-    public String getID() {
+    public int getID() {
         return id;
     }
 }
