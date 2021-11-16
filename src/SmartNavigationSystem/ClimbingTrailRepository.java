@@ -36,8 +36,14 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 ClimbingTrail ct = it.next();
                 strC.append(ct.displayInformation()).append("\n");
             }
-            return String.valueOf(strC);
+            if (strC.length() != 0 ) {
+                return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strC));
+            }
+            else {
+                return "";
+            }
         }
+        
         return null;
     }
 
@@ -58,10 +64,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail cttmp = it.next();
-            strB.append(cttmp.displayInformation());
-            if (it.hasNext()){
-                strB.append("\n");
-            }
+            strB.append(cttmp.displayInformation()).append("\n");
         }
         return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
     }
@@ -116,7 +119,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 filteredClimbingTrails.add(tmp);
             }
         }
-        return String.valueOf(strB);
+        if (strB.length() != 0 ) {
+            return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
+        }
+        else {
+            return "";
+        }
     }
 
     @Override
@@ -133,7 +141,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
 
     @Override
     public String listDifficulties() {
-        String difficulties = "";
+        String difficulties = " ";
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         HashSet<Integer> hs = new HashSet<>();
         while (it.hasNext()) {
@@ -143,7 +151,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<Integer> iths = hs.iterator();
         while(iths.hasNext()){
             difficulties+=iths.next();
-            if (iths.hasNext() ==true) {
+            if (iths.hasNext() ) {
                 difficulties += ", ";
             }
         }
@@ -162,7 +170,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<String> iths = hs.iterator();
         while (iths.hasNext()) {
             departures += iths.next();
-            if (iths.hasNext() ==true) {
+            if (iths.hasNext() ) {
                 departures += ", ";
             }
         }
@@ -183,7 +191,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         while(iths.hasNext())
         {
             destinations+=iths.next();
-            if (iths.hasNext() ==true) {
+            if (iths.hasNext() ) {
                 destinations += ", ";
             }
         }        return destinations;
