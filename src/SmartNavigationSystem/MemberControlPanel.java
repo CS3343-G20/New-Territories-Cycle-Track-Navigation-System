@@ -12,7 +12,7 @@ public class MemberControlPanel extends ControlPanel {
         controlPanel.put(0, "Exit");
         controlPanel.put(1, "Reset Password");
         controlPanel.put(2, "Choose Mode");
-        controlPanel.put(3, "Check Information");
+        controlPanel.put(3, "Check Information"); 
         controlPanel.put(4, "Delete schedule");
         controlPanel.put(5, "Delete bookmark");
         controlPanel.put(6, "Make schedule");
@@ -40,16 +40,20 @@ public class MemberControlPanel extends ControlPanel {
         System.out.println("Please input a num:[select from ControlPanel]");
         int nav = 0;
 
-        line = userInput.nextLine();
+        do {
+            line = userInput.nextLine();
+        } while (line.length() == 0);
 
         if (line.length() > 1) {
             System.out.println("Input format error! Please try again.");
             nav = 1000;
+            return nav;
         }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav >= 7) {
             System.out.println("Input error! Please try again.");
             nav = 1000;
+            return nav;
         }
 
         switch (nav) {

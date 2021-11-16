@@ -36,16 +36,22 @@ public class UserControlPanel extends ControlPanel {
         System.out.println("Please input a num:[select from ControlPanel]");
         int nav = 0;
 
-        String line = userInput.nextLine();
+        String line = "";
+
+        do {
+            line = userInput.nextLine();
+        } while (line.length() == 0);
 
         if (line.length() > 1) {
             System.out.println("Input format error! Please try again.");
             nav = 1000;
+            return nav;
         }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav > 4) {
             System.out.println("Input error! Please try again.");
             nav = 1000;
+            return nav;
         }
 
         switch (nav) {
