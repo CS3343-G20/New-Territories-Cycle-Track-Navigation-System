@@ -11,8 +11,9 @@ public class Bookmark implements BookmarkManager {
         return instance;
     }
 
+    @Override
     public void addBookmark(String route, Member member) {
-        JsonOperation.addNewBookMark(route, member);
+        JsonOperation.addNewBookmark(route, member);
     }
 
     public void deleteBookmark(Member member, int index) throws ExInvalidIndex {

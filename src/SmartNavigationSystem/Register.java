@@ -24,9 +24,14 @@ public class Register {
         if (flag == 3){
             System.out.println("Registration failed!");
         } else{
-            System.out.println("Please input password: ");
-            this.inpPwd = userInput.next();
-            confirmPwd(userInput);
+        	Boolean emailExist = JsonOperation.checkMemberExist(this.inpEmail);
+        	if (emailExist) {
+        		System.out.println("This account already exists. Registration failed.");
+        	} else {
+        		System.out.println("Please input password: ");
+        		this.inpPwd = userInput.next();
+        		confirmPwd(userInput);
+        	}
         }
     }
 
