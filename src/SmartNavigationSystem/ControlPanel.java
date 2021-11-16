@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 public abstract class ControlPanel {
-    public HashMap<Integer, String> controlPanel= new HashMap<Integer, String>();
+    public HashMap<Integer, String> controlPanel= new HashMap<Integer,String>();
 
     public void showControlPanel(){
         System.out.print("------------------------------\n");
