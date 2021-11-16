@@ -541,7 +541,7 @@ public class lst_JsonOperationTest {
             
             String expected = "Bookmark list:\n"
             		+ "Email                         BookmarkIndex     Type\n"
-            		+ "cs3343g20system@gmail.com     1                 Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\n";
+            		+ "cs3343g20system@gmail.com     1                 Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\n\n";
             
             assertEquals(expected, outContent.toString());
 
