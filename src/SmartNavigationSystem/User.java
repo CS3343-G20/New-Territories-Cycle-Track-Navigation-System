@@ -3,17 +3,34 @@ package SmartNavigationSystem;
 import java.util.Scanner;
 
 public class User {
-    enum Mode {
-        CyclingMode, ClimbingMode
+    protected Mode mode = null;
+
+    public void chooseMode(Scanner userInput) {
+        System.out.println("Please choose a mode:[1-CyclingMode/2-ClimbingMode]");
+        boolean isChosen = false;
+        while (!isChosen) {
+            try {
+                int modeIndex = Integer.parseInt(userInput.nextLine());
+                if (modeIndex == 1) {
+                    mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(),
+                    userInput, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+                }
+                else if (modeIndex == 2) {
+                    mode = new ClimbingMode(userInput);
+                }
+                executeMode();
+                isChosen = true;
+            }
+            catch (NumberFormatException e) {
+                System.out.println(new ExWrongNumberFormat().getMessage());
+            }
+            catch (NullPointerException e) {
+                System.out.println(new ExInvalidIndex().getMessage());
+            }
+        }
     }
 
-    public void chooseMode(String mode) {
-        if (mode.equals(Mode.ClimbingMode.toString())) {
-           //
-        } else if (mode.equals(Mode.CyclingMode.toString())) {
-            CyclingMode cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(),
-                    new Scanner(System.in), Bookmark.getInstance());
-            cyclingMode.execute();
-        }
+    public void executeMode() {
+        mode.execute();
     }
 }

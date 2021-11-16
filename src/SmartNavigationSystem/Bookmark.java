@@ -15,7 +15,7 @@ public class Bookmark implements BookmarkManager {
         JsonOperation.addNewBookMark(route, member);
     }
 
-    public void deleteBookmark(Member member, int index) {
+    public void deleteBookmark(Member member, int index) throws ExInvalidIndex {
         JsonOperation.deleteMemberBookmark(member, index);
     }
 }

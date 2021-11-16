@@ -8,8 +8,7 @@ public class Login {
     protected String inpEmail, inpPwd;
     protected Register register = new Register();
 
-    public boolean login() throws IOException {
-        Scanner userInput = new Scanner(System.in);
+    public int login(Scanner userInput) throws IOException { // 0 for login failing, 1 for login successfully, 2 for register successfully but need to re-login
         System.out.println("Please input email: ");
         this.inpEmail = userInput.nextLine();
 
@@ -22,7 +21,7 @@ public class Login {
             flag ++;
         }
         if (flag == 3){
-            return false;
+            return 0;
         }
 
         Boolean emailExist = JsonOperation.checkMemberExist(this.inpEmail);
@@ -30,18 +29,33 @@ public class Login {
             System.out.println("Account doesn't exist. Would you like to register one?[Y/N]");
             String ans = userInput.nextLine();
             if (ans.equals("Y")) {
-                register.register();
+                register.register(userInput);
+                return 2;
             } else if (!ans.equals("N")) {
-                System.out.println("Input error. Please try again.");
-                login();
+                System.out.println("Input error. Please login again.");
+                login(userInput);
             }
         } else {
             System.out.println("Please input password: ");
             this.inpPwd = userInput.nextLine();
-            return verifyPwd(this.inpEmail, this.inpPwd);
+            boolean verification = verifyPwd(this.inpEmail, this.inpPwd);
+            if (!verification) {
+                System.out.println("Password error. Please try again.");
+            	this.inpPwd = userInput.nextLine();
+            	verification = verifyPwd(this.inpEmail, this.inpPwd);
+            	if (verification) {
+            		System.out.println("Login successfully");
+            		return 1;
+            	} else {
+            		return 0;
+            	}
+            } else {
+            	System.out.println("Login successfully");
+            	return 1;
+            }
         }
         // userInput.close();
-        return false;
+        return 0;
     }
     
 
@@ -50,8 +64,7 @@ public class Login {
     }
 
     // reset password
-    public void resetPwd() throws IOException {
-        Scanner userInput = new Scanner(System.in);
+    public void resetPwd(Scanner userInput) throws IOException {
         System.out.println("Would you like to reset your password?[yes/no]");
         String ans = userInput.nextLine();
         if (ans.equals("yes")) {
@@ -68,7 +81,6 @@ public class Login {
         } else if (!ans.equals("no")) {
             System.out.println("Input error. Exiting...");
         }
-        // userInput.close();
     }
 
     public String getEmail() {

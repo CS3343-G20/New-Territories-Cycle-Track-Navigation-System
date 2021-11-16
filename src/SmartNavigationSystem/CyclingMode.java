@@ -1,6 +1,5 @@
 package SmartNavigationSystem;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,12 +19,14 @@ public class CyclingMode implements Mode {
     private VerticesManager vManager;
     private Member member = null;
     private BookmarkManager mark;
+    private ClimbingTrailsQuerier tQuerier;
 
-    public CyclingMode(GraphUtility map, VerticesManager vManager, Scanner in, BookmarkManager mark) {
+    public CyclingMode(GraphUtility map, VerticesManager vManager, Scanner in, BookmarkManager mark, ClimbingTrailsQuerier querier) {
         this.map = map;
         this.vManager = vManager;
         this.input = in;
         this.mark = mark;
+        this.tQuerier = querier;
     }
 
     @Override
@@ -81,18 +82,29 @@ public class CyclingMode implements Mode {
         // input.close();
     }
 
+    @Override
     public void memberExecute(Member member) {
         this.member = member;
         execute();
         this.member.setRoute("Cycling Mode: " + vManager.getRouteString(route));
     }
+    
+    public void modeSwitch(int trail_id, Member member) {
+    	separator();
 
-    public void modeSwitch(int d) {
-        separator();
-
-        this.destination = d;
+        this.destination = tQuerier.getTrailDepartureID(trail_id);
         forClimbing = true;
-        execute();
+        if (member == null) {
+        	execute();
+        }
+        else {
+        	memberExecute(member);
+        }
+        if (forClimbing) {
+            separator();
+        	System.out.printf("Cycling Route: %s\n", vManager.getRouteString(route));
+            System.out.printf("Climbing Route: %s -> %s\n", vManager.getVertexNameByID(this.destination), tQuerier.getTrailDestinationName(trail_id));
+        }
     }
 
     public void setDeparture() {
@@ -271,8 +283,7 @@ public class CyclingMode implements Mode {
         }
         route.add(destination);
 
-        System.out.printf("Total cost: %d\nRoute: ", totalCost);
-        vManager.listRoute(route);
+        System.out.printf("Total cost: %d\nCycling Planning Result: %s\n", totalCost, vManager.getRouteString(route));
     }
 
     public void addBookmark() {

@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import com.alibaba.fastjson.JSONObject;
 
+import SmartNavigationSystem.ExInvalidIndex;
 import SmartNavigationSystem.JsonOperation;
 import SmartNavigationSystem.Member;
 import SmartNavigationSystem.ScheduleDate;
@@ -262,7 +263,7 @@ public class lst_JsonOperationTest {
         }
 
         @Test
-        public void deleteMemberSchedule_case1() throws IOException {
+        public void deleteMemberSchedule_case1() throws IOException, ExInvalidIndex {
                 
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
@@ -287,7 +288,7 @@ public class lst_JsonOperationTest {
         }
         
         @Test
-        public void deleteMemberSchedule_case2() throws IOException {
+        public void deleteMemberSchedule_case2() throws IOException, ExInvalidIndex {
                 
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"}],\"email\":\"cs3343g20system@gmail.com\"}]}");
@@ -312,7 +313,7 @@ public class lst_JsonOperationTest {
         }
         
         @Test
-        public void deleteMemberSchedule_case3() throws IOException {
+        public void deleteMemberSchedule_case3() throws IOException, ExInvalidIndex {
             
             PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
             pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[{\"scheduleIndex\":1,\"scheduleDate\":\"2021/11/6\",\"state\":\"true\",\"event\":\"Cycling Mode: null\"}],\"email\":\"cs3343g20system@gmail.com\"}]}");
@@ -338,7 +339,7 @@ public class lst_JsonOperationTest {
         }
 
         @Test
-        public void deleteMemberBookmark_case1() throws IOException {
+        public void deleteMemberBookmark_case1() throws IOException, ExInvalidIndex {
                 
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
@@ -363,7 +364,7 @@ public class lst_JsonOperationTest {
         }
         
         @Test
-        public void deleteMemberBookmark_case2() throws IOException {
+        public void deleteMemberBookmark_case2() throws IOException, ExInvalidIndex {
                 
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum\n\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
@@ -388,7 +389,7 @@ public class lst_JsonOperationTest {
         }
 
         @Test
-        public void deleteMemberBookmark_case3() throws IOException {
+        public void deleteMemberBookmark_case3() throws IOException, ExInvalidIndex {
                 
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum\\n\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
@@ -540,7 +541,7 @@ public class lst_JsonOperationTest {
             
             String expected = "Bookmark list:\n"
             		+ "Email                         BookmarkIndex     Type\n"
-            		+ "cs3343g20system@gmail.com     1                 Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\n";
+            		+ "cs3343g20system@gmail.com     1                 Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch\n\n";
             
             assertEquals(expected, outContent.toString());
 

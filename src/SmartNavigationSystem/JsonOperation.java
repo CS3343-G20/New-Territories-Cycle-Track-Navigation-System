@@ -99,14 +99,14 @@ public class JsonOperation {
         return getMemberPassword(email).equals(pwd);
     }
 
-    public static void addNewSchedule(Member member, String date, String mode) throws IOException {
+    public static void addNewSchedule(Member member, String date, String route) throws IOException {
 
         JSONArray arr = getMemberScheArray(member.getEmail());
 
         int index = arr.size() + 1;
         // Here is to modify schedule event
         JSONObject obj = JSON.parseObject("{\"scheduleIndex\": " + index + ",\"scheduleDate\": \"" + date
-                + "\",\"state\": \"" + "true" + "\",\"event\": \"" + mode + "\"}");
+                + "\",\"state\": \"" + "true" + "\",\"event\": \"" + route + "\"}");
 
         arr.add(obj);
 
@@ -131,11 +131,16 @@ public class JsonOperation {
 
     }
 
-    public static void deleteMemberSchedule(Member member, int index) throws IOException {
+    public static void deleteMemberSchedule(Member member, int index) throws IOException, ExInvalidIndex {
 
         JSONArray memberScheduleArray = getMemberScheArray(member.getEmail());
 
         boolean flag = false;
+        
+        if (index > memberScheduleArray.size()) {
+        	System.out.print("Index input error\n");
+        	return;
+        }
 
         for (int i = 0; i < memberScheduleArray.size(); i++) {
             JSONObject obj = memberScheduleArray.getJSONObject(i);
@@ -155,17 +160,23 @@ public class JsonOperation {
             updateJsonFile();
             System.out.println("Delete successfully!");
         } else {
-            System.out.println("Schedule index input error!");
+            throw new ExInvalidIndex();
         }
 
     }
 
-    public static void deleteMemberBookmark(Member member, int index) {
+    public static void deleteMemberBookmark(Member member, int index) throws ExInvalidIndex {
 
         try {
             JSONArray memberBookmarkArray = getMemberBookmArray(member.getEmail());
 
             boolean flag = false;
+            
+            if (index > memberBookmarkArray.size()) {
+            	System.out.print("Index input error\n");
+            	return;
+            }
+
 
             for (int i = 0; i < memberBookmarkArray.size(); i++) {
                 JSONObject obj = memberBookmarkArray.getJSONObject(i);
@@ -185,7 +196,7 @@ public class JsonOperation {
                 updateJsonFile();
                 System.out.println("Delete successfully!");
             } else {
-                System.out.println("Bookmark index input error!");
+                throw new ExInvalidIndex();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -308,7 +319,7 @@ public class JsonOperation {
                 JSONObject scheObj = bookmArr.getJSONObject(j);
                 int bookmarkIndex = scheObj.getIntValue("bookmarkIndex");
                 String bookmarkType = scheObj.getString("bookmarkType");
-                System.out.printf("%-30s%-18s%s", email, bookmarkIndex, bookmarkType);
+                System.out.printf("%-30s%-18s%s\n", email, bookmarkIndex, bookmarkType);
             }
         }
 

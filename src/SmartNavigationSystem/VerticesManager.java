@@ -13,8 +13,6 @@ public interface VerticesManager {
 
     public String getRouteString(ArrayList<Integer> route);
 
-    public void listRoute(ArrayList<Integer> route);
-
     public int checkVertexIdValidity(int id) throws ExInvalidIndex;
 
     public int checkAttractionIdValidity(int id) throws ExInvalidIndex;

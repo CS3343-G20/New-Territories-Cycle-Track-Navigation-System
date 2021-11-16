@@ -14,16 +14,16 @@ public class Main {
         }
         Scanner in = new Scanner(System.in);
         ControlPanel cp = UserControlPanel.getInstance();
-        launch(cp);
+        launch(cp, in);
         in.close();
     }
 
-    public static void launch(ControlPanel controlPanel) throws IOException {
+    public static void launch(ControlPanel controlPanel, Scanner in) throws IOException {
 
         ControlPanel cp = controlPanel;
         try {
             cp.showControlPanel();
-            int nav = cp.makeDecision();
+            int nav = cp.makeDecision(in);
             if (nav == 0) {
                 System.out.println("========Exit========");
                 return;
@@ -31,12 +31,12 @@ public class Main {
                 Member tmp_m = (Member) ((UserControlPanel) cp).getMember();
                 cp = MemberControlPanel.getInstance();
                 ((MemberControlPanel) cp).setMember(tmp_m);
-                launch(cp);
+                launch(cp, in);
             } else if (nav == 4 && cp.getClass().equals(UserControlPanel.class)) {
                 cp = AdminControlPanel.getInstance();
-                launch(cp);
+                launch(cp, in);
             } else if (nav != 0) {
-                launch(cp);
+                launch(cp, in);
             }
         } catch (Exception e) {
             System.out.println(e);
