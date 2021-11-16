@@ -16,14 +16,16 @@ public class Member extends User {
 
     public Member Login(Scanner userInput) throws IOException {
         this.login = new Login();
-        boolean loginSuccess = login.login(userInput);
-        if (loginSuccess)
+        int loginStatus = login.login(userInput);
+        if (loginStatus == 1)
             return this;
+        else if (loginStatus == 2) 
+        	System.out.println("Please re-login after registration.");
         else
             System.out.print("Login failed. Exiting...\n\n");
         return null;
     }
-
+ 
     public void CheckInfo() throws FileNotFoundException {
         JsonOperation.printMemberInfo(getEmail());
     }
@@ -105,4 +107,6 @@ public class Member extends User {
     public void setRoute(String routeString) {
         this.routeString = routeString;
     }
+
+
 }

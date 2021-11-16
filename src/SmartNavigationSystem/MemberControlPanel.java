@@ -12,7 +12,7 @@ public class MemberControlPanel extends ControlPanel {
         controlPanel.put(0, "Exit");
         controlPanel.put(1, "Reset Password");
         controlPanel.put(2, "Choose Mode");
-        controlPanel.put(3, "Check Information");
+        controlPanel.put(3, "Check Information"); 
         controlPanel.put(4, "Delete schedule");
         controlPanel.put(5, "Delete bookmark");
         controlPanel.put(6, "Make schedule");

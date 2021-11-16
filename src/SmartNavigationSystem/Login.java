@@ -8,7 +8,7 @@ public class Login {
     protected String inpEmail, inpPwd;
     protected Register register = new Register();
 
-    public boolean login(Scanner userInput) throws IOException {
+    public int login(Scanner userInput) throws IOException { // 0 for login failing, 1 for login successfully, 2 for register successfully but need to re-login
         System.out.println("Please input email: ");
         this.inpEmail = userInput.nextLine();
 
@@ -21,7 +21,7 @@ public class Login {
             flag ++;
         }
         if (flag == 3){
-            return false;
+            return 0;
         }
 
         Boolean emailExist = JsonOperation.checkMemberExist(this.inpEmail);
@@ -30,6 +30,7 @@ public class Login {
             String ans = userInput.nextLine();
             if (ans.equals("Y")) {
                 register.register(userInput);
+                return 2;
             } else if (!ans.equals("N")) {
                 System.out.println("Input error. Please login again.");
                 login(userInput);
@@ -41,11 +42,20 @@ public class Login {
             if (!verification) {
                 System.out.println("Password error. Please try again.");
             	this.inpPwd = userInput.nextLine();
-            	return verifyPwd(this.inpEmail, this.inpPwd);
+            	verification = verifyPwd(this.inpEmail, this.inpPwd);
+            	if (verification) {
+            		System.out.println("Login successfully");
+            		return 1;
+            	} else {
+            		return 0;
+            	}
+            } else {
+            	System.out.println("Login successfully");
+            	return 1;
             }
         }
         // userInput.close();
-        return false;
+        return 0;
     }
     
 

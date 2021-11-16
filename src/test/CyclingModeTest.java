@@ -32,7 +32,7 @@ public class CyclingModeTest {
 
         CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in),
                 Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
-        mode.setDeparture();
+        mode.setDeparture(); 
 
         Field departure = CyclingMode.class.getDeclaredField("departure");
         departure.setAccessible(true);
