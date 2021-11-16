@@ -254,7 +254,7 @@ public class lst_JsonOperationTest {
 
     		new JsonOperation();
     		
-    		JsonOperation.addNewBookMark("route", m);
+    		JsonOperation.addNewBookmark("route", m);
     		
             String actual = JsonOperation.getWholeObjectString();
             String expected = "{\"memberInfo\":[{\"bookmarks\":[{\"bookmarkIndex\":1,\"bookmarkType\":\"route\"}],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}";

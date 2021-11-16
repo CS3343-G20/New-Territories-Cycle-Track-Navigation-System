@@ -114,7 +114,7 @@ public class JsonOperation {
 
     }
 
-    public static void addNewBookMark(String route, Member member) {
+    public static void addNewBookmark(String route, Member member) {
 
         try {
             JSONArray arr = getMemberBookmArray(member.getEmail());
