@@ -78,6 +78,22 @@ public class lst_UserControlPanelTest {
  		int res = UserControlPanel.getInstance().makeDecision(new Scanner("0"));
  		assertEquals(0, res);
      }
+ 	
+ 	@Test
+ 	public void makeDecision_case4() {
+ 		
+ 		int res = UserControlPanel.getInstance().makeDecision(new Scanner("4\nCS3343G20"));
+ 		assertEquals(4, res);
+
+ 	}
+
+ 	@Test
+ 	public void makeDecision_case5() {
+ 		
+ 		int res = UserControlPanel.getInstance().makeDecision(new Scanner("4\nCS3343G20xxx\nxxx\nxxx\nxxx"));
+ 		assertEquals(6, res);
+
+ 	}
 
      @After
  	public void restoreStreams() {
