@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import SmartNavigationSystem.*;
 
 public class ClimbingRepoTest {
@@ -44,6 +46,24 @@ public class ClimbingRepoTest {
         ctr.addClimbingTrail(ct3);
         String resultString = ctr.filterByDifficulty(8);
         String expectedString = String.format("%-10s%-12s%-14s%s", "id", "difficulty", "departureName", "destinationName") + "\n"+String.format("%-10s%-12s%-14s%s", "[" + 1 + "]", 8, "Shatin", "Kowloon Tong") + "\n" + String.format("%-10s%-12s%-14s%s", "[" + 3 + "]", 8, "Olympics", "Tai Po")+"\n";
+        assertEquals(expectedString, resultString);
+
+    }
+    @Test
+    public void testFilterDifficulty_NotFound() {
+        ClimbingTrailRepository ctr = ClimbingTrailRepository.getInstance();
+        ctr.clearClimbingTrails();
+
+        ClimbingTrail ct1 = new ClimbingTrail(1, 8, 1, "Shatin", "Kowloon Tong");
+
+        ClimbingTrail ct2 = new ClimbingTrail(2, 10, 2, "Sheung Shui", "Tai Po");
+
+        ClimbingTrail ct3 = new ClimbingTrail(3, 8, 3, "Olympics", "Tai Po");
+        ctr.addClimbingTrail(ct1);
+        ctr.addClimbingTrail(ct2);
+        ctr.addClimbingTrail(ct3);
+        String resultString = ctr.filterByDifficulty(12);
+        String expectedString = "";
         assertEquals(expectedString, resultString);
 
     }
@@ -195,6 +215,14 @@ public class ClimbingRepoTest {
     }
 
     @Test
+    public void testSortFunction_NoContent() {
+        ClimbingTrailRepository ctr = ClimbingTrailRepository.getInstance();
+        ctr.clearClimbingTrails();
+        String resultString = ctr.sort(1);
+        String expectedString = "";
+        assertEquals(expectedString, resultString);
+    }
+    @Test
     public void testDeleteFunction() {
         ClimbingTrailRepository ctr = ClimbingTrailRepository.getInstance();
         ctr.clearClimbingTrails();
@@ -286,6 +314,24 @@ public class ClimbingRepoTest {
          assertEquals(expectedID,resultID);
     	
     }
+    @Test
+    public void testgetTrailDepartureID_NotFound() {
+    	 ClimbingTrailRepository ctr = ClimbingTrailRepository.getInstance();
+         ctr.clearClimbingTrails();
+
+         ClimbingTrail ct1 = new ClimbingTrail(1, 8, 1, "Shatin", "Kowloon Tong");
+
+         ClimbingTrail ct2 = new ClimbingTrail(2, 10, 2, "Sheung Shui", "Tai Po");
+
+         ClimbingTrail ct3 = new ClimbingTrail(3, 8, 3, "Olympics", "Tai Po");
+         ctr.addClimbingTrail(ct1);
+         ctr.addClimbingTrail(ct2);
+         ctr.addClimbingTrail(ct3);
+         int resultID = ctr.getTrailDepartureID(4);
+         int expectedID=-1;
+         assertEquals(expectedID,resultID);
+    	
+    }
     
     @Test
     public void testgetTrailDestinationName() {
@@ -304,5 +350,41 @@ public class ClimbingRepoTest {
          String expectedDestName = "Tai Po";
          assertEquals(expectedDestName,resultDestName);
     	
+    }
+    @Test
+    public void testgetTrailDestinationName_NotFound() {
+    	 ClimbingTrailRepository ctr = ClimbingTrailRepository.getInstance();
+         ctr.clearClimbingTrails();
+
+         ClimbingTrail ct1 = new ClimbingTrail(1, 8, 1, "Shatin", "Kowloon Tong");
+
+         ClimbingTrail ct2 = new ClimbingTrail(2, 10, 2, "Sheung Shui", "Tai Po");
+
+         ClimbingTrail ct3 = new ClimbingTrail(3, 8, 3, "Olympics", "Tai Po");
+         ctr.addClimbingTrail(ct1);
+         ctr.addClimbingTrail(ct2);
+         ctr.addClimbingTrail(ct3);
+         String resultDestName = ctr.getTrailDestinationName(5);
+         String expectedDestName = null;
+         assertEquals(expectedDestName,resultDestName);
+    	
+    }
+    
+    @Test
+    public void testgetFilteredClimbingTrails() {
+    	 ClimbingTrailRepository ctr = ClimbingTrailRepository.getInstance();
+         ctr.clearClimbingTrails();
+
+         ClimbingTrail ct1 = new ClimbingTrail(1, 8, 1, "Shatin", "Kowloon Tong");
+
+         ClimbingTrail ct2 = new ClimbingTrail(2, 10, 2, "Sheung Shui", "Tai Po");
+
+         ClimbingTrail ct3 = new ClimbingTrail(3, 8, 3, "Olympics", "Tai Po");
+         ctr.addClimbingTrail(ct1);
+         ctr.addClimbingTrail(ct2);
+         ctr.addClimbingTrail(ct3);
+         ctr.filterByDifficulty(10);
+         ArrayList<ClimbingTrail> cts= ctr.getFilteredClimbingTrails();
+         assertEquals(2,cts.get(0).getID());
     }
 }
