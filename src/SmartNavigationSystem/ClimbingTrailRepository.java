@@ -27,10 +27,10 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
 
     public String sort(int order) {
         String resStr = list();
+        StringBuilder strC = new StringBuilder();
         if (order == 0) {
             return resStr;
         } else if (order == 1) {
-            StringBuilder strC = new StringBuilder();
             Iterator<ClimbingTrail> it = climbingTrails.descendingIterator();
             while (it.hasNext()) {
                 ClimbingTrail ct = it.next();
@@ -133,7 +133,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getID() == pathID) {
-                return tmp.fullInformation();
+                return tmp.fullInformation()+"\n";
             }
         }
         return null;
