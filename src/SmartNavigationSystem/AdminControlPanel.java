@@ -18,7 +18,6 @@ public class AdminControlPanel extends ControlPanel {
         return instance;
     }
 
-
     @Override
     public int makeDecision(Scanner userInput) throws IOException {
 
@@ -27,12 +26,12 @@ public class AdminControlPanel extends ControlPanel {
         System.out.println("Please input a num:[select from ControlPanel]");
         int nav = 0;
 
-        line = userInput.next();
-
-        if (line.length() > 1) {
+        line = userInput.next().trim();
+        while (line.length() == 0 || line.length() > 1) {
             System.out.println("Input format error! Please try again.");
-            nav = 1000;
+            line = userInput.nextLine().trim();
         }
+
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav > 5) {
             System.out.println("Input error! Please try again.");
@@ -40,17 +39,17 @@ public class AdminControlPanel extends ControlPanel {
         }
 
         switch (nav) {
-            case 0:
-                break;
-            case 1:
-                Admin.printMemberList();
-                break;
-            case 2:
-                Admin.printScheduleList();
-                break;
-            case 3:
-                Admin.printBookmarkList();
-                break;
+        case 0:
+            break;
+        case 1:
+            Admin.printMemberList();
+            break;
+        case 2:
+            Admin.printScheduleList();
+            break;
+        case 3:
+            Admin.printBookmarkList();
+            break;
         }
 
         return nav;

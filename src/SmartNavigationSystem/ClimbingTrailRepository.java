@@ -19,26 +19,31 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
 
     private ClimbingTrailRepository() {
         climbingTrails = new TreeSet<>();
-        ClimbingTrail[] cts = Constants.ct;
         filteredClimbingTrails = new ArrayList<>();
-        for (ClimbingTrail c : cts) {
-            climbingTrails.add(c);
+        for (String[] info: Constants.climbingTrails_info) {
+            climbingTrails.add(new ClimbingTrail(Integer.parseInt(info[0]), Integer.parseInt(info[1]), Integer.parseInt(info[2]), info[3], info[4]));
         }
     }
 
     public String sort(int order) {
         String resStr = list();
+        StringBuilder strC = new StringBuilder();
         if (order == 0) {
             return resStr;
         } else if (order == 1) {
-            StringBuilder strC = new StringBuilder();
             Iterator<ClimbingTrail> it = climbingTrails.descendingIterator();
             while (it.hasNext()) {
                 ClimbingTrail ct = it.next();
                 strC.append(ct.displayInformation()).append("\n");
             }
-            return String.valueOf(strC);
+            if (strC.length() != 0 ) {
+                return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strC));
+            }
+            else {
+                return "";
+            }
         }
+        
         return null;
     }
 
@@ -59,18 +64,16 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail cttmp = it.next();
-            strB.append(cttmp.displayInformation());
-            if (it.hasNext()){
-                strB.append("\n");
-            }
+            strB.append(cttmp.displayInformation()).append("\n");
         }
-        return String.valueOf(strB);
+        return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
     }
 
     public String filterByDifficulty(int difficulty) {
         filteredClimbingTrails.clear();
         StringBuilder strB = new StringBuilder();
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
+        
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getDifficulty() == difficulty) {
@@ -78,7 +81,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 filteredClimbingTrails.add(tmp);
             }
         }
-        return String.valueOf(strB);
+        if (strB.length() != 0 ) {
+            return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
+        }
+        else {
+            return "";
+        }
     }
 
     public String filterTrailByDest(String destName) {
@@ -92,7 +100,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 filteredClimbingTrails.add(tmp);
             }
         }
-        return String.valueOf(strB);
+        if (strB.length() != 0 ) {
+            return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
+        }
+        else {
+            return "";
+        }
     }
 
     public String filterTrailByDeparture(String departureName) {
@@ -106,7 +119,12 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
                 filteredClimbingTrails.add(tmp);
             }
         }
-        return String.valueOf(strB);
+        if (strB.length() != 0 ) {
+            return (String.format("%-10s%-12s%-14s%s\n", "id", "difficulty", "departureName", "destinationName") + String.valueOf(strB));
+        }
+        else {
+            return "";
+        }
     }
 
     @Override
@@ -114,8 +132,8 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            if (Integer.parseInt(tmp.getID()) == pathID) {
-                return tmp.displayInformation();
+            if (tmp.getID() == pathID) {
+                return tmp.fullInformation()+"\n";
             }
         }
         return null;
@@ -123,7 +141,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
 
     @Override
     public String listDifficulties() {
-        String difficulties = "";
+        String difficulties = " ";
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         HashSet<Integer> hs = new HashSet<>();
         while (it.hasNext()) {
@@ -133,7 +151,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<Integer> iths = hs.iterator();
         while(iths.hasNext()){
             difficulties+=iths.next();
-            if (iths.hasNext() ==true) {
+            if (iths.hasNext() ) {
                 difficulties += ", ";
             }
         }
@@ -152,7 +170,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<String> iths = hs.iterator();
         while (iths.hasNext()) {
             departures += iths.next();
-            if (iths.hasNext() ==true) {
+            if (iths.hasNext() ) {
                 departures += ", ";
             }
         }
@@ -173,7 +191,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         while(iths.hasNext())
         {
             destinations+=iths.next();
-            if (iths.hasNext() ==true) {
+            if (iths.hasNext() ) {
                 destinations += ", ";
             }
         }        return destinations;
@@ -189,7 +207,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            if (Integer.parseInt(tmp.getID()) == id) {
+            if (tmp.getID() == id) {
                 return tmp.getDepartureID();
             }
         }
@@ -201,7 +219,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         Iterator<ClimbingTrail> it = climbingTrails.iterator();
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
-            if (Integer.parseInt(tmp.getID()) == id) {
+            if (tmp.getID() == id) {
                 return tmp.getDestinationName();
             }
         }

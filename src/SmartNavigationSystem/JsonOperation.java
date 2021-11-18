@@ -114,7 +114,7 @@ public class JsonOperation {
 
     }
 
-    public static void addNewBookMark(String route, Member member) {
+    public static void addNewBookmark(String route, Member member) {
 
         try {
             JSONArray arr = getMemberBookmArray(member.getEmail());
@@ -136,6 +136,11 @@ public class JsonOperation {
         JSONArray memberScheduleArray = getMemberScheArray(member.getEmail());
 
         boolean flag = false;
+        
+        if (index > memberScheduleArray.size()) {
+        	System.out.print("Index input error\n");
+        	return;
+        }
 
         for (int i = 0; i < memberScheduleArray.size(); i++) {
             JSONObject obj = memberScheduleArray.getJSONObject(i);
@@ -166,6 +171,12 @@ public class JsonOperation {
             JSONArray memberBookmarkArray = getMemberBookmArray(member.getEmail());
 
             boolean flag = false;
+            
+            if (index > memberBookmarkArray.size()) {
+            	System.out.print("Index input error\n");
+            	return;
+            }
+
 
             for (int i = 0; i < memberBookmarkArray.size(); i++) {
                 JSONObject obj = memberBookmarkArray.getJSONObject(i);
@@ -308,7 +319,7 @@ public class JsonOperation {
                 JSONObject scheObj = bookmArr.getJSONObject(j);
                 int bookmarkIndex = scheObj.getIntValue("bookmarkIndex");
                 String bookmarkType = scheObj.getString("bookmarkType");
-                System.out.printf("%-30s%-18s%s", email, bookmarkIndex, bookmarkType);
+                System.out.printf("%-30s%-18s%s\n", email, bookmarkIndex, bookmarkType);
             }
         }
 

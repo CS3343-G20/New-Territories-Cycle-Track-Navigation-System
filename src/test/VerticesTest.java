@@ -12,28 +12,29 @@ import java.util.ArrayList;
 import SmartNavigationSystem.*;
 
 public class VerticesTest {
-	private final PrintStream standardOut = System.out;
-	private final ByteArrayOutputStream outputContent= new ByteArrayOutputStream();
-	
-	@Before public void setupStreams() {
-		System.setOut(new PrintStream(outputContent));
-	}
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputContent = new ByteArrayOutputStream();
 
-	
-    @Test 
-    public void getVertexNameByID_TestCase1() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {  
+    @Before
+    public void setupStreams() {
+        System.setOut(new PrintStream(outputContent));
+    }
+
+    @Test
+    public void getVertexNameByID_TestCase1() throws IllegalAccessException, IllegalArgumentException,
+            InvocationTargetException, NoSuchMethodException, SecurityException {
         Vertices vertices = Vertices.getInstance();
         int id = 1;
         Method method = Vertices.class.getMethod("getVertexNameByID", int.class);
         String result = (String) method.invoke(vertices, id);
         assertEquals("Kwok Tak Seng Catholic Secondary School", result);
-	}
-    
-    
-    @Test 
-    public void getVertexNamesByID_TestCase1() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {  
+    }
+
+    @Test
+    public void getVertexNamesByID_TestCase1() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException {
         Vertices vertices = Vertices.getInstance();
-        ArrayList<Integer> ids= new ArrayList<>();
+        ArrayList<Integer> ids = new ArrayList<>();
         ids.add(1);
         ids.add(2);
         ids.add(3);
@@ -200,34 +201,28 @@ public class VerticesTest {
     	int id = 0;
     	int result = vertices.checkAttractionIdValidity(id);
         assertEquals(0, result);
-	}
-    
+    }
+
     @Test // attraction id is not valid (contain id, but not a attraction)
-    public void checkAttractionIdValidity_TestCase2() throws ExInvalidIndex {  
-    	Vertices vertices = Vertices.getInstance();
-    	ExInvalidIndex thrown = assertThrows(
-				ExInvalidIndex.class,
-    			()->vertices.checkAttractionIdValidity(3)
-    	);
-    	
-    	//assertion on the thrown exception
-    	assertEquals("The input should be chosen from the listed indices. Please try again:",thrown.getMessage());
-	}
-    
+    public void checkAttractionIdValidity_TestCase2() throws ExInvalidIndex {
+        Vertices vertices = Vertices.getInstance();
+        ExInvalidIndex thrown = assertThrows(ExInvalidIndex.class, () -> vertices.checkAttractionIdValidity(3));
+
+        // assertion on the thrown exception
+        assertEquals("The input should be chosen from the listed indices. Please try again:", thrown.getMessage());
+    }
+
     @Test // attraction id is not valid (not contain id)
-    public void checkAttractionIdValidity_TestCase3() throws ExInvalidIndex {  
-    	Vertices vertices = Vertices.getInstance();
-    	ExInvalidIndex thrown = assertThrows(
-				ExInvalidIndex.class,
-    			()->vertices.checkAttractionIdValidity(20)
-    	);
-    	
-    	//assertion on the thrown exception
-    	assertEquals("The input should be chosen from the listed indices. Please try again:",thrown.getMessage());
-	}
-    
-    
-	@After public void cleanUpStreams() {
-		System.setOut(standardOut);
-	}
+    public void checkAttractionIdValidity_TestCase3() throws ExInvalidIndex {
+        Vertices vertices = Vertices.getInstance();
+        ExInvalidIndex thrown = assertThrows(ExInvalidIndex.class, () -> vertices.checkAttractionIdValidity(20));
+
+        // assertion on the thrown exception
+        assertEquals("The input should be chosen from the listed indices. Please try again:", thrown.getMessage());
+    }
+
+    @After
+    public void cleanUpStreams() {
+        System.setOut(standardOut);
+    }
 }

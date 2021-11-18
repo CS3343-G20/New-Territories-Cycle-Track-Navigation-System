@@ -1,7 +1,6 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -35,17 +34,6 @@ public class lst_SendEmailTest {
 		SendEmail.sendEmail(to, subject, msg);
 		assertEquals("Sent message successfully....\n", outContent.toString());
 	}
-	
-	@Test
-	public void sendEmail_case2() {
-		String to = "";
-		String subject = "Subject line";
-		String msg = "Msg line";
-		assertThrows(MessagingException.class, () -> {
-			SendEmail.sendEmail(to, subject, msg);
-		});
-	}
-
 	
 	@After
 	public void restoreStreams() {

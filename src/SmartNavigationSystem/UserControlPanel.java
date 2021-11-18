@@ -8,7 +8,7 @@ public class UserControlPanel extends ControlPanel {
     private Member user;
 
     protected UserControlPanel() {
-        this.user = null; 
+        this.user = null;
         this.controlPanel.put(0, "Exit");
         this.controlPanel.put(1, "Login");
         this.controlPanel.put(2, "Register");
@@ -36,16 +36,19 @@ public class UserControlPanel extends ControlPanel {
         System.out.println("Please input a num:[select from ControlPanel]");
         int nav = 0;
 
-        String line = userInput.nextLine();
+        String line = "";
 
-        if (line.length() > 1) {
+        line = userInput.nextLine().trim();
+        while (line.length() == 0 || line.length() > 1) {
             System.out.println("Input format error! Please try again.");
-            nav = 1000;
+            line = userInput.nextLine().trim();
         }
+
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav > 4) {
             System.out.println("Input error! Please try again.");
             nav = 1000;
+            return nav;
         }
 
         switch (nav) {
@@ -67,7 +70,7 @@ public class UserControlPanel extends ControlPanel {
                 e.printStackTrace();
             }
             break;
-        case 3: 
+        case 3:
             new User().chooseMode(userInput);
             break;
         case 4:

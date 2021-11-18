@@ -1,21 +1,25 @@
 package SmartNavigationSystem;
 
 public class ClimbingTrail implements Comparable<ClimbingTrail> {
-    private String id;
+    private int id;
     private int difficulty;
+    private int departure_id;
     private String destination_name;
     private String departure_name;
-    private int departure_id;
 
-    public ClimbingTrail(String id, int difficulty, String destination_name, String departure_name,int departure_id) {
+    public ClimbingTrail(int id, int difficulty, int departure_id, String departure_name, String destination_name) {
     	this.id = id;
     	this.difficulty = difficulty;
-    	this.destination_name = destination_name;
-    	this.departure_name = departure_name;
         this.departure_id = departure_id;
+        this.departure_name = departure_name;
+    	this.destination_name = destination_name;
     }
     public String displayInformation() {
-        return "id " + id + ", difficulty " + difficulty + ", destination_name " + destination_name + ", departure_name " + departure_name;
+        return String.format("%-10s%-12s%-14s%s", "["+id+"]", difficulty, departure_name, destination_name);
+    }
+
+    public String fullInformation() {
+        return String.format("%s (difficulty %s) %s -> %s", "["+id+"]", difficulty, departure_name, destination_name);
     }
 
     public int getDifficulty() {
@@ -34,14 +38,14 @@ public class ClimbingTrail implements Comparable<ClimbingTrail> {
     @Override
     public int compareTo(ClimbingTrail ct2) {
     	if (this.getDifficulty()!=ct2.getDifficulty()) {
-        return this.getDifficulty() - ct2.getDifficulty();
+            return this.getDifficulty() - ct2.getDifficulty();
     	}
     	else {
-    		return this.getID().compareTo(ct2.getID());
+    		return this.id-ct2.id;
     	}
     }
 
-    public String getID() {
+    public int getID() {
         return id;
     }
 }

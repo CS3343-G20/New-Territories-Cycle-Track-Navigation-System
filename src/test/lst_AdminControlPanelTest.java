@@ -1,98 +1,86 @@
-package test;
+ package test;
 
-import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertEquals;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
+ import java.io.ByteArrayOutputStream;
+ import java.io.IOException;
+ import java.io.InputStream;
+ import java.io.PrintStream;
+import java.util.Scanner;
 
 import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+ import org.junit.Before;
+ import org.junit.Test;
 
-import SmartNavigationSystem.AdminControlPanel;
-import SmartNavigationSystem.JsonOperation;
+ import SmartNavigationSystem.AdminControlPanel;
+ import SmartNavigationSystem.JsonOperation;
 
-public class lst_AdminControlPanelTest {
+ public class lst_AdminControlPanelTest {
 
-	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	private final PrintStream originalOut = System.out;
-	private final InputStream originalIn = System.in;
+ 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+ 	private final PrintStream originalOut = System.out;
+ 	private final InputStream originalIn = System.in;
 
-	@Before
-	public void setUpStreams() {
-	    System.setOut(new PrintStream(outContent));
-	}  
+ 	@Before
+ 	public void setUpStreams() {
+ 	    System.setOut(new PrintStream(outContent));
+ 	}  
 	
-	@Test
-	public void makeDecision_case1() throws IOException {
+ 	@Test
+ 	public void makeDecision_case1() throws IOException {
 		
-		String input = "7";
-		System.setIn(new ByteArrayInputStream(input.getBytes()));
-		int res = AdminControlPanel.getInstance().makeDecision();
-		assertEquals(1000, res);
+ 		int res = AdminControlPanel.getInstance().makeDecision(new Scanner("7"));
+ 		assertEquals(1000, res);
 		
-	}
+ 	}
 	
-	@Test
-	public void makeDecision_case2() throws IOException {
+ 	@Test
+ 	public void makeDecision_case2() throws IOException {
 		
-		String input = "-7";
-		System.setIn(new ByteArrayInputStream(input.getBytes()));
-		int res = AdminControlPanel.getInstance().makeDecision();
-		assertEquals(1000, res);
+ 		int res = AdminControlPanel.getInstance().makeDecision(new Scanner("-7"));
+ 		assertEquals(1000, res);
 		
-	}
+ 	}
 	
-	@Test
-	public void makeDecision_case3() throws IOException {
+ 	@Test
+ 	public void makeDecision_case3() throws IOException {
 		
-		String input = "0";
-		System.setIn(new ByteArrayInputStream(input.getBytes()));
-		int res = AdminControlPanel.getInstance().makeDecision();
-		assertEquals(0, res);
+ 		int res = AdminControlPanel.getInstance().makeDecision(new Scanner("0"));
+ 		assertEquals(0, res);
 		
-	}
+ 	}
 	
-	@Test
-	public void makeDecision_case4() throws IOException {
+ 	@Test
+ 	public void makeDecision_case4() throws IOException {
 		
-		String input = "1";
-		System.setIn(new ByteArrayInputStream(input.getBytes()));
-		new JsonOperation();
-		int res = AdminControlPanel.getInstance().makeDecision();
-		assertEquals(1, res);
+ 		new JsonOperation();
+ 		int res = AdminControlPanel.getInstance().makeDecision(new Scanner("1"));
+ 		assertEquals(1, res);
 		
-	}
+ 	}
 
-	@Test
-	public void makeDecision_case5() throws IOException {
+ 	@Test
+ 	public void makeDecision_case5() throws IOException {
 		
-		String input = "2";
-		System.setIn(new ByteArrayInputStream(input.getBytes()));
-		new JsonOperation();
-		int res = AdminControlPanel.getInstance().makeDecision();
-		assertEquals(2, res);
+ 		new JsonOperation();
+		int res = AdminControlPanel.getInstance().makeDecision(new Scanner("2"));
+ 		assertEquals(2, res);
 		
-	}
+ 	}
 
-	@Test
-	public void makeDecision_case6() throws IOException {
+ 	@Test
+ 	public void makeDecision_case6() throws IOException {
 		
-		String input = "3";
-		System.setIn(new ByteArrayInputStream(input.getBytes()));
-		new JsonOperation();
-		int res = AdminControlPanel.getInstance().makeDecision();
-		assertEquals(3, res);
+ 		new JsonOperation();
+ 		int res = AdminControlPanel.getInstance().makeDecision(new Scanner("3"));
+ 		assertEquals(3, res);
 		
-	}
+ 	}
 	
 	@After
-	public void restoreStreams() {
-	    System.setOut(originalOut);
-	    System.setIn(originalIn);
-	}
+ 	public void restoreStreams() {
+ 	    System.setOut(originalOut);
+ 	    System.setIn(originalIn);
+ 	}
 	
-}
+ }

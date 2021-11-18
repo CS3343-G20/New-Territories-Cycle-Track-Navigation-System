@@ -40,16 +40,21 @@ public class MemberControlPanel extends ControlPanel {
         System.out.println("Please input a num:[select from ControlPanel]");
         int nav = 0;
 
-        line = userInput.nextLine();
+        line = userInput.nextLine().trim();
+        while (line.length() == 0 || line.length() > 1) {
+            System.out.println("Input format error! Please try again.");
+            line = userInput.nextLine().trim();
+        }
 
         if (line.length() > 1) {
-            System.out.println("Input format error! Please try again.");
             nav = 1000;
+            return nav;
         }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav >= 7) {
             System.out.println("Input error! Please try again.");
             nav = 1000;
+            return nav;
         }
 
         switch (nav) {
