@@ -8,8 +8,8 @@ public class ClimbingMode implements Mode {
 	private BookmarkManager bmManager;
 	private Member member = null;
 	private int pathID;
-
-	public ClimbingMode(ClimbingTrailRepoManager ctrm, Scanner scan, BookmarkManager bmManager) {
+    private CyclingMode cyclingMode;
+	public ClimbingMode(ClimbingTrailRepoManager ctrm, Scanner scan, BookmarkManager bmManager,CyclingMode cm) {
 		if (ctrm == null) {
 			ctrManager = ClimbingTrailRepository.getInstance();
 		} else {
@@ -20,6 +20,12 @@ public class ClimbingMode implements Mode {
 			this.bmManager = Bookmark.getInstance();
 		} else {
 			this.bmManager = bmManager;
+		}
+		if(cm==null) {
+			cyclingMode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan,
+					Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+		} else {
+			this.cyclingMode=cm;
 		}
 	}
 
@@ -46,9 +52,9 @@ public class ClimbingMode implements Mode {
 	}
 
 	public String chooseSelectionCriteria() {
-		System.out.printf(
-				"Please choose the selection criteria: \n" + "1. Difficulty\n" + "2. Departure\n" + "3. Destination\n");
 		while (true) {
+			System.out.printf(
+					"Please choose the selection criteria: \n" + "1. Difficulty\n" + "2. Departure\n" + "3. Destination\n");
 			try {
 				int selection = Integer.parseInt(scan.nextLine());
 				switch (selection) {
@@ -60,6 +66,8 @@ public class ClimbingMode implements Mode {
 					return findTrailsByDestination();
 				default:
 					System.out.println("ERROR: Invalid selection criteria");
+					break;
+
 				}
 			} catch (NumberFormatException e) {
 				System.out.println(new ExWrongNumberFormat().getMessage());
@@ -149,11 +157,9 @@ public class ClimbingMode implements Mode {
 		boolean isChosen = false;
 		while (!isChosen) {
 			try {
-				String isCycling = scan.nextLine();
+				String isCycling  = scan.nextLine();
 				if (isCycling.equals("Y")) {
-					CyclingMode cm = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), scan,
-							Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
-					cm.modeSwitch(PathID, this.member);
+					cyclingMode.modeSwitch(PathID, this.member);
 				} else if (!isCycling.equals("N")) {
 					throw new ExInvalidCommand();
 				}
