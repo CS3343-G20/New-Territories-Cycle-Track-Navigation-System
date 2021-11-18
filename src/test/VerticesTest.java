@@ -49,6 +49,7 @@ public class VerticesTest {
     	assertEquals(true, outputContent.toString().contains("[0] Sha Tin Che Kung Temple"));
     }
     
+    
     @Test 
     public void listAllVertices_TestCase2() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {  
     	Vertices vertices = Vertices.getInstance();
@@ -90,7 +91,6 @@ public class VerticesTest {
     	vertices.listAllVertices();	
     	assertEquals(true, outputContent.toString().contains("[6] Badminton court"));
     }
-    
     @Test 
     public void listAllVertices_TestCase8() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {  
     	Vertices vertices = Vertices.getInstance();
@@ -103,7 +103,7 @@ public class VerticesTest {
     public void listAttractions_TestCase1() {  
     	Vertices vertices = Vertices.getInstance();
     	vertices.listAttractions();
-    	assertEquals(false, outputContent.toString().contains("[1] Kwok Tak Seng Catholic Secondary School"
+    	assertEquals(false, outputContent.toString().contains("[1] Kwok Tak Seng Catholic Secondary School\n"
 //											    			"[3] Lei Uk Tsuen" 
 //											    			"[4] Chui Tin Street Soccer Pitch" 
 //											    			"[6] Badminton court"
@@ -162,25 +162,14 @@ public class VerticesTest {
 	}
     
     @Test 
-    public void listRoute_TestCase1() {  
+    public void getRouteString_TestCase1() {  
     	Vertices vertices = Vertices.getInstance();
     	ArrayList<Integer> route= new ArrayList<>();
     	route.add(5);
     	route.add(2);
     	route.add(0);
-    	vertices.listRoute(route);
-    	assertEquals(true, outputContent.toString().contains("Tsang Tai Uk -> Hong Kong Heritage Museum -> Sha Tin Che Kung Temple"));
-	}
-    
-    @Test 
-    public void listRoute_TestCase2() {  
-    	Vertices vertices = Vertices.getInstance();
-    	ArrayList<Integer> route= new ArrayList<>();
-    	route.add(5);
-    	route.add(2);
-    	route.add(0);
-    	vertices.listRoute(route);
-    	assertEquals(false, outputContent.toString().contains("Tsang Tai Uk -> Hong Kong Heritage Museum -> Lei Uk Tsuen"));
+    	String res = vertices.getRouteString(route);
+    	assertEquals("Tsang Tai Uk -> Hong Kong Heritage Museum -> Sha Tin Che Kung Temple", res);
 	}
 
     
