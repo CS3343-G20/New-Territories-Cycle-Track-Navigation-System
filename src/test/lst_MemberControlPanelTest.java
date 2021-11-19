@@ -41,14 +41,22 @@ public class lst_MemberControlPanelTest {
  	@Test
  	public void makeDecision_case2() throws IOException {
 		
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("-7"));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("\n-7\n7"));
+ 		assertEquals(1000, res);
+		
+ 	}
+
+ 	@Test
+ 	public void makeDecision_case3() throws IOException {
+		
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("-"));
  		assertEquals(1000, res);
 		
  	}
 
 	
  	@Test
- 	public void makeDecision_case3() throws IOException {
+ 	public void makeDecision_case4() throws IOException {
 		
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("0"));
  		assertEquals(0, res);
@@ -56,7 +64,7 @@ public class lst_MemberControlPanelTest {
  	}
 	
  	@Test
- 	public void makeDecision_case4() throws IOException {
+ 	public void makeDecision_case5() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -88,7 +96,7 @@ public class lst_MemberControlPanelTest {
  	}
 
  	@Test
- 	public void makeDecision_case5() throws IOException {
+ 	public void makeDecision_case6() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -119,7 +127,7 @@ public class lst_MemberControlPanelTest {
  	}
 
  	@Test
- 	public void makeDecision_case6() throws IOException {
+ 	public void makeDecision_case7() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -152,7 +160,7 @@ public class lst_MemberControlPanelTest {
 	
 	
  	@Test
- 	public void makeDecision_case7() throws IOException {
+ 	public void makeDecision_case8() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -196,7 +204,7 @@ public class lst_MemberControlPanelTest {
  	}
 	
  	@Test
- 	public void makeDecision_case8() throws IOException {
+ 	public void makeDecision_case9() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -239,7 +247,7 @@ public class lst_MemberControlPanelTest {
 
 	
  	@Test
- 	public void makeDecision_case9() throws IOException {
+ 	public void makeDecision_case10() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -281,7 +289,7 @@ public class lst_MemberControlPanelTest {
  	}
 
  	@Test
- 	public void makeDecision_case10() throws IOException {
+ 	public void makeDecision_case11() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -323,7 +331,7 @@ public class lst_MemberControlPanelTest {
  	}
 
  	@Test
- 	public void makeDecision_case11() throws IOException {
+ 	public void makeDecision_case12() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -358,7 +366,7 @@ public class lst_MemberControlPanelTest {
  	}
 
  	@Test
- 	public void makeDecision_case12() throws IOException {
+ 	public void makeDecision_case13() throws IOException {
 		
  		class Stub_Login extends Login {
  			public boolean login() {
@@ -388,7 +396,7 @@ public class lst_MemberControlPanelTest {
 		
  	}
  	@Test
- 	public void makeDecision_case13() throws IOException {
+ 	public void makeDecision_case14() throws IOException {
 	
  		class Stub_Login extends Login {
  			public boolean login() {
