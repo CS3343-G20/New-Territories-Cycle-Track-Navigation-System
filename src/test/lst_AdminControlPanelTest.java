@@ -37,7 +37,7 @@ import org.junit.After;
  	@Test
  	public void makeDecision_case2() throws IOException {
 		
- 		int res = AdminControlPanel.getInstance().makeDecision(new Scanner("-7"));
+ 		int res = AdminControlPanel.getInstance().makeDecision(new Scanner("\n-7\n7"));
  		assertEquals(1000, res);
 		
  	}
