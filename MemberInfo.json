@@ -1,0 +1,64 @@
+{
+  "memberInfo": [
+    {
+      "bookmarks": [
+        {
+          "bookmarkIndex": 1,
+          "bookmarkType": "Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum\n"
+        },
+        {
+          "bookmarkIndex": 2,
+          "bookmarkType": "Cycling Mode: Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch"
+        },
+        {
+          "bookmarkIndex": 3,
+          "bookmarkType": "Cycling Mode: Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch"
+        },
+        {
+          "bookmarkIndex": 4,
+          "bookmarkType": "Cycling Mode: Lei Uk Tsuen -> Tsang Tai Uk -> Badminton court"
+        }
+      ],
+      "password": "pwd",
+      "schedules": [
+        {
+          "scheduleIndex": 1,
+          "scheduleDate": "2021/07/02",
+          "state": "true",
+          "event": "Cycling Mode: Cycling Mode: Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch"
+        }
+      ],
+      "email": "cs3343g20system@gmail.com"
+    },
+    {
+      "bookmarks": [
+        {
+          "bookmarkIndex": 1,
+          "bookmarkType": "Cycling Mode: Sha Tin Che Kung Temple -> Hong Kong Heritage Museum\n"
+        },
+        {
+          "bookmarkIndex": 2,
+          "bookmarkType": "Cycling Mode: Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch"
+        },
+        {
+          "bookmarkIndex": 3,
+          "bookmarkType": "Cycling Mode: Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch"
+        },
+        {
+          "bookmarkIndex": 4,
+          "bookmarkType": "Cycling Mode: Lei Uk Tsuen -> Tsang Tai Uk -> Badminton court"
+        }
+      ],
+      "password": "pwd111",
+      "schedules": [
+        {
+          "scheduleIndex": 1,
+          "scheduleDate": "2021/07/02",
+          "state": "true",
+          "event": "Cycling Mode: Cycling Mode: Hong Kong Heritage Museum -> Chui Tin Street Soccer Pitch"
+        }
+      ],
+      "email": "testVerifyPwd@gmail.com"
+    }
+  ]
+}
