@@ -116,7 +116,7 @@ public class ClimbingRepoTest {
         ctr.addClimbingTrail(ct2);
         ctr.addClimbingTrail(ct3);
         String resultString = ctr.findTrailByID(2);
-        String expectedString = String.format("%s (difficulty %s) %s -> %s\n", "["+2+"]", 10, "Sheung Shui", "Tai Po");
+        String expectedString = String.format("%s (difficulty %s) %s -> %s", "["+2+"]", 10, "Sheung Shui", "Tai Po");
         assertEquals(expectedString, resultString);
     }
 
