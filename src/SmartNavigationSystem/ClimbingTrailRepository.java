@@ -133,7 +133,7 @@ public class ClimbingTrailRepository implements ClimbingTrailRepoManager,Climbin
         while (it.hasNext()) {
             ClimbingTrail tmp = it.next();
             if (tmp.getID() == pathID) {
-                return tmp.fullInformation()+"\n";
+                return tmp.fullInformation();
             }
         }
         return null;
