@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import SmartNavigationSystem.SendEmail;
 
-public class lst_SendEmailTest {
+public class SendEmailTest {
 
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream err = new ByteArrayOutputStream();

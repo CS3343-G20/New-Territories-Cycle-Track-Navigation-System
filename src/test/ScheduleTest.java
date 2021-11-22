@@ -19,7 +19,7 @@ import SmartNavigationSystem.Member;
 import SmartNavigationSystem.Schedule;
  
 @RunWith(MockitoJUnitRunner.class)
-public class lst_ScheduleTest {
+public class ScheduleTest {
  	
  	@Mock JsonOperation json;
  	@Test

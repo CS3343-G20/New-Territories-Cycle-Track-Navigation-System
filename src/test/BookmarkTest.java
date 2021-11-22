@@ -17,7 +17,7 @@ import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Member;
 
 @RunWith(MockitoJUnitRunner.class)
-public class lst_BookmarkTest {
+public class BookmarkTest {
 
 	@Mock JsonOperation json;
 	@Test

@@ -22,7 +22,7 @@ import SmartNavigationSystem.Login;
  import SmartNavigationSystem.UserControlPanel;
 
 @RunWith(MockitoJUnitRunner.class)
-public class lst_UserControlPanelTest {
+public class UserControlPanelTest {
     
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
  	private final PrintStream originalOut = System.out;

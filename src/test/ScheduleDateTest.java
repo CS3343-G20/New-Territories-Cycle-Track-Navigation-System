@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import SmartNavigationSystem.ScheduleDate;
 
-public class lst_ScheduleDateTest {
+public class ScheduleDateTest {
 
 	@Test
 	public void isValidDate_case1() {

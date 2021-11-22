@@ -19,7 +19,7 @@ import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Member;
 import SmartNavigationSystem.MemberControlPanel;
 
-public class lst_MemberControlPanelTest { 
+public class MemberControlPanelTest { 
 	
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
  	private final PrintStream originalOut = System.out;

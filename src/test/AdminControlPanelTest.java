@@ -15,7 +15,7 @@ import org.junit.After;
  import SmartNavigationSystem.AdminControlPanel;
  import SmartNavigationSystem.JsonOperation;
 
- public class lst_AdminControlPanelTest {
+ public class AdminControlPanelTest {
 
  	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
  	private final PrintStream originalOut = System.out;

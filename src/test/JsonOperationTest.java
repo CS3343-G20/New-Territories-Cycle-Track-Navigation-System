@@ -23,7 +23,7 @@ import SmartNavigationSystem.JsonOperation;
 import SmartNavigationSystem.Member;
 import SmartNavigationSystem.ScheduleDate;
 
-public class lst_JsonOperationTest {
+public class JsonOperationTest {
 
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final PrintStream originalOut = System.out;
