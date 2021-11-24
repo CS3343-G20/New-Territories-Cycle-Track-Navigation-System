@@ -37,7 +37,12 @@ public class Register {
 
     public void confirmPwd(Scanner userInput) throws IOException {
         System.out.println("Please input password again: ");
-        String inpPwd2 = userInput.next();
+        
+        String inpPwd2 = "";
+        do {
+            inpPwd2 = userInput.nextLine();
+        } while (inpPwd2.length() == 0);
+        
         if (this.inpPwd.equals(inpPwd2)) {
             writeinFile(this.inpEmail, this.inpPwd);
             System.out.println("Register successfully.");
