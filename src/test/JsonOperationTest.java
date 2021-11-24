@@ -25,13 +25,18 @@ import SmartNavigationSystem.ScheduleDate;
 
 public class JsonOperationTest {
 
-        private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final PrintStream originalOut = System.out;
 	private final InputStream originalIn = System.in;
+	private String fileString;
 
 	@Before
 	public void setUpStreams() {
+		
 	    System.setOut(new PrintStream(outContent));
+	    
+	    fileString = 
+	    
 	} 
 
         @Test
@@ -55,6 +60,7 @@ public class JsonOperationTest {
 
         }
 
+        /*
         @Test
         public void getMemberInfo_case2() throws FileNotFoundException {
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
@@ -548,15 +554,6 @@ public class JsonOperationTest {
         	
         }
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
         @Test
         public void sendEmailToAllMembers() throws FileNotFoundException, MessagingException {
                 
@@ -574,7 +571,7 @@ public class JsonOperationTest {
         	
         	assertEquals(expected, actual);
         }
-
+*/
         
 	@After
 	public void restoreStreams() {
