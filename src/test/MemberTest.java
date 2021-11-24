@@ -21,11 +21,16 @@ public class MemberTest {
     @Test
     public void testEmail_case1() throws IOException {
         new JsonOperation();
+<<<<<<< HEAD
         if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
             JsonOperation.addNewMember("testEmail@gmail.com","pwd");
         }
         String inputEmail="testEmail@gmail.com";
         String inputPassword=JsonOperation.getMemberPassword(inputEmail);
+=======
+        String inputEmail="cs3343g20system@gmail.com";
+        String inputPassword="pwd";
+>>>>>>> master
 
         String input=inputEmail+"\n"+inputPassword;
         System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -39,11 +44,16 @@ public class MemberTest {
     @Test
     public void testCheckInfo_case1() throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         new JsonOperation();
+<<<<<<< HEAD
         if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
             JsonOperation.addNewMember("testEmail@gmail.com","pwd");
         }
         String inputEmail="testEmail@gmail.com";
         String inputPassword=JsonOperation.getMemberPassword(inputEmail);
+=======
+        String inputEmail="cs3343g20system@gmail.com";
+        String inputPassword="pwd";
+>>>>>>> master
 
         String input=inputEmail+"\n"+inputPassword;
         System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -66,10 +76,15 @@ public class MemberTest {
     @Test
     public void testResetPwd_case2() throws IOException {
         new JsonOperation();
+<<<<<<< HEAD
         if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
             JsonOperation.addNewMember("testEmail@gmail.com","pwd");
         }
         String inputEmail="testEmail@gmail.com";
+=======
+        new JsonOperation();
+        String inputEmail="testVerifyPwd@gmail.com";
+>>>>>>> master
         String inputPassword=JsonOperation.getMemberPassword(inputEmail);
 
         String input=inputEmail+"\n"+inputPassword+"\n";
@@ -97,10 +112,15 @@ public class MemberTest {
     @Test
     public void testResetPwd_case3() throws IOException {
         new JsonOperation();
+<<<<<<< HEAD
         if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
             JsonOperation.addNewMember("testEmail@gmail.com","pwd");
         }
         String inputEmail="testEmail@gmail.com";
+=======
+        new JsonOperation();
+        String inputEmail="testVerifyPwd@gmail.com";
+>>>>>>> master
         String inputPassword=JsonOperation.getMemberPassword(inputEmail);
 
         String input=inputEmail+"\n"+inputPassword+"\n";
@@ -121,4 +141,8 @@ public class MemberTest {
         assertTrue(resTrue);
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

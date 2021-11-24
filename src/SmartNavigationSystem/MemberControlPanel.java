@@ -46,10 +46,6 @@ public class MemberControlPanel extends ControlPanel {
             line = userInput.nextLine().trim();
         }
 
-        if (line.length() > 1) {
-            nav = 1000;
-            return nav;
-        }
         nav = line.charAt(0) - 48;
         if (nav < 0 || nav >= 7) {
             System.out.println("Input error! Please try again.");

@@ -62,7 +62,11 @@ public class AdminLoginTest {
     }
 
     /**
+<<<<<<< HEAD
      * Fail
+=======
+     * Success
+>>>>>>> master
      * False token at the first time
      * False token at the second time
      * False token at the Third time
@@ -78,7 +82,35 @@ public class AdminLoginTest {
         AdminLogin adminLogin=new AdminLogin();
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         boolean res=adminLogin.login(new Scanner(System.in));
+<<<<<<< HEAD
         assertFalse(res);
     }
 
 }
+=======
+        assertTrue(res);
+    }
+
+    /**
+     * Fail
+     * False token at the first time
+     * False token at the second time
+     * False token at the Third time
+     * False token at the fourth  time
+     * True token at the fifth time
+     */
+    @Test
+    public void testLogin_case5(){
+        String token1="CS3343G20gferg";
+        String token2="CS3343G2063476";
+        String token3="CS3343G253464";
+        String token4="CS3343G206gre";
+        String token5="CS3343G20";
+        String input=token1+"\n"+token2+"\n"+token3+"\n"+token4+"\n"+token5;
+        AdminLogin adminLogin=new AdminLogin();
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        boolean res=adminLogin.login(new Scanner(System.in));
+        assertFalse(res);
+    }
+}
+>>>>>>> master

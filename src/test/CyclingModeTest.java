@@ -800,7 +800,7 @@ public class CyclingModeTest {
 
         mode.addBookmark();
 
-        assertEquals(true, (mark.route == null) && (mark.member == m));
+        assertEquals(true, (mark.route == null) && (mark.member == null));
     }
 
     @Test // is member, add
