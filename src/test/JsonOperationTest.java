@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 import javax.mail.MessagingException;
 
@@ -28,14 +29,18 @@ public class JsonOperationTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final PrintStream originalOut = System.out;
 	private final InputStream originalIn = System.in;
+	
 	private String fileString;
 
 	@Before
-	public void setUpStreams() {
+	public void setUp() throws FileNotFoundException {
 		
 	    System.setOut(new PrintStream(outContent));
 	    
-	    fileString = 
+        File f = new File("docs/MemberInfo.json");
+        Scanner fin = new Scanner(f);
+        fileString = fin.useDelimiter("\\Z").next();
+        fin.close();
 	    
 	} 
 
@@ -60,7 +65,6 @@ public class JsonOperationTest {
 
         }
 
-        /*
         @Test
         public void getMemberInfo_case2() throws FileNotFoundException {
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
@@ -571,11 +575,17 @@ public class JsonOperationTest {
         	
         	assertEquals(expected, actual);
         }
-*/
         
 	@After
-	public void restoreStreams() {
+	public void restore() throws FileNotFoundException {
+		
 	    System.setOut(originalOut);
 	    System.setIn(originalIn);
+	    
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write(fileString);
+        pw.close();
+        
+
 	}
 }
