@@ -62,7 +62,11 @@ public class AdminLoginTest {
     }
 
     /**
+<<<<<<< HEAD
+     * Fail
+=======
      * Success
+>>>>>>> master
      * False token at the first time
      * False token at the second time
      * False token at the Third time
@@ -78,6 +82,12 @@ public class AdminLoginTest {
         AdminLogin adminLogin=new AdminLogin();
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         boolean res=adminLogin.login(new Scanner(System.in));
+<<<<<<< HEAD
+        assertFalse(res);
+    }
+
+}
+=======
         assertTrue(res);
     }
 
@@ -103,3 +113,4 @@ public class AdminLoginTest {
         assertFalse(res);
     }
 }
+>>>>>>> master

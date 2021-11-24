@@ -88,9 +88,19 @@ public class LoginTest {
     @Test
     public void testVerifyPwd_case1() throws IOException {
         new JsonOperation();
+<<<<<<< HEAD
+        if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
+            JsonOperation.addNewMember("testEmail@gmail.com","pwd");
+        }
+        
+        String inputEmail="testEmail@gmail.com";
+        String inputPassword=JsonOperation.getMemberPassword(inputEmail);
+
+=======
 
         String inputEmail="testVerifyPwd@gmail.com";
         String inputPassword=JsonOperation.getMemberPassword(inputEmail);
+>>>>>>> master
         Login login=new Login();
         String input=inputEmail+"\n"+inputPassword;
         System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -105,9 +115,18 @@ public class LoginTest {
      * password is incorrect.
      */
     @Test
+<<<<<<< HEAD
+    public void testVerifyPwd_case2() throws IOException {
+        new JsonOperation();
+        if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
+            JsonOperation.addNewMember("testEmail@gmail.com","pwd");
+        }
+        String inputEmail="testEmail@gmail.com";
+=======
     public void testVerifyPwd_case2() throws FileNotFoundException {
         new JsonOperation();
         String inputEmail="testVerifyPwd@gmail.com";
+>>>>>>> master
         String inputPassword="jeffpwdetw53";
 
         Login login=new Login();
@@ -126,7 +145,14 @@ public class LoginTest {
     @Test
     public void testResetPwd_case1() throws IOException {
         new JsonOperation();
+<<<<<<< HEAD
+        if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
+            JsonOperation.addNewMember("testEmail@gmail.com","pwd");
+        }
+        String inputEmail="testEmail@gmail.com";
+=======
         String inputEmail="testVerifyPwd@gmail.com";
+>>>>>>> master
         String inputPassword=JsonOperation.getMemberPassword(inputEmail);
         String input=inputEmail+"\n"+inputPassword+"\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -150,7 +176,14 @@ public class LoginTest {
     @Test
     public void testResetPwd_case2() throws IOException {
         new JsonOperation();
+<<<<<<< HEAD
+        if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
+            JsonOperation.addNewMember("testEmail@gmail.com","pwd");
+        }
+        String inputEmail="testEmail@gmail.com";
+=======
         String inputEmail="testVerifyPwd@gmail.com";
+>>>>>>> master
 
         String inputPassword=JsonOperation.getMemberPassword(inputEmail);
 
@@ -182,7 +215,14 @@ public class LoginTest {
     @Test
     public void testResetPwd_case3() throws IOException {
         new JsonOperation();
+<<<<<<< HEAD
+        if (JsonOperation.getMemberInfo("testEmail@gmail.com")==null){
+            JsonOperation.addNewMember("testEmail@gmail.com","pwd");
+        }
+        String inputEmail="testEmail@gmail.com";
+=======
         String inputEmail="testVerifyPwd@gmail.com";
+>>>>>>> master
 
         String inputPassword=JsonOperation.getMemberPassword(inputEmail);
         //login
@@ -206,4 +246,11 @@ public class LoginTest {
         assertTrue(resTrue);
     }
 
+<<<<<<< HEAD
+
+
+
 }
+=======
+}
+>>>>>>> master
