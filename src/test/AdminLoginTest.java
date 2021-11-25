@@ -21,9 +21,8 @@ public class AdminLoginTest {
     @Test
     public void testLogin_case1(){
         String token="CS3343G20";
-        AdminLogin adminLogin=new AdminLogin();
         System.setIn(new ByteArrayInputStream(token.getBytes()));
-        boolean res=adminLogin.login(new Scanner(System.in));
+        boolean res=AdminLogin.login(new Scanner(System.in));
         assertTrue(res);
     }
 
@@ -37,9 +36,8 @@ public class AdminLoginTest {
         String token1="CS3343G20gferg";
         String token2="CS3343G20";
         String input=token1+"\n"+token2;
-        AdminLogin adminLogin=new AdminLogin();
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        boolean res=adminLogin.login(new Scanner(System.in));
+        boolean res=AdminLogin.login(new Scanner(System.in));
         assertTrue(res);
     }
 
@@ -55,30 +53,9 @@ public class AdminLoginTest {
         String token2="CS3343G2063476";
         String token3="CS3343G20";
         String input=token1+"\n"+token2+"\n"+token3;
-        AdminLogin adminLogin=new AdminLogin();
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        boolean res=adminLogin.login(new Scanner(System.in));
+        boolean res=AdminLogin.login(new Scanner(System.in));
         assertTrue(res);
-    }
-
-    /**
-     * Fail
-     * False token at the first time
-     * False token at the second time
-     * False token at the Third time
-     * True token at the fourth  time
-     */
-    @Test
-    public void testLogin_case4(){
-        String token1="CS3343G20gferg";
-        String token2="CS3343G2063476";
-        String token3="CS3343G253464";
-        String token4="CS3343G20";
-        String input=token1+"\n"+token2+"\n"+token3+"\n"+token4;
-        AdminLogin adminLogin=new AdminLogin();
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        boolean res=adminLogin.login(new Scanner(System.in));
-        assertFalse(res);
     }
 
 }
