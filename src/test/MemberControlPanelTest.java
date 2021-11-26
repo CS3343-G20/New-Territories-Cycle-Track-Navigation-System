@@ -94,7 +94,6 @@ public class MemberControlPanelTest {
  		
  		new JsonOperation();
 
- 		new JsonOperation();
  		JSONObject obj = JsonOperation.getMemberInfo(email);
  		if (obj == null) {
  			JsonOperation.addNewMember(email, "pwd");

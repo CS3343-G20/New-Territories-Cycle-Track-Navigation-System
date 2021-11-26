@@ -17,7 +17,7 @@ public class User {
                 }
                 else if (modeIndex == 2) {
                     mode = new ClimbingMode(null,userInput,null,null);
-                }
+                } 
                 executeMode();
                 isChosen = true;
             }

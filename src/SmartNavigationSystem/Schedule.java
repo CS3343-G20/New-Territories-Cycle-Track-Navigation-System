@@ -17,8 +17,8 @@ public class Schedule {
         JsonOperation.deleteMemberSchedule(member, index);
     }
 
-    public static void sendEmail() throws IOException, MessagingException {
-    	JsonOperation.sendEmailToAllMembers();
+    public static boolean sendEmail() throws IOException, MessagingException {
+    	return JsonOperation.sendEmailToAllMembers();
     }
 
 }

@@ -22,6 +22,7 @@ public class AdminLogin {
                     valid = inpToken.equals(JsonOperation.getAdminToken());
                 } else {
                     System.out.print("Login failed too many times.\nExiting...\n");
+                    flag = 0;
                     return false;
                 }
             }
@@ -30,6 +31,7 @@ public class AdminLogin {
         } finally {
             // in.close();
         }
+        flag = 0;
         return true;
     }
 }

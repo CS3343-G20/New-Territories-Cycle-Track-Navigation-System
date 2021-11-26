@@ -1,14 +1,12 @@
 package test;
 
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import SmartNavigationSystem.Bookmark;
@@ -21,6 +19,7 @@ import SmartNavigationSystem.Member;
 public class BookmarkTest {
 	
 		private Stub_Member m;
+		private String email = "cs3343g20system@gmail.com";
 	
 		class Stub_Login extends Login {
  			public boolean login() {
@@ -37,7 +36,7 @@ public class BookmarkTest {
  			} 
  			@Override
  			public String getEmail() {
- 				return "cs3343g20system@gmail.com";
+ 				return email;
  			}
  		}
 
@@ -48,20 +47,23 @@ public class BookmarkTest {
         new JsonOperation();
 	}
 
-	@Mock JsonOperation json;
 	@Test
 	public void addBookmark_case1() throws FileNotFoundException {
 		Bookmark bookm = Bookmark.getInstance();
+		int org = JsonOperation.getMemberBookmArray(email).size();
 		bookm.addBookmark("route", m);
-		verify(json);
+		int cur = JsonOperation.getMemberBookmArray(email).size();
+		assertEquals(org + 1, cur);
 	}
 	
 	@Test
 	public void deleteBookmark_case1() throws FileNotFoundException, ExInvalidIndex {
         JsonOperation.addNewBookmark("route", m);
 		Bookmark bookm = Bookmark.getInstance();
+		int org = JsonOperation.getMemberBookmArray(email).size();
 		bookm.deleteBookmark(m, 1);
-		verify(json);
+		int cur = JsonOperation.getMemberBookmArray(email).size();
+		assertEquals(org - 1, cur);
 	}
 	
 }

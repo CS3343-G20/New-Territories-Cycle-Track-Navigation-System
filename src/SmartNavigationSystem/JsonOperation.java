@@ -325,7 +325,7 @@ public class JsonOperation {
 
     }
 
-    public static void sendEmailToAllMembers() throws MessagingException {
+    public static boolean sendEmailToAllMembers(){
         JSONArray memberInfo_arr = JsonOperation.getWholeMemberInfoArray();
 
         for (int i = 0; memberInfo_arr != null && i < memberInfo_arr.size(); i++) {
@@ -352,14 +352,21 @@ public class JsonOperation {
                     String msg = "Schedule: schedule#" + scheduleIndex + "\nEvent: " + event + "\nDate: "
                             + scheduleDate.toString();
 
-                    SendEmail.sendEmail(email, subject, msg);
+                    try {
+						SendEmail.sendEmail(email, subject, msg);
+					} catch (MessagingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return false;
+					}
 
                     sche.replace("state", "true", "false");
 
                 }
             }
         }
-
+        
+        return true;
     }
 
 }
