@@ -733,154 +733,6 @@ public class CyclingModeTest {
         assertEquals(expected, route.get(mode));
     }
 
-    @Test // not member
-    public void addBookmark_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		class stubVertices implements VerticesManager {
-			// useless below
-			public String getVertexNameByID(int id) {return null;}
-			public void listAllVertices() {}
-			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
-			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
-			public void listAttractions() {}
-			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
-			public String getRouteString(ArrayList<Integer> route) {return null;}
-		}
-		class stubBookmark implements BookmarkManager {
-			
-			String route = null;
-			Member member = null;
-
-			public void addBookmark(String route, Member member) {
-				this.route = route;
-				this.member = member;
-			}
-		}
-
-        stubBookmark mark = new stubBookmark();
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
-
-        mode.addBookmark();
-
-        assertEquals(true, (mark.route == null) && (mark.member == null));
-    }
-
-    @Test // is member, not add
-    public void addBookmark_case2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		class stubVertices implements VerticesManager {
-			// useless below
-			public String getVertexNameByID(int id) {return null;}
-			public void listAllVertices() {}
-			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
-			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
-			public void listAttractions() {}
-			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
-			public String getRouteString(ArrayList<Integer> route) {return null;}
-		}
-		class stubBookmark implements BookmarkManager {
-			
-			String route = null;
-			Member member = null;
-
-			public void addBookmark(String route, Member member) {
-				this.route = route;
-				this.member = member;
-			}
-		}
-
-        String input = "N\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        stubBookmark mark = new stubBookmark();
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
-
-        Field member = CyclingMode.class.getDeclaredField("member");
-        member.setAccessible(true);
-        Member m = new Member();
-        member.set(mode, m);
-
-        mode.addBookmark();
-
-        assertEquals(true, (mark.route == null) && (mark.member == null));
-    }
-
-    @Test // is member, add
-    public void addBookmark_case3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		class stubVertices implements VerticesManager {
-			public String getRouteString(ArrayList<Integer> route) {return "a";}
-			// useless below
-			public String getVertexNameByID(int id) {return null;}
-			public void listAllVertices() {}
-			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
-			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
-			public void listAttractions() {}
-			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
-		}
-		class stubBookmark implements BookmarkManager {
-			
-			String route = null;
-			Member member = null;
-
-			public void addBookmark(String route, Member member) {
-				this.route = route;
-				this.member = member;
-			}
-		}
-
-        String input = "Y\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        stubBookmark mark = new stubBookmark();
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
-
-        Field member = CyclingMode.class.getDeclaredField("member");
-        member.setAccessible(true);
-        Member m = new Member();
-        member.set(mode, m);
-
-        mode.addBookmark();
-
-        assertEquals(true, (mark.route.equals("Cycling Mode: a")) && (mark.member == m));
-    }
-
-    @Test // is member, wrong input
-    public void addBookmark_case4() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		class stubVertices implements VerticesManager {
-			public String getRouteString(ArrayList<Integer> route) {return "a";}
-			// useless below
-			public String getVertexNameByID(int id) {return null;}
-			public void listAllVertices() {}
-			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
-			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
-			public void listAttractions() {}
-			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
-		}
-		class stubBookmark implements BookmarkManager {
-			
-			String route = null;
-			Member member = null;
-
-			public void addBookmark(String route, Member member) {
-				this.route = route;
-				this.member = member;
-			}
-		}
-		
-        String input = "1\nY\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        stubBookmark mark = new stubBookmark();
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
-
-        Field member = CyclingMode.class.getDeclaredField("member");
-        member.setAccessible(true);
-        Member m = new Member();
-        member.set(mode, m);
-
-        mode.addBookmark();
-
-        assertEquals(true, (mark.route.equals("Cycling Mode: a")) && (mark.member == m));
-    }
-
     @Test // 0 confirm
     public void execute_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
 		class stubVertices implements VerticesManager {
@@ -1285,6 +1137,123 @@ public class CyclingModeTest {
         route.setAccessible(true);
 
         assertEquals(expected, route.get(mode));
+    }
+
+	@Test // not add
+    public void addBookmark_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		class stubVertices implements VerticesManager {
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
+			public String getRouteString(ArrayList<Integer> route) {return null;}
+		}
+		class stubBookmark implements BookmarkManager {
+			
+			String route = null;
+			Member member = null;
+
+			public void addBookmark(String route, Member member) {
+				this.route = route;
+				this.member = member;
+			}
+		}
+
+        String input = "N\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        stubBookmark mark = new stubBookmark();
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
+
+        Field member = CyclingMode.class.getDeclaredField("member");
+        member.setAccessible(true);
+        Member m = new Member();
+        member.set(mode, m);
+
+        mode.addBookmark();
+
+        assertEquals(true, (mark.route == null) && (mark.member == null));
+    }
+
+    @Test // add
+    public void addBookmark_case2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		class stubVertices implements VerticesManager {
+			public String getRouteString(ArrayList<Integer> route) {return "a";}
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
+		}
+		class stubBookmark implements BookmarkManager {
+			
+			String route = null;
+			Member member = null;
+
+			public void addBookmark(String route, Member member) {
+				this.route = route;
+				this.member = member;
+			}
+		}
+
+        String input = "Y\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        stubBookmark mark = new stubBookmark();
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
+
+        Field member = CyclingMode.class.getDeclaredField("member");
+        member.setAccessible(true);
+        Member m = new Member();
+        member.set(mode, m);
+
+        mode.addBookmark();
+
+        assertEquals(true, (mark.route.equals("Cycling Mode: a")) && (mark.member == m));
+    }
+
+    @Test // wrong input
+    public void addBookmark_case3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		class stubVertices implements VerticesManager {
+			public String getRouteString(ArrayList<Integer> route) {return "a";}
+			// useless below
+			public String getVertexNameByID(int id) {return null;}
+			public void listAllVertices() {}
+			public int checkVertexIdValidity(int id) throws ExInvalidIndex {return id;}
+			public String getVertexNamesByID(ArrayList<Integer> ids) {return null;}
+			public void listAttractions() {}
+			public int checkAttractionIdValidity(int id) throws ExInvalidIndex {return id;}
+		}
+		class stubBookmark implements BookmarkManager {
+			
+			String route = null;
+			Member member = null;
+
+			public void addBookmark(String route, Member member) {
+				this.route = route;
+				this.member = member;
+			}
+		}
+		
+        String input = "1\nY\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        stubBookmark mark = new stubBookmark();
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), new stubVertices(), new Scanner(System.in), mark, ClimbingTrailRepository.getInstance());
+
+        Field member = CyclingMode.class.getDeclaredField("member");
+        member.setAccessible(true);
+        Member m = new Member();
+        member.set(mode, m);
+
+        mode.addBookmark();
+
+        assertEquals(true, (mark.route.equals("Cycling Mode: a")) && (mark.member == m));
     }
     
     @Test

@@ -55,7 +55,6 @@ public class CyclingMode implements Mode {
                 case 0:
                     isConfirmed = true;
                     routePlanning();
-                    addBookmark();
                     break;
                 case 1:
                     setDeparture();
@@ -87,6 +86,7 @@ public class CyclingMode implements Mode {
         this.member = member;
         execute();
         this.member.setRoute("Cycling Mode: " + vManager.getRouteString(route));
+        addBookmark();
     }
     
     public void modeSwitch(int trail_id, Member member) {
@@ -287,8 +287,6 @@ public class CyclingMode implements Mode {
     }
 
     public void addBookmark() {
-        if (this.member == null)
-            return;
         System.out.println("Do you want to add this route as a bookmark? [Y/N]");
         boolean isChosen = false;
         while (!isChosen) {
