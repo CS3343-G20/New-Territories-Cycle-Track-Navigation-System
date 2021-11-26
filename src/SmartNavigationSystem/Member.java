@@ -85,22 +85,21 @@ public class Member extends User {
         }
     }
 
-    public void makeSchedule(Scanner userInput) throws IOException {
+    public void makeSchedule(Scanner userInput) throws IOException, ExInvalidIndex {
         chooseMode(userInput);
         System.out.println("Please input the schedule date: [yyyy/mm/dd]");
         boolean isChosen = false;
+        try {
         while (!isChosen) {
-            try {
-                String date = userInput.nextLine();
-                if (!ScheduleDate.isValidDate(date)) {
+            String date = userInput.nextLine();
+			if (!ScheduleDate.isValidDate(date)) {
                     throw new ExInvalidDate();
-                }
-                Schedule.makeSchedule(this.routeString, date, this);
-                isChosen = true;
-            }
-            catch (ExInvalidDate e) {
-                System.out.println(e.getMessage());
-            }
+			}
+			Schedule.makeSchedule(this.routeString, date, this);
+			isChosen = true;
+        }
+        } catch (ExInvalidDate e) {
+        	System.out.println(e.getMessage());
         }
     }
 

@@ -14,6 +14,6 @@ public abstract class ControlPanel {
         System.out.print("------------------------------\n");
     }
 
-    public abstract int makeDecision(Scanner in) throws IOException;
+    public abstract int makeDecision(Scanner in) throws IOException, ExInvalidIndex;
 
 }

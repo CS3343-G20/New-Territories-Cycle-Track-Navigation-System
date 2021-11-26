@@ -20,7 +20,7 @@ public class ScheduleDate {
     }
 
     public static boolean isValidDate(String date) {
-        DateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
+        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         sdf.setLenient(false);
         try {
             sdf.parse(date);
