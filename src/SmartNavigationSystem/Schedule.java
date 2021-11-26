@@ -9,7 +9,7 @@ public class Schedule {
 	private Schedule() {
 	}
 
-    public static void makeSchedule(String route, String date, Member member) throws IOException {
+    public static void makeSchedule(String route, String date, Member member) throws IOException, ExInvalidIndex {
         JsonOperation.addNewSchedule(member, date, route);
     }
 

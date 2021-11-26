@@ -33,7 +33,7 @@ public class MemberControlPanel extends ControlPanel {
     }
 
     @Override
-    public int makeDecision(Scanner userInput) throws IOException {
+    public int makeDecision(Scanner userInput) throws IOException, ExInvalidIndex {
 
         String line = "";
 

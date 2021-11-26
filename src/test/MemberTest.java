@@ -110,12 +110,20 @@ public class MemberTest {
     }
 
     @Test
-    public void makeSchedule_case1() throws IOException {
+    public void makeSchedule_case1() throws IOException, ExInvalidIndex {
     	int org = JsonOperation.getMemberScheArray(email).size();
     	m.makeSchedule(new Scanner("1\n0\n1\nN\nY\n0\nN\n2021/01/01"));
     	int cur = JsonOperation.getMemberScheArray(email).size();
     	assertEquals(org + 1, cur);
     }
+    
+    @Test
+    public void makeSchedule_case2() throws IOException, ExInvalidIndex {
+    	
+    	m.makeSchedule(new Scanner("1\n0\n1\nN\nY\n0\nN\n2021/51/01"));
+    	assertEquals(true, outContent.toString().contains("The date is invalid. Please try again:"));
+    }
+
     
     @After
     public void restoreStreams() {

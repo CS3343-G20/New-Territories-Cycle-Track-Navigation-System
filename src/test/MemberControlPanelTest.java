@@ -114,43 +114,43 @@ public class MemberControlPanelTest {
  	}
  	
  	@Test
- 	public void makeDecision_case1() throws IOException {
+ 	public void makeDecision_case1() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("7"));
  		assertEquals(1000, res);
  	}
 	
  	@Test
- 	public void makeDecision_case2() throws IOException {
+ 	public void makeDecision_case2() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("\n-7\n7"));
  		assertEquals(1000, res);
  	}
 
  	@Test
- 	public void makeDecision_case3() throws IOException {
+ 	public void makeDecision_case3() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("-"));
  		assertEquals(1000, res);
  	}
 	
  	@Test
- 	public void makeDecision_case4() throws IOException {
+ 	public void makeDecision_case4() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("0"));
  		assertEquals(0, res);
  	}
 	
  	@Test
- 	public void makeDecision_case5() throws IOException {
+ 	public void makeDecision_case5() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("1"));
  		assertEquals(1, res);
  	}
 
  	@Test
- 	public void makeDecision_case6() throws IOException {
+ 	public void makeDecision_case6() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("2\nCyclingMode"));
  		assertEquals(2, res);
  	}
 
  	@Test
- 	public void makeDecision_case7() throws IOException {
+ 	public void makeDecision_case7() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("3"));
  		assertEquals(3, res);
  	}
@@ -175,31 +175,31 @@ public class MemberControlPanelTest {
  	}
 	
  	@Test
- 	public void makeDecision_case10() throws IOException {
+ 	public void makeDecision_case10() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("5\n1"));
  		assertEquals(5, res);
  	}
 
  	@Test
- 	public void makeDecision_case11() throws IOException {
+ 	public void makeDecision_case11() throws IOException, ExInvalidIndex {
  		JsonOperation.addNewBookmark("route", m);
 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("5\n1"));
  		assertEquals(5, res);
  	}
 
  	@Test
- 	public void makeDecision_case12() throws IOException {
+ 	public void makeDecision_case12() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n1"));
  		assertEquals(6, res);
  	}
 
  	@Test
- 	public void makeDecision_case13() throws IOException {
+ 	public void makeDecision_case13() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n2"));
  		assertEquals(6, res);
  	}
  	@Test
- 	public void makeDecision_case14() throws IOException {
+ 	public void makeDecision_case14() throws IOException, ExInvalidIndex {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n3"));
  		assertEquals(6, res);
  	}

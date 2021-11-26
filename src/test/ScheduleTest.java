@@ -48,7 +48,7 @@ public class ScheduleTest {
 		}
  	
  	@Test
- 	public void makeSchedule_case1() throws IOException {
+ 	public void makeSchedule_case1() throws IOException, ExInvalidIndex {
  		int org = JsonOperation.getMemberScheArray(email).size();
         Schedule.makeSchedule("route", "2001/01/01", m);
  		int cur = JsonOperation.getMemberScheArray(email).size();
