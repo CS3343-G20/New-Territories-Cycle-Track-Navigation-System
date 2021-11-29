@@ -23,7 +23,7 @@ public class Graph implements GraphUtility {
         private int to;
         private int SP_weight; 
         private int ST_weight;
-        private int weight;
+        private int cost;
     
         public Path() {};
        
@@ -34,10 +34,10 @@ public class Graph implements GraphUtility {
             this.ST_weight = st; //st: shortest time
         }
 
-        public Path(int from, int to, int weight){
+        public Path(int from, int to, int cost){
             this.from = from; 
             this.to = to;
-            this.weight=weight;
+            this.cost = cost;
         }
 
         public int weight(){
@@ -50,7 +50,7 @@ public class Graph implements GraphUtility {
         
         @Override
         public int compare(Path p1, Path p2) {
-            return Integer.compare(p1.weight, p2.weight);
+            return Integer.compare(p1.cost, p2.cost);
         }
     }
 
