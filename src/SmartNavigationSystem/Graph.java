@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Graph implements GraphUtility {
 
-    private static String priority = "SP";
     private static List<String> priorityList = Arrays.asList(new String[]{"SP","ST"});
+    private static String priority = priorityList.get(0);
     private static Graph map = new Graph();
 
     private int V;
@@ -21,36 +21,43 @@ public class Graph implements GraphUtility {
     
         private int from;
         private int to;
-        private int SP_weight; 
-        private int ST_weight;
-        private int weight;
+        private int SP_cost; 
+        private int ST_cost;
     
         public Path() {};
        
         public Path(int from, int to, int sp, int st) { 
             this.from = from; 
             this.to = to;
-            this.SP_weight = sp; //sp:shortest path
-            this.ST_weight = st; //st: shortest time
+            this.SP_cost = sp; //sp: shortest path
+            this.ST_cost = st; //st: shortest time
         }
 
-        public Path(int from, int to, int weight){
-            this.from = from; 
+        public Path(int from, int to, int cost) {
+            this.from = from;
             this.to = to;
-            this.weight=weight;
+            if (priority.equals(priorityList.get(0))) {
+                this.SP_cost = cost;
+                this.ST_cost = -1;
+            }
+            else {
+                this.ST_cost = cost;
+                this.SP_cost = -1;
+            }
         }
 
         public int weight(){
             if (priority.equals(priorityList.get(0))) {
-                return SP_weight;
-            }else {
-                return ST_weight;
+                return SP_cost;
+            }
+            else {
+                return ST_cost;
             }
         }
         
         @Override
         public int compare(Path p1, Path p2) {
-            return Integer.compare(p1.weight, p2.weight);
+            return Integer.compare(p1.weight(), p2.weight());
         }
     }
 

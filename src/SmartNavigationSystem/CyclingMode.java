@@ -77,8 +77,6 @@ public class CyclingMode implements Mode {
                 System.out.println(e.getMessage());
             }
         }
-
-        // input.close();
     }
 
     @Override
