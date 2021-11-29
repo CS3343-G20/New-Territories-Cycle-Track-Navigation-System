@@ -46,7 +46,7 @@ public class Graph implements GraphUtility {
             }
         }
 
-        public int weight(){
+        public int cost(){
             if (priority.equals(priorityList.get(0))) {
                 return SP_cost;
             }
@@ -57,7 +57,7 @@ public class Graph implements GraphUtility {
         
         @Override
         public int compare(Path p1, Path p2) {
-            return Integer.compare(p1.weight(), p2.weight());
+            return Integer.compare(p1.cost(), p2.cost());
         }
     }
 
@@ -106,7 +106,7 @@ public class Graph implements GraphUtility {
         for (int i = 0; i < adj_list.get(u).size(); i++) { 
             Path p = adj_list.get(u).get(i); 
 
-            int newDistance = dist[u] + p.weight(); 
+            int newDistance = dist[u] + p.cost(); 
 
             if(this.dist[p.to] >= newDistance){
                 if(this.dist[p.to] > newDistance){
