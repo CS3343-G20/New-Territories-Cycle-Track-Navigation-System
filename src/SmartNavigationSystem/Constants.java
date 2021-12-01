@@ -2,7 +2,7 @@ package SmartNavigationSystem;
 
 public final class Constants {
 
-        public static final int vertexNumber = 20;
+        public static final int vertexNumber = 10;
 
         public static final String[][] vertices_info = new String[][] { 
                 { "0", "Sha Tin Che Kung Temple", "500 metres", "a popular ancient temple drawing worshippers" }, 
