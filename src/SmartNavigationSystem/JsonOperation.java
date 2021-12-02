@@ -125,6 +125,7 @@ public class JsonOperation {
             arr.add(obj);
 
             updateJsonFile();
+            System.out.println("Add successfully!");
         } catch (IOException e) {
             e.printStackTrace();
         }
