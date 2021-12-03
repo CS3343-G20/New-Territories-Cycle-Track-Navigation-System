@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 public class Register {
     private String inpEmail, inpPwd;
     private int tryTimes = 0;
-    ControlPanel cp = UserControlPanel.getInstance();
 
     public void register(Scanner userInput) throws IOException {
         System.out.println("Please input email: (Please note that we only accept Gmail Account)");

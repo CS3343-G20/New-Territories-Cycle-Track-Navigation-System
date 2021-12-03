@@ -26,15 +26,16 @@ public class AdminControlPanel extends ControlPanel {
         System.out.println("Please input a num:[select from ControlPanel]");
         int nav = 0;
 
-        line = userInput.next().trim();
+        line = userInput.nextLine().trim();
         while (line.length() == 0 || line.length() > 1) {
             System.out.println("Input format error! Please try again.");
+            System.out.println("Please input a num:[select from ControlPanel]");
             line = userInput.nextLine().trim();
         }
 
         nav = line.charAt(0) - 48;
-        if (nav < 0 || nav > 5) {
-            System.out.println("Input error! Please try again.");
+        if (nav < 0 || nav > 3) {
+            System.out.println("Input error!");
             nav = 1000;
         }
 
@@ -51,7 +52,7 @@ public class AdminControlPanel extends ControlPanel {
             Admin.printBookmarkList();
             break;
         }
-
+        
         return nav;
 
     }
