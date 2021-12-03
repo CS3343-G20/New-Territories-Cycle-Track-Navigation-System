@@ -21,6 +21,8 @@ private final String wrongEmail = "wrong" + email;
 private final String pwd = "pwd";
 private final String wrongPwd = "wrong" + pwd;
 private final String newPwd = "new" + pwd;
+private final String unexistEmail = "fakeEmail@gmail.com";
+private final String unmatchedEmail ="fakeEmail@163.com";
 
 @Before
 public void setUp() throws IOException {
@@ -63,6 +65,27 @@ public void testLogin_case4() throws IOException {
     assertEquals(0,res);
 
 }
+
+// please clear this email from memberInfo first
+@Test
+public void testLogin_case5() throws IOException {
+    String input=unexistEmail+"\nY\n"+unexistEmail+"\n"+pwd+"\n"+pwd;;
+    System.setIn(new ByteArrayInputStream(input.getBytes()));
+    Login login=new Login();
+    int res=login.login(new Scanner(System.in));
+    assertEquals(2,res);
+}
+
+//please clear this email from memberInfo first
+@Test
+public void testLogin_case6() throws IOException {
+ String input=unmatchedEmail+"\n"+email+"\n"+pwd+"\n"+pwd;;
+ System.setIn(new ByteArrayInputStream(input.getBytes()));
+ Login login=new Login();
+ int res=login.login(new Scanner(System.in));
+ assertEquals(1,res);
+}
+
 
 @Test
 public void testVerifyPwd_case1() throws IOException {
