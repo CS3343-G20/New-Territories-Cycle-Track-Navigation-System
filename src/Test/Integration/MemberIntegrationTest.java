@@ -1,9 +1,6 @@
 package test.Integration;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,10 +14,8 @@ import org.junit.Test;
 
 import com.alibaba.fastjson.JSONObject;
 
-import SmartNavigationSystem.ExInvalidDate;
 import SmartNavigationSystem.ExInvalidIndex;
 import SmartNavigationSystem.JsonOperation;
-import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Member;
 
 public class MemberIntegrationTest {
@@ -125,7 +120,7 @@ public class MemberIntegrationTest {
     
     @Test
     public void makeSchedule_case2() throws IOException{
-    	m.makeSchedule(new Scanner("1\n0\n1\nN\nY\n0\nN\n20/51/01"));
+    	m.makeSchedule(new Scanner("1\n0\n1\nN\nY\n0\nN\n20/51/01\n2021/01/01"));
     	assertEquals(true, outContent.toString().contains("The date is invalid. Please try again:"));
     }
 
