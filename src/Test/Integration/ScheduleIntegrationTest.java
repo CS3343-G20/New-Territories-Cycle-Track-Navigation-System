@@ -1,9 +1,11 @@
-package test.Unit;
+package test.Integration;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.mail.MessagingException;
 
@@ -12,40 +14,23 @@ import org.junit.Test;
 
 import SmartNavigationSystem.ExInvalidIndex;
 import SmartNavigationSystem.JsonOperation;
-import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Member;
 import SmartNavigationSystem.Schedule;
- 
-public class ScheduleTest {
-	
-	private Stub_Member m;
-	private String email = "cs3343g20system@gmail.com";
-	
-	class Stub_Login extends Login {
-			public boolean login() {
-				return true;
-			}
-		}
-	
-		class Stub_Member extends Member {
-			private Stub_Login login;
-			public Stub_Member Login() {
-				this.login = new Stub_Login();
-		        login.login();
-				return this;
-			} 
-			@Override
-			public String getEmail() {
-				return email;
-			}
-		}
 
-		@Before
-		public void setUp() throws FileNotFoundException {
-			m = new Stub_Member();
-			m.Login();
-			new JsonOperation();
-		}
+public class ScheduleIntegrationTest {
+	private Member m;
+	private String email = "cs3343g20system@gmail.com";
+	private String pwd = "pwd";
+	
+
+	@Before
+	public void setUp() throws IOException {
+		m = new Member();
+		new JsonOperation();
+		String input=email+"\n"+pwd;
+		System.setIn(new ByteArrayInputStream(input.getBytes()));
+		m.Login(new Scanner(System.in));
+	}
  	
  	@Test
  	public void makeSchedule_case1() throws IOException {
@@ -70,5 +55,4 @@ public class ScheduleTest {
  	}
 
 
- }
-	
+}

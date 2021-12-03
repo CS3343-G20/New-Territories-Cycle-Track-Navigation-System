@@ -1,4 +1,4 @@
-package Test.Unit;
+package test.Unit;
 
 import SmartNavigationSystem.ControlPanel;
 import SmartNavigationSystem.ExInvalidIndex;

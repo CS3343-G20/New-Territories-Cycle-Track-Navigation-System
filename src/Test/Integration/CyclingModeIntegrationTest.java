@@ -1,4 +1,4 @@
-package Test.Integration;
+package test.Integration;
 
 import org.junit.Test;
 

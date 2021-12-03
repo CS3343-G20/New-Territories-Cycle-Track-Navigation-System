@@ -1,16 +1,9 @@
-package test.Unit;
+package test.Integration;
 
-import SmartNavigationSystem.ExInvalidIndex;
-import SmartNavigationSystem.JsonOperation;
-import SmartNavigationSystem.Member;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
-import com.alibaba.fastjson.JSONObject;
-
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,11 +11,19 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-@RunWith(MockitoJUnitRunner.class)
-public class MemberTest {
-	
+import com.alibaba.fastjson.JSONObject;
+
+import SmartNavigationSystem.ExInvalidDate;
+import SmartNavigationSystem.ExInvalidIndex;
+import SmartNavigationSystem.JsonOperation;
+import SmartNavigationSystem.Login;
+import SmartNavigationSystem.Member;
+
+public class MemberIntegrationTest {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
  	private final PrintStream originalOut = System.out;
  	private final InputStream originalIn = System.in;
@@ -35,8 +36,8 @@ public class MemberTest {
  	@Before 
  	public void setUp() throws IOException, ExInvalidIndex {
  	    
- 	    new JsonOperation();
- 	     	    
+ 		new JsonOperation();
+  	    
     	String input = email+"\n"+JsonOperation.getMemberPassword(email);
     	m.Login(new Scanner(input));
 
@@ -56,7 +57,6 @@ public class MemberTest {
  		}
  		
  		System.setOut(new PrintStream(outContent));
- 		
  	}
  	
  	@Test
@@ -108,9 +108,15 @@ public class MemberTest {
     	int cur = JsonOperation.getMemberScheArray(email).size();
     	assertEquals(0, cur);
     }
+    
+    @Test
+    public void deleteSchedule_case3() throws IOException {
+    	m.deleteSchedule(new Scanner("100"));
+    	assertEquals(true, outContent.toString().contains("The input should be chosen from the listed indices. Please try again:"));
+    }
 
     @Test
-    public void makeSchedule_case1() throws IOException {
+    public void makeSchedule_case1() throws IOException{
     	int org = JsonOperation.getMemberScheArray(email).size();
     	m.makeSchedule(new Scanner("1\n0\n1\nN\nY\n0\nN\n2021/01/01"));
     	int cur = JsonOperation.getMemberScheArray(email).size();
@@ -118,9 +124,8 @@ public class MemberTest {
     }
     
     @Test
-    public void makeSchedule_case2() throws IOException {
-    	
-    	m.makeSchedule(new Scanner("1\n0\n1\nN\nY\n0\nN\n2021/51/01"));
+    public void makeSchedule_case2() throws IOException{
+    	m.makeSchedule(new Scanner("1\n0\n1\nN\nY\n0\nN\n20/51/01"));
     	assertEquals(true, outContent.toString().contains("The date is invalid. Please try again:"));
     }
 

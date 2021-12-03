@@ -1,4 +1,4 @@
-package test.Unit;
+package test.Integration;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,83 +17,26 @@ import com.alibaba.fastjson.JSONObject;
 
 import SmartNavigationSystem.ExInvalidIndex;
 import SmartNavigationSystem.JsonOperation;
-import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Member;
 import SmartNavigationSystem.MemberControlPanel;
 
-public class MemberControlPanelTest { 
-	
+public class MemberControlPanelIntegrationTest {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
  	private final PrintStream originalOut = System.out;
  	private final InputStream originalIn = System.in;
  	
  	private final String email = "cs3343g20system@gmail.com";
+ 	private String pwd = "pwd";
  	
- 	private Stub_Member m;
-
-	class Stub_Login extends Login {
- 		public boolean login() {
- 			return true; 
- 		}
- 	}
-		
- 	class Stub_Member extends Member {
- 		
- 		private Stub_Login login;
- 		
- 		@Override
- 		public Stub_Member Login(Scanner scan) {
- 			this.login = new Stub_Login();
- 	        login.login();
- 			return this;
- 		} 
- 		
- 		@Override
-		public void resetPwd(Scanner scan) {
- 			//pass
- 		}
- 		
- 		@Override
-		public void chooseMode(Scanner scan) {
- 			//pass
- 		}
- 		
- 		@Override
-		public void CheckInfo() {
- 			//pass
- 		}
- 		
- 		@Override
-		public void deleteSchedule(Scanner scan) {
- 			//pass
- 		}
- 		
- 		@Override
-		public void deleteBookmark(Scanner scan) {
- 			//pass
- 		}
- 		
- 		@Override
-		public void makeSchedule(Scanner scan) {
- 			//pass
- 		}
- 		
- 		@Override
- 		public String getEmail() {
- 			return email;
- 		}
- 	}
- 	
+ 	private Member m;
  	@Before 	
  	public void setUp() throws IOException, ExInvalidIndex {
-		
- 	    System.setOut(new PrintStream(outContent));
- 	    
- 		m = new Stub_Member();
- 		m.Login(new Scanner(""));
- 		
+ 		m = new Member();
  		new JsonOperation();
-
+ 		String input=email+"\n"+pwd;
+ 		System.setIn(new ByteArrayInputStream(input.getBytes()));
+ 	    m.Login(new Scanner(email+"\n"+pwd)); 	   
+ 	    
  		JSONObject obj = JsonOperation.getMemberInfo(email);
  		if (obj == null) {
  			JsonOperation.addNewMember(email, "pwd");
@@ -108,13 +51,23 @@ public class MemberControlPanelTest {
  				JsonOperation.deleteMemberSchedule(m, 1);
  			}
  		}
- 		
  		MemberControlPanel.getInstance().setMember(m);
- 		 		
+ 		
+ 		System.setOut(new PrintStream(outContent)); 		
  	}
  	
  	@Test
  	public void makeDecision_case1() throws IOException, ExInvalidIndex {
+ 		m = new Member();
+ 		new JsonOperation();
+ 		String input=email+"\n"+pwd;
+ 		System.setIn(new ByteArrayInputStream(input.getBytes()));
+ 	    m.Login(new Scanner(email+"\n"+pwd)); 	   
+
+ 	    
+ 		MemberControlPanel.getInstance().setMember(m);
+ 		
+ 		System.setOut(new PrintStream(outContent)); 	
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("7"));
  		assertEquals(1000, res);
  	}
@@ -137,15 +90,11 @@ public class MemberControlPanelTest {
  		assertEquals(0, res);
  	}
 	
- 	@Test
- 	public void makeDecision_case5() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("1"));
- 		assertEquals(1, res);
- 	}
+
 
  	@Test
  	public void makeDecision_case6() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("2\nCyclingMode"));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("2\n1\n1\n5\nN\nN\n0\n1\nN"));
  		assertEquals(2, res);
  	}
 
@@ -189,18 +138,7 @@ public class MemberControlPanelTest {
 
  	@Test
  	public void makeDecision_case12() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n1"));
- 		assertEquals(6, res);
- 	}
-
- 	@Test
- 	public void makeDecision_case13() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n2"));
- 		assertEquals(6, res);
- 	}
- 	@Test
- 	public void makeDecision_case14() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n3"));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n1\n1\n5\nN\nN\n0\n1\nN\n2021/11/03\n1"));
  		assertEquals(6, res);
  	}
 
@@ -209,11 +147,15 @@ public class MemberControlPanelTest {
  		Member res = MemberControlPanel.getInstance().getMember();
  		assertEquals(m, res);
  	}
-
+ 	
+// 	@Test
+// 	public void makeDecision_case5() throws IOException, ExInvalidIndex {
+// 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("1\nyes\nnewpwd\nnewpwd"));
+// 		assertEquals(1, res);
+// 	}
  	@After
  	public void restoreStreams() {
  	    System.setOut(originalOut);
  	    System.setIn(originalIn);
  	}
-	
- }
+}
