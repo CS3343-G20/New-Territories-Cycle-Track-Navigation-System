@@ -91,15 +91,15 @@ public class Member extends User {
         boolean isChosen = false;
         while (!isChosen) {
             try{
-            String date = userInput.nextLine();
-			if (!ScheduleDate.isValidDate(date)) {
-                    throw new ExInvalidDate();
-			}
-			Schedule.makeSchedule(this.routeString, date, this);
-			isChosen = true;
-        } catch (ExInvalidDate e) {
-        	System.out.println(e.getMessage());
-        }
+           	String date = userInput.nextLine();
+		if (!ScheduleDate.isValidDate(date)) {
+			throw new ExInvalidDate();
+		}
+		Schedule.makeSchedule(this.routeString, date, this);
+		isChosen = true;
+		} catch (ExInvalidDate e) {
+			System.out.println(e.getMessage());
+		}
         }
     }
 
