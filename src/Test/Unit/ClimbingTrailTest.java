@@ -1,11 +1,11 @@
-package Test.Integration;
+package Test.Unit;
 
 import SmartNavigationSystem.ClimbingTrail;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ClimbingTrailIntegrationTest {
+public class ClimbingTrailTest {
     ClimbingTrail ct = new ClimbingTrail(1,1,1,"Kowloon Tong","Shatin");
     @Test
     public void testgetID(){
