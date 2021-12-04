@@ -13,13 +13,11 @@ import org.junit.Test;
 import SmartNavigationSystem.Bookmark;
 import SmartNavigationSystem.ExInvalidIndex;
 import SmartNavigationSystem.JsonOperation;
-import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Member;
 
 public class BookamarkIntegrationTest {
 
 	private Member m;
-	private Login login;
 	private final String email = "cs3343g20system@gmail.com";
 	private final String pwd = "pwd";
 	

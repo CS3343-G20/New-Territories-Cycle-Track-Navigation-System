@@ -106,8 +106,9 @@ public class MemberIntegrationTest {
     
     @Test
     public void deleteSchedule_case3() throws IOException {
+    	JsonOperation.addNewSchedule(m, "2001/01/01", "route");
     	m.deleteSchedule(new Scanner("100"));
-    	assertEquals(true, outContent.toString().contains("The input should be chosen from the listed indices. Please try again:"));
+    	assertEquals(true, outContent.toString().contains("Index input error"));
     }
 
     @Test

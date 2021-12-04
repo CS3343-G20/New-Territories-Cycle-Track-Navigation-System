@@ -2,96 +2,145 @@ package Test.Unit;
 
 import SmartNavigationSystem.JsonOperation;
 import SmartNavigationSystem.Register;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
+import com.alibaba.fastjson.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.*; 
 
-/**
- *
- */
 public class RegisterTest {
+	
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+ 	private final PrintStream originalOut = System.out;
+ 	private final InputStream originalIn = System.in;
+ 	
+	private String fileString;
+	
+	private String email = "cs3343g20system@gmail.com";
+	private String wrongEmail = "cs3343g20system";
+	private String pwd = "pwd";
+	private String wrongPwd = "pwdxxx";
+	
+	@Before
+	public void setUp() throws FileNotFoundException {
+		
+ 	    System.setOut(new PrintStream(outContent));
+ 	    
+        File f = new File("docs/MemberInfo.json");
+        Scanner fin = new Scanner(f);
+        fileString = fin.useDelimiter("\\Z").next();
+        fin.close();
 
-    /**
-     * Success register
-     * Confirm that the password is entered correct at the first time
-     */
-    @Test
-    public void testRegister_case1() throws IOException {
+	}
+
+	@Test
+	public void register_case1() throws IOException {
+		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[]}");
+        pw.close();
+
         new JsonOperation();
-        String email="testregister1@gmail.com";
-        String password="testregisterpwd1";
-        String input=email+"\n"+password+"\n"+password+"\n0";
-        Register register=new Register();
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        register.register(new Scanner(System.in));
 
-        //check
-        boolean res=JsonOperation.checkMemberPwd(email,password);
-        assertTrue(res);
-    }
+		Register register = new Register();
+		register.register(new Scanner(email +"\n" + pwd + "\n" + pwd));
+		assertEquals(true, outContent.toString().contains("Register successfully."));
+	}
 
-    /**
-     * Success register
-     * Confirm that the password is entered correct at the second time
-     */
-    @Test
-    public void testRegister_case2() throws IOException {
+	@Test
+	public void register_case2() throws IOException {
+		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
+        pw.close();
+
         new JsonOperation();
-        String email="testregister2@gmail.com";
-        String password="testregisterpwd2";
-        String password1="testregisterpwd643";
-        String input=email+"\n"+password+"\n"+password1+"\n"+password+"\n0";
-        Register register=new Register();
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        register.register(new Scanner(System.in));
 
-        //check
-        Object res=JsonOperation.getMemberInfo(email);
-        assertNotNull(res);
-    }
+		Register register = new Register();
+		register.register(new Scanner(email));
+		assertEquals(true, outContent.toString().contains("Registration failed!"));
+	}
+	
+	@Test
+	public void register_case3() throws IOException {
+		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[]}");
+        pw.close();
 
-    /**
-     * Success register
-     * Confirm that the password is entered correct at the third time
-     */
-    @Test
-    public void testRegister_case3() throws IOException {
         new JsonOperation();
-        String email="testregister2@gmail.com";
-        String password="testregisterpwd3";
-        String password1="testregisterpwd643";
-        String input=email+"\n"+password+"\n"+password1+"\n"+password1+"\n"+password+"\n0";
-        Register register=new Register();
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        register.register(new Scanner(System.in));
 
-        //check
-        Object res=JsonOperation.getMemberInfo(email);
-        assertNotNull(res);
-    }
+		Register register = new Register();
+		register.register(new Scanner(wrongEmail + "\n" + email +"\n" + pwd + "\n" + pwd));
+		assertEquals(true, outContent.toString().contains("Register successfully."));
+	}
 
-    /**
-     * Fail register
-     * Confirm that the password is entered correct at the fourth time
-     */
-    @Test
-    public void testRegister_case4() throws IOException {
+	@Test
+	public void register_case4() throws IOException {
+		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[]}");
+        pw.close();
+
         new JsonOperation();
-        String email="testregister@gmail.com";
-        String password="testregisterfailpwd";
-        String password1="testregisterpwd643";
-        String input=email+"\n"+password+"\n"+password1+"\n"+password1+"\n"+password1+"\n"+"\n0";
-        Register r=new Register();
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        r.register(new Scanner(System.in));
 
-        //check
-        Object res=JsonOperation.getMemberInfo(email);
-        assertNull(res);
-    }
+		Register register = new Register();
+		register.register(new Scanner(wrongEmail + "\n" + wrongEmail + "\n" + wrongEmail));
+		assertEquals(true, outContent.toString().contains("Registration failed!"));
+	}
 
+	@Test
+	public void register_case5() throws IOException {
+		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[]}");
+        pw.close();
+
+        new JsonOperation();
+
+		Register register = new Register();
+		register.register(new Scanner(email + "\n" + pwd + "\n" + wrongPwd + "\n" + wrongPwd + "\n" + wrongPwd));
+		assertEquals(true, outContent.toString().contains("Registration failed!"));
+	}
+
+	@Test
+	public void writeinFile_case1() throws IOException {
+		
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write("{\"memberInfo\":[]}");
+        pw.close();
+
+        new JsonOperation();
+        
+		Register register = new Register();
+		register.writeinFile(email, pwd);
+		
+		JSONObject obj = JsonOperation.getMemberInfo(email);
+		
+		assertNotNull(obj);
+	}
+
+	@After
+	public void restore() throws FileNotFoundException {
+ 		
+ 	    System.setOut(originalOut);
+ 	    System.setIn(originalIn);
+ 	    
+        PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
+        pw.write(fileString);
+        pw.close();
+
+	}
 }

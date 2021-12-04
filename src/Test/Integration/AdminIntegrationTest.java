@@ -1,4 +1,4 @@
-package Test.Unit;
+package Test.Integration;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,7 +18,7 @@ import org.junit.Test;
 import SmartNavigationSystem.Admin;
 import SmartNavigationSystem.JsonOperation;
 
-public class AdminTest {
+public class AdminIntegrationTest {
 	
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
  	private final PrintStream originalOut = System.out;
@@ -94,7 +94,7 @@ public class AdminTest {
 	}
 
  	@After
- 	public void restore() throws FileNotFoundException {
+ 	public void restoreStreams() throws FileNotFoundException {
  		
  	    System.setOut(originalOut);
  	    System.setIn(originalIn);
