@@ -1,4 +1,4 @@
-package test.Unit;
+package Test.Unit;
 
 import static org.junit.Assert.assertEquals;
 
@@ -340,7 +340,6 @@ public class ClimbingModeTest {
 	@Test
 	public void testaddBookmark_InvalidCase() {
 		String input = "T\nN\n";
-		PrintStream standardOut = System.out;
 		ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 		System.setIn(new ByteArrayInputStream(input.getBytes()));
 		System.setOut(new PrintStream(outputStreamCaptor));

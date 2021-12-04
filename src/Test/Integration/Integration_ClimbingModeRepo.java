@@ -1,4 +1,4 @@
-package test;
+package Test.Integration;
 
 import SmartNavigationSystem.*;
 import org.junit.Test;
@@ -8,7 +8,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;

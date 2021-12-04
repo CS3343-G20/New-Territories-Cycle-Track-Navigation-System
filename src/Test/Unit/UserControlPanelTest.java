@@ -1,4 +1,4 @@
-package test.Unit;
+package Test.Unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,14 +10,11 @@ import java.util.Scanner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import SmartNavigationSystem.Member;
 import SmartNavigationSystem.Login;
  import SmartNavigationSystem.UserControlPanel;
 
-@RunWith(MockitoJUnitRunner.class)
 public class UserControlPanelTest {
     
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();

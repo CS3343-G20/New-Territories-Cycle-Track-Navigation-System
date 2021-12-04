@@ -1,4 +1,4 @@
-package test.Unit;
+package Test.Unit;
 
 import SmartNavigationSystem.ExInvalidIndex;
 import SmartNavigationSystem.JsonOperation;
@@ -6,8 +6,6 @@ import SmartNavigationSystem.Member;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -20,7 +18,6 @@ import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
-@RunWith(MockitoJUnitRunner.class)
 public class MemberTest {
 	
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
