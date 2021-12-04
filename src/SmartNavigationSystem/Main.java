@@ -36,7 +36,7 @@ public class Main {
             cp.showControlPanel();
             int nav = cp.makeDecision(in);
             if (nav == 0) {
-                System.out.println("========Exit========");
+                System.out.println("=========Exit========");
                 return;
             } else if (nav == 1 && cp.getClass().equals(UserControlPanel.class)) {
                 Member tmp_m = (Member) ((UserControlPanel) cp).getMember();
