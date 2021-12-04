@@ -1,4 +1,4 @@
-package Test.Unit;
+package Test.Integration;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import SmartNavigationSystem.*;
 
-public class VerticesTest {
+public class VerticesIntegration {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputContent = new ByteArrayOutputStream();
 
