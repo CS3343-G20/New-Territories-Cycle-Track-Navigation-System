@@ -1,4 +1,4 @@
-package Test.Unit;
+package Test.Integration;
 
 import SmartNavigationSystem.User;
 
@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 
-public class UserTest {
+public class UserIntegrationTest {
 	
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
  	private final PrintStream originalOut = System.out;
@@ -28,10 +28,6 @@ public class UserTest {
  	    System.setOut(new PrintStream(outContent));
 	}  
  
-
-    /**
-     * test CyclingMode
-     */
     @Test
     public void testChooseMode_case1() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
         User user=new User();
@@ -41,9 +37,6 @@ public class UserTest {
         assertEquals(true, outContent.toString().contains("Please input a departure ID:"));
     }
 
-    /**
-     * test ClimbingMode
-     */
     @Test
     public void testChooseMode_case2() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
         User user=new User();

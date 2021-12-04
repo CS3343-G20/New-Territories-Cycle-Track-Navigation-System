@@ -1,4 +1,4 @@
-package test.Unit;
+package Test.Unit;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import SmartNavigationSystem.Bookmark;
 import SmartNavigationSystem.ExInvalidIndex;
@@ -15,7 +13,6 @@ import SmartNavigationSystem.JsonOperation;
 import SmartNavigationSystem.Login;
 import SmartNavigationSystem.Member;
 
-@RunWith(MockitoJUnitRunner.class)
 public class BookmarkTest {
 	
 		private Stub_Member m;

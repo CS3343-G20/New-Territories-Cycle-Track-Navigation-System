@@ -25,7 +25,7 @@ public class Register {
         } else{
         	Boolean emailExist = JsonOperation.checkMemberExist(this.inpEmail);
         	if (emailExist) {
-        		System.out.println("This account already exists. Registration failed.");
+        		System.out.println("This account already exists. Registration failed!");
         	} else {
         		System.out.println("Please input password: ");
         		this.inpPwd = userInput.next();
