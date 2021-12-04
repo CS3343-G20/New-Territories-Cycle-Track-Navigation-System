@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
-public class Integration_ClimbingModeRepo {
+public class ClimbingModeIntegration {
 
 
     @Test

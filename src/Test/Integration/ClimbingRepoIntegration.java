@@ -1,15 +1,16 @@
-package Test.Unit;
+package Test.Integration;
 
 
 import org.junit.Test;
+
+import SmartNavigationSystem.ClimbingTrail;
+import SmartNavigationSystem.ClimbingTrailRepository;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import SmartNavigationSystem.*;
-
-public class ClimbingRepoTest {
+public class ClimbingRepoIntegration {
 
     @Test
     public void testTreeSet() {
