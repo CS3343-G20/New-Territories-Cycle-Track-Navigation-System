@@ -1,4 +1,4 @@
-package test.Integration;
+package Test.Integration;
 
 import SmartNavigationSystem.JsonOperation;
 import SmartNavigationSystem.Login;

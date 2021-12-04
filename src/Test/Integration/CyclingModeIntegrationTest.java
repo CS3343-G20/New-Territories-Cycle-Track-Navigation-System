@@ -1,4 +1,4 @@
-package test.Integration;
+package Test.Integration;
 
 import org.junit.Test;
 
@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -585,6 +586,87 @@ public class CyclingModeIntegrationTest {
         assertEquals(expected, route.get(mode));
     }
 
+    @Test // not add
+    public void addBookmark_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, IOException {
+        String input = "cs3343g20system@gmail.com\npwd\nN\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+        Scanner in = new Scanner(System.in);
+        new JsonOperation();
+        
+        Member m = new Member();
+        m.Login(in);
+        
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), in, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+        Field member = CyclingMode.class.getDeclaredField("member");
+        member.setAccessible(true);
+        member.set(mode, m);
+
+        mode.addBookmark();
+
+        assertEquals(false, output.toString().contains("Add successfully!"));
+    }
+
+    @Test // add
+    public void addBookmark_case2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, IOException {
+    	String input = "cs3343g20system@gmail.com\npwd\nY\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+        Scanner in = new Scanner(System.in);
+        new JsonOperation();
+        
+        Member m = new Member();
+        m.Login(in);
+        
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), in, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+        Field member = CyclingMode.class.getDeclaredField("member");
+        member.setAccessible(true);
+        member.set(mode, m);
+
+        mode.addBookmark();
+
+        assertEquals(true, output.toString().contains("Add successfully!"));
+    }
+    
+    @Test // wrong input
+    public void addBookmark_case3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, IOException {
+    	String input = "cs3343g20system@gmail.com\npwd\na\nN\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+        Scanner in = new Scanner(System.in);
+        new JsonOperation();
+        
+        Member m = new Member();
+        m.Login(in);
+        
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), in, Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+        Field member = CyclingMode.class.getDeclaredField("member");
+        member.setAccessible(true);
+        member.set(mode, m);
+
+        mode.addBookmark();
+
+        assertEquals(false, output.toString().contains("Add successfully!"));
+    }
+    
+    @Test
+    public void memberExecute_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        String input = "0\n6\nY\n2 5\nN\n0\nN\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in), Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
+
+        Member m = new Member();
+        mode.memberExecute(m);
+
+        assertEquals(false, output.toString().contains("Add successfully!"));
+    }
+    
     @Test // use trail departure as cycling destination
     public void modeSwitch_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
 
@@ -601,7 +683,7 @@ public class CyclingModeIntegrationTest {
         String expected = "Climbing Route: Sheung Shui -> Tai Po"; 
         assertEquals(true, output.toString().contains(expected));
     }
-
+    
     @Test // not use trail departure as cycling destination
     public void modeSwitch_case2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException { 
         String input = "0\n2\n6\nY\n2 5\nN\n0\n";

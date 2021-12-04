@@ -1,4 +1,4 @@
-package test.Unit;
+package Test.Unit;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
