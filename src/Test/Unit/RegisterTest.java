@@ -56,7 +56,7 @@ public class RegisterTest {
 
 		Register register = new Register();
 		register.register(new Scanner(email +"\n" + pwd + "\n" + pwd));
-		assertEquals(true, outContent.toString().contains("Register successfully."));
+		assertEquals(true, outContent.toString().contains("Register successfully!"));
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class RegisterTest {
 
 		Register register = new Register();
 		register.register(new Scanner(wrongEmail + "\n" + email +"\n" + pwd + "\n" + pwd));
-		assertEquals(true, outContent.toString().contains("Register successfully."));
+		assertEquals(true, outContent.toString().contains("Register successfully!"));
 	}
 
 	@Test

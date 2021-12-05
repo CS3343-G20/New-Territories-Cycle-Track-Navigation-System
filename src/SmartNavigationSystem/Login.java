@@ -44,13 +44,13 @@ public class Login {
             	this.inpPwd = userInput.nextLine();
             	verification = verifyPwd(this.inpEmail, this.inpPwd);
             	if (verification) {
-            		System.out.println("Login successfully");
+            		System.out.println("Login successfully!");
             		return 1;
             	} else {
             		return 0;
             	}
             } else {
-            	System.out.println("Login successfully");
+            	System.out.println("Login successfully!");
             	return 1;
             }
         }

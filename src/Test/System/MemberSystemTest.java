@@ -57,17 +57,17 @@ public class MemberSystemTest {
 
     @Test // register
     public void register_test() {
-    	assertEquals(true, output.toString().contains("Register successfully."));
+    	assertEquals(true, output.toString().contains("Register successfully!"));
     }
     
     @Test // login
     public void login_test() {
-    	assertEquals(true, output.toString().contains("Register successfully."));
+    	assertEquals(true, output.toString().contains("Login successfully!"));
     }
     
     @Test // reset password
     public void resetPassword_test() {
-    	assertEquals(true, output.toString().contains("Register successfully."));
+    	assertEquals(true, output.toString().contains("Reset successfully!"));
     }
     
     @Test // make schedule
