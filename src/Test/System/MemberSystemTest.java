@@ -20,7 +20,12 @@ public class MemberSystemTest {
 	public static void setUp() throws IOException {
 		String input = "1\n"
 				+ "cs3343g20system@gmail.com\n"
+				+ "error\n"
+				+ "error\n"
+				+ "1\n"
+				+ "cs3343g20system@gmail.com\n"
 				+ "pwd\n"
+				+ "7\n"
 				+ "5\n"
 				+ "2\n"
 				+ "1\n"
@@ -48,8 +53,18 @@ public class MemberSystemTest {
 	}
     
     @Test // login
-    public void login_test() {
+    public void login_test1() {
     	assertEquals(true, output.toString().contains("Login successfully!"));
+    }
+    
+    @Test // login fail
+    public void login_test2() {
+    	assertEquals(true, output.toString().contains("Login failed. Exiting...\n"));
+    }
+    
+    @Test // wrong input
+    public void input_test() {
+    	assertEquals(true, output.toString().contains("Input error! Please try again."));
     }
     
     @Test // make schedule
