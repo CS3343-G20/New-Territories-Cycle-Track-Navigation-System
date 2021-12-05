@@ -11,11 +11,11 @@ public class MemberControlPanel extends ControlPanel {
         this.member = null;
         controlPanel.put(0, "Exit");
         controlPanel.put(1, "Reset Password");
-        controlPanel.put(2, "Choose Mode");
-        controlPanel.put(3, "Check Information");
-        controlPanel.put(4, "Delete schedule");
-        controlPanel.put(5, "Delete bookmark");
-        controlPanel.put(6, "Make schedule");
+        controlPanel.put(2, "Check Information");
+        controlPanel.put(3, "Choose Mode");
+        controlPanel.put(4, "Delete bookmark");
+        controlPanel.put(5, "Make schedule");
+        controlPanel.put(6, "Delete schedule");
     }
 
     private static MemberControlPanel instance = new MemberControlPanel();
@@ -60,19 +60,19 @@ public class MemberControlPanel extends ControlPanel {
             member.resetPwd(userInput);
             break;
         case 2:
-            member.chooseMode(userInput);
+        	member.CheckInfo();
             break;
         case 3:
-            member.CheckInfo();
+            member.chooseMode(userInput);
             break;
         case 4:
-            member.deleteSchedule(userInput);
-            break;
-        case 5:
             member.deleteBookmark(userInput);
             break;
-        case 6:
+        case 5:
             member.makeSchedule(userInput);
+            break;
+        case 6:
+            member.deleteSchedule(userInput);
             break;
         }
 
