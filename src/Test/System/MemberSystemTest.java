@@ -18,17 +18,9 @@ public class MemberSystemTest {
 	
 	@BeforeClass
 	public static void setUp() throws IOException {
-		String input = "2\n"
-				+ "cs3343g20@gmail.com\n"
-				+ "cs3343g20\n"
-				+ "cs3343g20\n"
-				+ "1\n"
-				+ "cs3343g20@gmail.com\n"
-				+ "cs3343g20\n"
-				+ "1\n"
-				+ "yes\n"
-				+ "123\n"
-				+ "123\n"
+		String input = "1\n"
+				+ "cs3343g20system@gmail.com\n"
+				+ "pwd\n"
 				+ "5\n"
 				+ "2\n"
 				+ "1\n"
@@ -54,20 +46,10 @@ public class MemberSystemTest {
         System.setOut(new PrintStream(output));
         Main.main(null);
 	}
-
-    @Test // register
-    public void register_test() {
-    	assertEquals(true, output.toString().contains("Register successfully!"));
-    }
     
     @Test // login
     public void login_test() {
     	assertEquals(true, output.toString().contains("Login successfully!"));
-    }
-    
-    @Test // reset password
-    public void resetPassword_test() {
-    	assertEquals(true, output.toString().contains("Reset successfully!"));
     }
     
     @Test // make schedule
