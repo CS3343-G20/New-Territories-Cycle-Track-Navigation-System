@@ -142,65 +142,65 @@ public class MemberControlPanelTest {
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("1"));
  		assertEquals(1, res);
  	}
-
+ 	
  	@Test
  	public void makeDecision_case6() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("2\nCyclingMode"));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("2"));
  		assertEquals(2, res);
  	}
 
  	@Test
  	public void makeDecision_case7() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("3"));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("3\nCyclingMode"));
  		assertEquals(3, res);
  	}
-	
+ 	
 	
  	@Test
  	public void makeDecision_case8() throws IOException, ExInvalidIndex {
-				  
- 		JsonOperation.addNewSchedule(m, "date", "route");
- 		
- 		String input = "4\n1";
- 		System.setIn(new ByteArrayInputStream(input.getBytes()));
  		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("4\n1"));
  		assertEquals(4, res);
-		
  	}
-	
+
  	@Test
  	public void makeDecision_case9() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("4\n1"));
+ 		JsonOperation.addNewBookmark("route", m);
+		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("4\n1"));
  		assertEquals(4, res);
  	}
-	
+ 	
  	@Test
  	public void makeDecision_case10() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("5\n1"));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("5\n2021/11/03\n1"));
  		assertEquals(5, res);
  	}
 
  	@Test
  	public void makeDecision_case11() throws IOException, ExInvalidIndex {
- 		JsonOperation.addNewBookmark("route", m);
-		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("5\n1"));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("5\n2021/11/03\n2"));
  		assertEquals(5, res);
  	}
-
  	@Test
  	public void makeDecision_case12() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n1"));
- 		assertEquals(6, res);
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("5\n2021/11/03\n3"));
+ 		assertEquals(5, res);
  	}
-
+	
  	@Test
  	public void makeDecision_case13() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n2"));
+				  
+ 		JsonOperation.addNewSchedule(m, "date", "route");
+ 		
+ 		String input = "6\n1";
+ 		System.setIn(new ByteArrayInputStream(input.getBytes()));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n1"));
  		assertEquals(6, res);
+		
  	}
+	
  	@Test
  	public void makeDecision_case14() throws IOException, ExInvalidIndex {
- 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n2021/11/03\n3"));
+ 		int res = MemberControlPanel.getInstance().makeDecision(new Scanner("6\n1"));
  		assertEquals(6, res);
  	}
 

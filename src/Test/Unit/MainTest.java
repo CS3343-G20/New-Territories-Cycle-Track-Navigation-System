@@ -55,16 +55,16 @@ public class MainTest {
         ControlPanel cp = UserControlPanel.getInstance();
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         Main.launch(cp,new Scanner(System.in));
-        assertEquals(true, outContent.toString().contains("========Exit========"));
+        assertEquals(true, outContent.toString().contains("=========Exit========"));
     }
     
     @Test
     public void launch_case2() throws IOException {
-        String input="1\ncs3343g20system@gmail.com\npwd\n3\n0";
+        String input="1\ncs3343g20system@gmail.com\npwd\n2\n0";
         ControlPanel cp = UserControlPanel.getInstance();
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         Main.launch(cp,new Scanner(System.in));
-        assertEquals(true, outContent.toString().contains("========Exit========"));
+        assertEquals(true, outContent.toString().contains("=========Exit========"));
     }
     
     @Test
@@ -73,7 +73,7 @@ public class MainTest {
         ControlPanel cp = UserControlPanel.getInstance();
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         Main.launch(cp,new Scanner(System.in));
-        assertEquals(true, outContent.toString().contains("========Exit========"));
+        assertEquals(true, outContent.toString().contains("=========Exit========"));
     }
     
     @Test
@@ -81,7 +81,7 @@ public class MainTest {
         String input="4\nCS3343G20\n0";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         Main.main(null);
-        assertEquals(true, outContent.toString().contains("========Exit========"));
+        assertEquals(true, outContent.toString().contains("=========Exit========"));
     }
 
  	@After

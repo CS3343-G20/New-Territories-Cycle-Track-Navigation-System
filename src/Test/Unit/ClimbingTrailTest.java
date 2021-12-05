@@ -1,4 +1,4 @@
-package test;
+package Test.Unit;
 
 import SmartNavigationSystem.ClimbingTrail;
 import org.junit.Test;

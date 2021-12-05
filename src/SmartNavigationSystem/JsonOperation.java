@@ -111,6 +111,8 @@ public class JsonOperation {
         arr.add(obj);
 
         updateJsonFile();
+        
+        System.out.println("Make schedule successfully!");
 
     }
 
