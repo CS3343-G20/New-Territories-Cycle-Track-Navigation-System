@@ -183,7 +183,7 @@ public class ClimbingModeTest {
 		Scanner scan = new Scanner(System.in);
 		ClimbingMode clm = new ClimbingMode(new ClimbingTrailRepoStub(), scan, new BookmarkStub(),cm);
 		clm.addCycling(1);
-		assertEquals("Do you want to cycle to the point? [Y/N]\r\nmode switch successful",outputStreamCaptor.toString().trim());
+		assertEquals("Do you want to cycle to the point? [Y/N]"+System.lineSeparator()+"mode switch successful",outputStreamCaptor.toString().trim());
 	}
 	@Test
 	public void testaddCycling_NegativeCase() {
@@ -207,7 +207,7 @@ public class ClimbingModeTest {
 		Scanner scan = new Scanner(System.in);
 		ClimbingMode clm = new ClimbingMode(new ClimbingTrailRepoStub(), scan, new BookmarkStub(),cm);
 		clm.addCycling(1);
-		assertEquals("Do you want to cycle to the point? [Y/N]\r\nThe input should be chosen from the listed commands above. Please try again:\r\nmode switch successful",outputStreamCaptor.toString().trim());
+		assertEquals("Do you want to cycle to the point? [Y/N]"+System.lineSeparator()+"The input should be chosen from the listed commands above. Please try again:"+System.lineSeparator()+"mode switch successful",outputStreamCaptor.toString().trim());
 	}
 	@Test
 	public void testfindTrailsByDeparture_NotFoundCase() {
@@ -290,7 +290,7 @@ public class ClimbingModeTest {
 		Scanner scan = new Scanner(System.in);
 		ClimbingMode cm = new ClimbingMode(new ClimbingTrailRepoStub(), scan, new BookmarkStub(),null);
 		cm.chooseClimbingPath();
-		assertEquals("Please enter the id of the climbing path that you would like to choose :\r\nThis is the climbing trail chosen:\r\ntrail30", outputStreamCaptor.toString().trim());
+		assertEquals("Please enter the id of the climbing path that you would like to choose :"+System.lineSeparator()+"This is the climbing trail chosen:"+System.lineSeparator()+"trail30", outputStreamCaptor.toString().trim());
 
 	}
 	@Test
@@ -302,7 +302,7 @@ public class ClimbingModeTest {
 		Scanner scan = new Scanner(System.in);
 		ClimbingMode cm = new ClimbingMode(new ClimbingTrailRepoStub(), scan, new BookmarkStub(),null);
 		cm.chooseClimbingPath();
-		assertEquals("Please enter the id of the climbing path that you would like to choose :\r\nThe climbing path doesn't exist, please enter a valid climbing path id\r\nThis is the climbing trail chosen:\r\ntrail30", outputStreamCaptor.toString().trim());
+		assertEquals("Please enter the id of the climbing path that you would like to choose :"+System.lineSeparator()+"The climbing path doesn't exist, please enter a valid climbing path id"+System.lineSeparator()+"This is the climbing trail chosen:"+System.lineSeparator()+"trail30", outputStreamCaptor.toString().trim());
 
 	}
 	
@@ -315,7 +315,7 @@ public class ClimbingModeTest {
 		Scanner scan = new Scanner(System.in);
 		ClimbingMode cm = new ClimbingMode(new ClimbingTrailRepoStub(), scan, new BookmarkStub(),null);
 		cm.chooseClimbingPath();
-		assertEquals("Please enter the id of the climbing path that you would like to choose :\r\nThe input should be an integer. Please try again:\r\nThis is the climbing trail chosen:\r\ntrail30", outputStreamCaptor.toString().trim());
+		assertEquals("Please enter the id of the climbing path that you would like to choose :"+System.lineSeparator()+"The input should be an integer. Please try again:"+System.lineSeparator()+"This is the climbing trail chosen:"+System.lineSeparator()+"trail30", outputStreamCaptor.toString().trim());
 
 	}
 
@@ -335,7 +335,7 @@ public class ClimbingModeTest {
 		Scanner scan = new Scanner(System.in);
 		ClimbingMode cm = new ClimbingMode(new ClimbingTrailRepoStub(), scan, new BookmarkStub(),null);
 		cm.addBookmark();
-		assertEquals("Do you want to add the selected route as bookmark? [Y/N]\r\nsuccess", outputStreamCaptor.toString().trim());
+		assertEquals("Do you want to add the selected route as bookmark? [Y/N]"+System.lineSeparator()+"success", outputStreamCaptor.toString().trim());
 	}
 	@Test
 	public void testaddBookmark_InvalidCase() {
@@ -346,7 +346,7 @@ public class ClimbingModeTest {
 		Scanner scan = new Scanner(System.in);
 		ClimbingMode cm = new ClimbingMode(new ClimbingTrailRepoStub(), scan, new BookmarkStub(),null);
 		cm.addBookmark();
-		assertEquals("Do you want to add the selected route as bookmark? [Y/N]\r\nThe input should be chosen from the listed commands above. Please try again:", outputStreamCaptor.toString().trim());
+		assertEquals("Do you want to add the selected route as bookmark? [Y/N]"+System.lineSeparator()+"The input should be chosen from the listed commands above. Please try again:", outputStreamCaptor.toString().trim());
 	}
 	@Test
 	public void testChooseSelectionCriteria_Case4() {
