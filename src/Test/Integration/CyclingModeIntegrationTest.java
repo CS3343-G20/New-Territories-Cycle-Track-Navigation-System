@@ -667,23 +667,6 @@ public class CyclingModeIntegrationTest {
         assertEquals(false, output.toString().contains("Add successfully!"));
     }
     
-    @Test // use trail departure as cycling destination
-    public void modeSwitch_case1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
-
-        String input = "0\n1\nY\n2 5\nN\n0\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
-
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in),
-                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
-
-        mode.modeSwitch(1, null);
-
-        String expected = "Climbing Route: Sheung Shui -> Tai Po"; 
-        assertEquals(true, output.toString().contains(expected));
-    }
-    
     @Test // not use trail departure as cycling destination
     public void modeSwitch_case2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException { 
         String input = "0\n2\n6\nY\n2 5\nN\n0\n";
@@ -698,22 +681,5 @@ public class CyclingModeIntegrationTest {
 
         String expected = "Climbing Route: "; 
         assertEquals(false, output.toString().contains(expected));
-    }
-    
-    @Test // member, use trail departure as cycling destination
-    public void modeSwitch_case3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {  
-        String input = "0\n1\nY\n2 5\nN\n0\nN\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
-
-        CyclingMode mode = new CyclingMode(Graph.getInstance(), Vertices.getInstance(), new Scanner(System.in),
-                Bookmark.getInstance(), ClimbingTrailRepository.getInstance());
-        
-        Member m = new Member();
-        mode.modeSwitch(1, m);
-
-        String expected = "Climbing Route: Sheung Shui -> Tai Po"; 
-        assertEquals(true, output.toString().contains(expected));
     }
 }
