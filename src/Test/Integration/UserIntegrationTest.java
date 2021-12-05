@@ -40,7 +40,7 @@ public class UserIntegrationTest {
     @Test
     public void testChooseMode_case2() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
         User user=new User();
-        String input = "2\n1\n1\n1\nN";
+        String input = "2\n1\n1\n1\nN\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         user.chooseMode(new Scanner(System.in));
         assertEquals(true, outContent.toString().contains("Departure"));

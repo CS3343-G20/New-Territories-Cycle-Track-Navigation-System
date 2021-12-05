@@ -128,7 +128,7 @@ public class ClimbingMode implements Mode {
 	}
 
 	public int chooseClimbingPath() {
-		System.out.println("Please enter the id of the climbing path that you would like to choose :");
+		System.out.println("Please enter the id of the climbing path that you would like to choose:");
 		while (true) {
 			try {
 				int pathID = Integer.parseInt(scan.nextLine());

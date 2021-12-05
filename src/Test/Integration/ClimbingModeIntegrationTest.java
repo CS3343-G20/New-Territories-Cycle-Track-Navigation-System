@@ -118,7 +118,7 @@ public class ClimbingModeIntegrationTest {
         CyclingMode cm = new CyclingMode(null, null, null, null, null);
         ClimbingMode clm = new ClimbingMode(null, scan, null, null);
         clm.addCycling(1);
-        assertEquals("Do you want to cycle to the point? [Y/N]\r\n"+
+        assertEquals("Do you want to cycle to the point? [Y/N]\n"+
                 "The input should be chosen from the listed commands above. Please try again:", outputStreamCaptor.toString().trim());
     }
 
@@ -217,8 +217,8 @@ public class ClimbingModeIntegrationTest {
         ClimbingTrailRepoManager ctri = ClimbingTrailRepository.getInstance();
         ctri.filterByDifficulty(1);
         cm.chooseClimbingPath();
-        assertEquals("Please enter the id of the climbing path that you would like to choose :\r\n" +
-                "This is the climbing trail chosen:\r\n" +
+        assertEquals("Please enter the id of the climbing path that you would like to choose:\n" +
+                "This is the climbing trail chosen:\n" +
                 "[1] (difficulty 1) Sheung Shui -> Tai Po", outputStreamCaptor.toString().trim());
 
     }
@@ -234,9 +234,9 @@ public class ClimbingModeIntegrationTest {
         ClimbingTrailRepoManager ctri = ClimbingTrailRepository.getInstance();
         ctri.filterByDifficulty(1);
         cm.chooseClimbingPath();
-        assertEquals("Please enter the id of the climbing path that you would like to choose :\r\n" +
-                "The climbing path doesn't exist, please enter a valid climbing path id\r\n" +
-                "This is the climbing trail chosen:\r\n" +
+        assertEquals("Please enter the id of the climbing path that you would like to choose:\n" +
+                "The climbing path doesn't exist, please enter a valid climbing path id\n" +
+                "This is the climbing trail chosen:\n" +
                 "[1] (difficulty 1) Sheung Shui -> Tai Po", outputStreamCaptor.toString().trim());
 
     }
@@ -252,9 +252,9 @@ public class ClimbingModeIntegrationTest {
         ClimbingTrailRepoManager ctri = ClimbingTrailRepository.getInstance();
         ctri.filterByDifficulty(3);
         cm.chooseClimbingPath();
-        assertEquals("Please enter the id of the climbing path that you would like to choose :\r\n" +
-                "The input should be an integer. Please try again:\r\n" +
-                "This is the climbing trail chosen:\r\n" +
+        assertEquals("Please enter the id of the climbing path that you would like to choose:\n" +
+                "The input should be an integer. Please try again:\n" +
+                "This is the climbing trail chosen:\n" +
                 "[2] (difficulty 3) Shatin -> Sheung Shui", outputStreamCaptor.toString().trim());
 
     }
@@ -290,7 +290,7 @@ public class ClimbingModeIntegrationTest {
         Scanner scan = new Scanner(System.in);
         ClimbingMode cm = new ClimbingMode(null, scan, null, null);
         cm.addBookmark();
-        assertEquals("Do you want to add the selected route as bookmark? [Y/N]\r\nThe input should be chosen from the listed commands above. Please try again:", outputStreamCaptor.toString().trim());
+        assertEquals("Do you want to add the selected route as bookmark? [Y/N]\nThe input should be chosen from the listed commands above. Please try again:", outputStreamCaptor.toString().trim());
     }
 
     @Test
