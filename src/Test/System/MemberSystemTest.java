@@ -18,7 +18,7 @@ public class MemberSystemTest {
 	
 	@BeforeClass
 	public static void setUp() throws IOException {
-		String input = "2\n"+
+		String input = "2\n"
 				+ "cs3343g20@gmail.com\n"
 				+ "cs3343g20\n"
 				+ "cs3343g20\n"
