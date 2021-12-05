@@ -53,11 +53,8 @@ public class AdminSystemTest {
 	@Test
 	public void printMemberList_testcase1() {
 		assertEquals(true, output.toString().contains("Member list"));
-		assertEquals(true, output.toString().contains("cs3343g20system@gmail.com"));
 	    assertEquals(true, output.toString().contains("mary@gmail.com"));
 	    assertEquals(true, output.toString().contains("jeff@gmail.com"));
-	    assertEquals(true, output.toString().contains("fakeEmail@gmail.com"));
-	    assertEquals(true, output.toString().contains("cs3343g20@gmail.com"));
 	}
 	
 	@Test
