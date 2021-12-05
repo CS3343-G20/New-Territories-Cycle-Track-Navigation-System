@@ -136,7 +136,7 @@ public class JsonOperationTest {
         }
 
         @Test
-        public void getResetPassword_case1() throws IOException {
+        public void resetPassword_case1() throws IOException {
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
                 pw.close();
@@ -500,13 +500,13 @@ public class JsonOperationTest {
         }
 
         @Test
-        public void getAdminToken_case() throws FileNotFoundException {
+        public void getAdminToken_case1() throws FileNotFoundException {
                 String actual = JsonOperation.getAdminToken();
                 assertEquals("CS3343G20", actual);
         }
 
         @Test
-        public void printMemberList() throws FileNotFoundException {
+        public void printMemberList_case1() throws FileNotFoundException {
 
                 PrintWriter pw = new PrintWriter("docs/MemberInfo.json");
                 pw.write("{\"memberInfo\":[{\"bookmarks\":[],\"password\":\"pwd\",\"schedules\":[],\"email\":\"cs3343g20system@gmail.com\"}]}");
@@ -559,7 +559,7 @@ public class JsonOperationTest {
         }
 
         @Test
-        public void sendEmailToAllMembers() throws FileNotFoundException, MessagingException {
+        public void sendEmailToAllMembers_case1() throws FileNotFoundException, MessagingException {
                 
         	String date = ScheduleDate.getTomorrowDate();
         	
