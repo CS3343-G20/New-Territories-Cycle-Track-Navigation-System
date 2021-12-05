@@ -16,9 +16,34 @@ Sign in and follow this link:
 <https://myaccount.google.com/lesssecureapps>  
 Change "Allow less secure apps: OFF" to "Allow less secure apps: ON"
 
-### 2. Release version
-###### \release\SmartNavigationSystem.jar
-#### 2.1 enter New-Territories-Cycle-Track-Navigation-System
-#### 2.2 enter "java -jar release\SmartNavigationSystem.jar" in cmd
+### 2. Release version 1.1
+SmartNavigationSystem.jar
+### 2.1 enter folder New-Territories-Cycle-Track-Navigation-System
+### 2.2 enter "java -jar release\SmartNavigationSystem.jar" in cmd
 - use your own route to run this jar file
+
+### 2.3 functions
+ #### admin
+ - 1 login
+ - 2 list member
+ - 3 list bookmark
+ - 4 list shedule
+ - 0 exit
+#### user
+ - 0 Exit
+ - 1 Login
+ - 2 Register
+ - 3 Choose mode
+ - 4 Login As Admin
+#### member
+  - 0 Exit
+  - 1 Reset Password
+  - 2 Choose Mode
+  - 3 Check Information
+  - 4 Delete schedule
+  - 5 Delete bookmark
+  - 6 Make schedule
+
+
+
 
