@@ -44,7 +44,7 @@ public class Register {
         
         if (this.inpPwd.equals(inpPwd2)) {
             writeinFile(this.inpEmail, this.inpPwd);
-            System.out.println("Register successfully.");
+            System.out.println("Register successfully!");
         } else {
             if (tryTimes < 2) {
                 tryTimes += 1;
