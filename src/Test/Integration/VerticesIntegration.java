@@ -104,7 +104,7 @@ public class VerticesIntegration {
     public void listAttractions_TestCase1() {  
     	Vertices vertices = Vertices.getInstance();
     	vertices.listAttractions();
-    	assertEquals(false, outputContent.toString().contains("[1] Kwok Tak Seng Catholic Secondary School\n"
+    	assertEquals(false, outputContent.toString().contains("[1] Kwok Tak Seng Catholic Secondary School"
 //											    			"[3] Lei Uk Tsuen" 
 //											    			"[4] Chui Tin Street Soccer Pitch" 
 //											    			"[6] Badminton court"

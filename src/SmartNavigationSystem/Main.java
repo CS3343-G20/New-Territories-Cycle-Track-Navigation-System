@@ -3,6 +3,8 @@ package SmartNavigationSystem;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.junit.After;
+
 import com.alibaba.fastjson.JSONObject;
 
 public class Main {
@@ -52,5 +54,5 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
+    } 
 }

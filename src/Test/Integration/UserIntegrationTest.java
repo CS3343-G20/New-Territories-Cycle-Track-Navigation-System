@@ -43,7 +43,7 @@ public class UserIntegrationTest {
         String input = "2\n1\n1\n1\nN";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         user.chooseMode(new Scanner(System.in));
-        assertEquals(true, outContent.toString().contains("Departure"));
+        assertEquals(true, outContent.toString().contains("[1] (difficulty 1) Sheung Shui -> Tai Po"));
     }
     
  	@After
